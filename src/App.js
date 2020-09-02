@@ -7,6 +7,7 @@ import axios from "axios";
 import { Feeds } from "./components/Feeds";
 import { PlusFeedButton } from "./components/PlusFeedButton";
 import { ManualFeed } from "./components/ManualFeed";
+import { Save } from "./components/Save";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -20,14 +21,31 @@ function App() {
   };
 
   const serverUrl = "http://localhost:3001/baby";
+  const onlineUrl = "https://goncalobmira.online/baby";
 
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(serverUrl).then((resp) => {
+    axios.get(onlineUrl).then((resp) => {
       console.log(resp);
       setFeeds(resp.data);
       setFetching(false);
     });
+  };
+
+  const postFeeders = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(onlineUrl, feeds)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
   };
 
   const plusCurrentFeed = () => {
@@ -101,6 +119,7 @@ function App() {
         plusFeed={plusFeed}
         value={value}
       />
+      <Save postFeeders={postFeeders} />
     </div>
   );
 }
