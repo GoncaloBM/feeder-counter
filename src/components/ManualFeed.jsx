@@ -13,7 +13,8 @@ export const ManualFeed = ({ onChangeTime, plusFeed, value }) => {
       className="manual-feed"
       style={{
         position: "absolute",
-        bottom: "15%",
+        bottom: "0",
+        left: "0",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
