@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Feed } from "./Feed";
 
-export const Feeds = ({ dateFormated, feeds }) => {
+export const Feeds = ({ dateFormated, feeds, novaMamada }) => {
   return (
     <div className="feed-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
@@ -15,18 +15,25 @@ export const Feeds = ({ dateFormated, feeds }) => {
           alignItems: "center",
         }}
       >
-        {feeds
-          .filter(
-            (feed) =>
-              feed.year === dateFormated[0] &&
-              feed.month + 1 === dateFormated[1] &&
-              feed.day === dateFormated[2]
-          )
-          .map((feed, index) => {
+        {feeds.map((feed, index) => {
+          if (
+            feed.year === dateFormated[0] &&
+            feed.month + 1 === dateFormated[1] &&
+            feed.day === dateFormated[2]
+          ) {
             return (
-              <Feed hour={feed.hour} minutes={feed.minutes} index={index} />
+              <Feed
+                hour={feed.hour}
+                minutes={feed.minutes}
+                mamada={feed.mamadas}
+                index={index}
+                novaMamada={novaMamada}
+              />
             );
-          })}
+          } else {
+            return null;
+          }
+        })}
       </div>
     </div>
   );

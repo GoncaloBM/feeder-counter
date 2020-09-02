@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-export const Feed = ({ hour, minutes, index }) => {
+export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
   const [mamadasVisible, setMamadasVisible] = useState(false);
-  const [mamadas, setMamadas] = useState(0);
-
-  const newMam = (i) => {
-    const novaMamada = mamadas + i;
-    if (novaMamada < 0) {
-      return;
-    } else {
-      setMamadas(novaMamada);
-    }
-  };
   return (
     <div
       className="feed"
@@ -45,15 +35,15 @@ export const Feed = ({ hour, minutes, index }) => {
           <div
             className="remove-mamada"
             style={{ padding: "5px", border: "1px solid black" }}
-            onClick={() => newMam(-1)}
+            onClick={() => novaMamada(index, -1)}
           >
             -
           </div>
-          <div className="mamadas">{mamadas} mamadas</div>
+          <div className="mamadas">{mamada} mamadas</div>
           <div
             className="add-mamadas"
             style={{ padding: "5px", border: "1px solid black" }}
-            onClick={() => newMam(1)}
+            onClick={() => novaMamada(index, 1)}
           >
             +
           </div>

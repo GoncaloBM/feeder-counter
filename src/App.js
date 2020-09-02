@@ -3,14 +3,13 @@ import Calendar from "react-calendar";
 import { formatDate } from "./formatDate";
 import "react-calendar/dist/Calendar.css";
 import "./App.css";
+import axios from "axios";
 import { Feeds } from "./components/Feeds";
 import { PlusFeedButton } from "./components/PlusFeedButton";
-import { TimePicker } from "antd";
-import moment from "moment";
-import "antd/dist/antd.css";
 import { ManualFeed } from "./components/ManualFeed";
 
 function App() {
+  const [fetching, setFetching] = useState(true);
   const [value, onChange] = useState(new Date());
   const [dateFormated, setDateFormated] = useState("");
   const [feeds, setFeeds] = useState([]);
@@ -18,6 +17,17 @@ function App() {
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
+  };
+
+  const serverUrl = "http://localhost:3001/baby";
+
+  const fetchFeeders = () => {
+    setFetching(true);
+    axios.get(serverUrl).then((resp) => {
+      console.log(resp);
+      setFeeds(resp.data);
+      setFetching(false);
+    });
   };
 
   const plusCurrentFeed = () => {
@@ -29,6 +39,8 @@ function App() {
       day: currentHour.getDate(),
       hour: currentHour.getHours(),
       minutes: currentHour.getMinutes(),
+      mamadas: 0,
+      breast: "",
     };
 
     setFeeds([...feeds, newFeed]);
@@ -41,9 +53,24 @@ function App() {
       day: value.getDate(),
       hour: time.hours,
       minutes: time.minutes,
+      mamadas: 0,
+      breast: "",
     };
 
     setFeeds([...feeds, newFeed]);
+  };
+
+  const novaMamada = (i, numero) => {
+    let newArr = [...feeds];
+
+    if (newArr[i].mamadas + numero < 0) {
+      return;
+    } else {
+      newArr[i].mamadas = newArr[i].mamadas + numero;
+
+      console.log(newArr);
+      setFeeds(newArr);
+    }
   };
 
   const onChangeTime = (time) => {
@@ -52,14 +79,22 @@ function App() {
 
   useEffect(() => {
     formatDat();
-  }, [value]);
+
+    if (fetching) {
+      fetchFeeders();
+    }
+  }, [value, fetching]);
 
   return (
     <div className="App">
       <div classname="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>
-      <Feeds dateFormated={dateFormated} feeds={feeds} />
+      <Feeds
+        dateFormated={dateFormated}
+        feeds={feeds}
+        novaMamada={novaMamada}
+      />
       <PlusFeedButton plusCurrentFeed={plusCurrentFeed} />
       <ManualFeed
         onChangeTime={onChangeTime}
