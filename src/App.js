@@ -5,15 +5,14 @@ import "react-calendar/dist/Calendar.css";
 import "./App.css";
 import axios from "axios";
 import { Feeds } from "./components/Feeds";
-import { PlusFeedButton } from "./components/PlusFeedButton";
-import { ManualFeed } from "./components/ManualFeed";
-import { Save } from "./components/Save";
+import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 
 function App() {
   const [fetching, setFetching] = useState(true);
   const [value, onChange] = useState(new Date());
   const [dateFormated, setDateFormated] = useState("");
   const [feeds, setFeeds] = useState([]);
+  const [feedsSent, setFeedsSent] = useState(true);
   const [time, setTime] = useState({});
 
   const formatDat = () => {
@@ -25,7 +24,7 @@ function App() {
 
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(onlineUrl).then((resp) => {
+    axios.get(serverUrl).then((resp) => {
       console.log(resp);
       setFeeds(resp.data);
       setFetching(false);
@@ -36,7 +35,7 @@ function App() {
     e.preventDefault();
 
     axios
-      .post(onlineUrl, feeds)
+      .post(serverUrl, feeds)
       .then((res) => {
         console.log(res.data);
       })
@@ -45,6 +44,7 @@ function App() {
       })
       .then((res) => {
         fetchFeeders();
+        setFeedsSent(true);
       });
   };
 
@@ -113,13 +113,15 @@ function App() {
         feeds={feeds}
         novaMamada={novaMamada}
       />
-      <PlusFeedButton plusCurrentFeed={plusCurrentFeed} />
-      <ManualFeed
+      <BottomNavbar
         onChangeTime={onChangeTime}
         plusFeed={plusFeed}
         value={value}
+        postFeeders={postFeeders}
+        plusCurrentFeed={plusCurrentFeed}
+        feedsSent={feedsSent}
+        setFeedsSent={setFeedsSent}
       />
-      <Save postFeeders={postFeeders} />
     </div>
   );
 }

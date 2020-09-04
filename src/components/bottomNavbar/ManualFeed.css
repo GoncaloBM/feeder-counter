@@ -1,0 +1,30 @@
+.manual-feed {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  border-right: 1px solid black;
+}
+
+.manual-feed-screen {
+  position: fixed;
+  width: 80%;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  top: 30%;
+  left: 10%;
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button {
+    margin-top: 1rem;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FeedScreen } from "./FeedScreen";
 
 export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
   const [mamadasVisible, setMamadasVisible] = useState(false);
@@ -28,26 +29,29 @@ export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
         <div className="minute"> {minutes}</div>
       </div>
       {mamadasVisible && (
-        <div
-          className="mamadas-screen"
-          style={{ display: "flex", alignItems: "center" }}
-        >
+        <>
+          <FeedScreen />
           <div
-            className="remove-mamada"
-            style={{ padding: "5px", border: "1px solid black" }}
-            onClick={() => novaMamada(index, -1)}
+            className="mamadas-screen"
+            style={{ display: "flex", alignItems: "center" }}
           >
-            -
+            <div
+              className="remove-mamada"
+              style={{ padding: "5px", border: "1px solid black" }}
+              onClick={() => novaMamada(index, -1)}
+            >
+              -
+            </div>
+            <div className="mamadas">{mamada} mamadas</div>
+            <div
+              className="add-mamadas"
+              style={{ padding: "5px", border: "1px solid black" }}
+              onClick={() => novaMamada(index, 1)}
+            >
+              +
+            </div>
           </div>
-          <div className="mamadas">{mamada} mamadas</div>
-          <div
-            className="add-mamadas"
-            style={{ padding: "5px", border: "1px solid black" }}
-            onClick={() => novaMamada(index, 1)}
-          >
-            +
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

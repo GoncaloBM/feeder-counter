@@ -1,0 +1,14 @@
+.plus-button {
+    position: absolute;
+    height: 4rem;
+    bottom: -1rem;
+    width: 20%;
+    border-radius: 50%;
+    border: 1px solid black;
+    left: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    background-color: white;
+}
