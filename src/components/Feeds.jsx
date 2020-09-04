@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Feed } from "./Feed";
+import "./Feeds.css";
 
 export const Feeds = ({ dateFormated, feeds, novaMamada }) => {
   return (
-    <div className="feed-screen">
+    <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {dateFormated[2]} / {dateFormated[1]} / {dateFormated[0]}
       </div>

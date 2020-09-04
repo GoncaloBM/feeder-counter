@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { FeedScreen } from "./FeedScreen";
+import "./Feeds.css";
 
 export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
-  const [mamadasVisible, setMamadasVisible] = useState(false);
+  const [feedVisible, setFeedVisible] = useState(false);
   return (
-    <div
-      className="feed"
-      style={{
-        borderBottom: "1px solid black",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className="feed">
       <div
         className="feed-hours"
         style={{
@@ -23,18 +15,22 @@ export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
           justifyContent: "center",
         }}
         key={index}
-        onClick={() => setMamadasVisible(!mamadasVisible)}
+        onClick={() => setFeedVisible(!feedVisible)}
       >
         <div className="hour">{hour} : </div>
         <div className="minute"> {minutes}</div>
       </div>
-      {mamadasVisible && (
+      {feedVisible && (
         <>
-          <FeedScreen />
-          <div
-            className="mamadas-screen"
-            style={{ display: "flex", alignItems: "center" }}
-          >
+          <FeedScreen
+            hour={hour}
+            minutes={minutes}
+            index={index}
+            novaMamada={novaMamada}
+            mamada={mamada}
+            setFeedVisible={setFeedVisible}
+          />
+          {/* <div className="feed-screen-mamadas-line">
             <div
               className="remove-mamada"
               style={{ padding: "5px", border: "1px solid black" }}
@@ -50,7 +46,7 @@ export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
             >
               +
             </div>
-          </div>
+          </div> */}
         </>
       )}
     </div>

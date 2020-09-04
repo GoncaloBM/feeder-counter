@@ -5,7 +5,8 @@ import { TimePicker } from "antd";
 
 const format = "HH:mm";
 
-export const ManualFeedScreen = ({ onChangeTime, plusFeed }) => {
+export const ManualFeedScreen = 
+({ onChangeTime, plusFeed }) => {
   return (
     <div className="manual-feed-screen">
       <TimePicker

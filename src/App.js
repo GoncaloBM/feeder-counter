@@ -12,7 +12,7 @@ function App() {
   const [value, onChange] = useState(new Date());
   const [dateFormated, setDateFormated] = useState("");
   const [feeds, setFeeds] = useState([]);
-  const [feedsSent, setFeedsSent] = useState(true);
+  const [feedsSent, setFeedsSent] = useState(false);
   const [time, setTime] = useState({});
 
   const formatDat = () => {
@@ -24,7 +24,7 @@ function App() {
 
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(serverUrl).then((resp) => {
+    axios.get(onlineUrl).then((resp) => {
       console.log(resp);
       setFeeds(resp.data);
       setFetching(false);
@@ -35,7 +35,7 @@ function App() {
     e.preventDefault();
 
     axios
-      .post(serverUrl, feeds)
+      .post(onlineUrl, feeds)
       .then((res) => {
         console.log(res.data);
       })
