@@ -3,7 +3,15 @@ import { FeedScreen } from "./FeedScreen";
 import { formatNumber } from "../formatDate";
 import "./Feeds.css";
 
-export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
+export const Feed = ({
+  hour,
+  minutes,
+  index,
+  novaMamada,
+  mamada,
+  changeBreast,
+  breast,
+}) => {
   const [feedVisible, setFeedVisible] = useState(false);
   return (
     <div className="feed">
@@ -31,6 +39,8 @@ export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
             novaMamada={novaMamada}
             mamada={mamada}
             setFeedVisible={setFeedVisible}
+            changeBreast={changeBreast}
+            breast={breast}
           />
           {/* <div className="feed-screen-mamadas-line">
             <div

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Feed } from "./Feed";
 import "./Feeds.css";
 
-export const Feeds = ({ dateFormated, feeds, novaMamada }) => {
+export const Feeds = ({ dateFormated, feeds, novaMamada, changeBreast }) => {
   return (
     <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
@@ -21,7 +21,9 @@ export const Feeds = ({ dateFormated, feeds, novaMamada }) => {
                 minutes={feed.minutes}
                 mamada={feed.mamadas}
                 index={index}
+                breast={feed.breast}
                 novaMamada={novaMamada}
+                changeBreast={changeBreast}
               />
             );
           } else {

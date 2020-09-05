@@ -8,6 +8,8 @@ export const FeedScreen = ({
   novaMamada,
   mamada,
   setFeedVisible,
+  changeBreast,
+  breast,
 }) => {
   return (
     <div className="feed-screen">
@@ -32,6 +34,25 @@ export const FeedScreen = ({
           onClick={() => novaMamada(index, 1)}
         >
           +
+        </div>
+      </div>
+      <div className="feed-screen-breast">
+        <div className="feed-screen-breast-title">Last Breast to feed</div>
+        <div className="feed-screen-breast-choices">
+          <div
+            className="feed-screen-breast-choice"
+            onClick={() => changeBreast(index, "L")}
+            style={{ border: breast === "L" && "1px solid red" }}
+          >
+            L
+          </div>
+          <div
+            className="feed-screen-breast-choice"
+            onClick={() => changeBreast(index, "R")}
+            style={{ border: breast === "R" && "1px solid red" }}
+          >
+            R
+          </div>
         </div>
       </div>
     </div>

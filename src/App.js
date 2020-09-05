@@ -94,6 +94,14 @@ function App() {
     }
   };
 
+  const changeBreast = (i, breast) => {
+    let newArr = [...feeds];
+
+    newArr[i].breast = breast;
+
+    setFeeds(newArr);
+  };
+
   const onChangeTime = (time) => {
     setTime({ hours: time._d.getHours(), minutes: time._d.getMinutes() });
   };
@@ -115,6 +123,7 @@ function App() {
         dateFormated={dateFormated}
         feeds={feeds}
         novaMamada={novaMamada}
+        changeBreast={changeBreast}
       />
       <BottomNavbar
         onChangeTime={onChangeTime}
