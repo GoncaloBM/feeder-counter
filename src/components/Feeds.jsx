@@ -8,14 +8,7 @@ export const Feeds = ({ dateFormated, feeds, novaMamada }) => {
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {dateFormated[2]} / {dateFormated[1]} / {dateFormated[0]}
       </div>
-      <div
-        className="feeds"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <div className="feeds">
         {feeds.map((feed, index) => {
           if (
             feed.year === dateFormated[0] &&

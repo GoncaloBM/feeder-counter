@@ -26,7 +26,10 @@ function App() {
     setFetching(true);
     axios.get(onlineUrl).then((resp) => {
       console.log(resp);
-      setFeeds(resp.data);
+
+      let feedsFromDb = resp.data;
+      feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
+      setFeeds(feedsFromDb);
       setFetching(false);
     });
   };

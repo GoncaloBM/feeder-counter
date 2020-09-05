@@ -1,6 +1,6 @@
 export function formatDate(date) {
   var d = new Date(date),
-    month = d.getMonth()+1,
+    month = d.getMonth() + 1,
     day = d.getDate(),
     year = d.getFullYear();
 
@@ -9,3 +9,11 @@ export function formatDate(date) {
 
   return [year, month, day];
 }
+
+export const formatNumber = (numberFromDb) => {
+  let number = numberFromDb;
+  if (number < 10) {
+    number = "0" + number;
+  }
+  return number;
+};

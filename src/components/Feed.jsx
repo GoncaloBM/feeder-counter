@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FeedScreen } from "./FeedScreen";
+import { formatNumber } from "../formatDate";
 import "./Feeds.css";
 
 export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
@@ -17,8 +18,9 @@ export const Feed = ({ hour, minutes, index, novaMamada, mamada }) => {
         key={index}
         onClick={() => setFeedVisible(!feedVisible)}
       >
-        <div className="hour">{hour} : </div>
-        <div className="minute"> {minutes}</div>
+        <div className="feed-time">
+          {formatNumber(hour)} : {formatNumber(minutes)}
+        </div>
       </div>
       {feedVisible && (
         <>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { formatNumber } from "../formatDate";
 
 export const FeedScreen = ({
   hour,
@@ -14,11 +15,9 @@ export const FeedScreen = ({
         X
       </div>
       <div className="feed-screen-title">
-        {hour} : {minutes}
+        {formatNumber(hour)} : {formatNumber(minutes)}
       </div>
-      <div
-        className="feed-screen-mamadas-line"
-      >
+      <div className="feed-screen-mamadas-line">
         <div
           className="feed-screen-edit-mamada"
           style={{ padding: "5px", border: "1px solid black" }}
