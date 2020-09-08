@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { formatDate } from "./formatDate";
 import "react-calendar/dist/Calendar.css";
 import "./App.css";
+import "./components/transitions.css";
 import axios from "axios";
 import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
+import { CSSTransition } from "react-transition-group";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -15,6 +17,8 @@ function App() {
   const [feedsSent, setFeedsSent] = useState(false);
   const [time, setTime] = useState({});
   const [page, setPage] = useState("home");
+  const [homePage, setHomePage] = useState(true);
+  const [pastFeedPage, setPastFeedPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
 
   const formatDat = () => {
@@ -24,9 +28,13 @@ function App() {
   const changePage = () => {
     if (page === "home") {
       setPage("pastFeeds");
+      setPastFeedPage(true);
+      setHomePage(false);
     } else if (page === "pastFeeds") {
       onChange(new Date());
       setPage("home");
+      setPastFeedPage(false);
+      setHomePage(true);
     }
   };
 
@@ -143,7 +151,12 @@ function App() {
 
   return (
     <div className="App">
-      {page === "home" && (
+      <CSSTransition
+        in={homePage}
+        timeout={300}
+        classNames="home-transition"
+        unmountOnExit
+      >
         <Home
           dateFormated={dateFormated}
           feeds={feeds}
@@ -152,8 +165,13 @@ function App() {
           page={page}
           deleteFeed={deleteFeed}
         />
-      )}
-      {page === "pastFeeds" && (
+      </CSSTransition>
+      <CSSTransition
+        in={pastFeedPage}
+        timeout={300}
+        classNames="past-feed-transition"
+        unmountOnExit
+      >
         <PastFeeds
           dateFormated={dateFormated}
           feeds={feeds}
@@ -168,7 +186,7 @@ function App() {
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
         />
-      )}
+      </CSSTransition>
 
       <BottomNavbar
         onChangeTime={onChangeTime}

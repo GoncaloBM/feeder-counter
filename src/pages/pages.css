@@ -1,8 +1,20 @@
 .app-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-style: italic;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.home {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.past-feeds {
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }

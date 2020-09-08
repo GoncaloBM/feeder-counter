@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { FeedScreen } from "./FeedScreen";
 import { formatNumber } from "../formatDate";
 import "./Feeds.css";
+import "./transitions.css";
+import { CSSTransition } from "react-transition-group";
 
 export const Feed = ({
   hour,
@@ -31,7 +33,12 @@ export const Feed = ({
           {formatNumber(hour)} : {formatNumber(minutes)}
         </div>
       </div>
-      {feedVisible && (
+      <CSSTransition
+        in={feedVisible}
+        timeout={300}
+        classNames="feed-transition"
+        unmountOnExit
+      >
         <>
           <FeedScreen
             hour={hour}
@@ -45,7 +52,7 @@ export const Feed = ({
             deleteFeed={deleteFeed}
           />
         </>
-      )}
+      </CSSTransition>
     </div>
   );
 };

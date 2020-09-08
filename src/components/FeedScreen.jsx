@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { formatNumber } from "../formatDate";
 import { DeleteFeed } from "./feed/DeleteFeed";
 

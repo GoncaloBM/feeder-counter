@@ -2,14 +2,14 @@ import React from "react";
 import Calendar from "react-calendar";
 import { Feeds } from "../components/Feeds";
 import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
-import './pages.css'
+import "./pages.css";
+import { CSSTransition } from "react-transition-group";
 
 export const PastFeeds = ({
   dateFormated,
   feeds,
   novaMamada,
   changeBreast,
-  page,
   onChange,
   value,
   insertManual,
@@ -33,13 +33,18 @@ export const PastFeeds = ({
         changeBreast={changeBreast}
         deleteFeed={deleteFeed}
       />
-      {insertManual && (
+      <CSSTransition
+        in={insertManual}
+        timeout={300}
+        classNames="feed-transition"
+        unmountOnExit
+      >
         <ManualFeedScreen
           onChangeTime={onChangeTime}
           plusFeed={plusFeed}
           setInsertManual={setInsertManual}
         />
-      )}
+      </CSSTransition>
     </div>
   );
 };
