@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
 import { formatDate } from "./formatDate";
 import "react-calendar/dist/Calendar.css";
 import "./App.css";
 import axios from "axios";
-import { Feeds } from "./components/Feeds";
 import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
@@ -106,7 +104,7 @@ function App() {
       mamadas: 0,
       breast: "",
     };
-
+    setInsertManual(false);
     setFeeds([...feeds, newFeed]);
   };
 
@@ -168,17 +166,10 @@ function App() {
           onChangeTime={onChangeTime}
           plusFeed={plusFeed}
           deleteFeed={deleteFeed}
+          setInsertManual={setInsertManual}
         />
-        // <div classname="calendar">
-        //   <Calendar onChange={onChange} value={value} />
-        // </div>
       )}
-      {/* <Feeds
-        dateFormated={dateFormated}
-        feeds={feeds}
-        novaMamada={novaMamada}
-        changeBreast={changeBreast}
-      /> */}
+
       <BottomNavbar
         onChangeTime={onChangeTime}
         plusFeed={plusFeed}

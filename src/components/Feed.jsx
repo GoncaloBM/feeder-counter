@@ -11,7 +11,7 @@ export const Feed = ({
   mamada,
   changeBreast,
   breast,
-  deleteFeed
+  deleteFeed,
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
   return (
@@ -44,23 +44,6 @@ export const Feed = ({
             breast={breast}
             deleteFeed={deleteFeed}
           />
-          {/* <div className="feed-screen-mamadas-line">
-            <div
-              className="remove-mamada"
-              style={{ padding: "5px", border: "1px solid black" }}
-              onClick={() => novaMamada(index, -1)}
-            >
-              -
-            </div>
-            <div className="mamadas">{mamada} mamadas</div>
-            <div
-              className="add-mamadas"
-              style={{ padding: "5px", border: "1px solid black" }}
-              onClick={() => novaMamada(index, 1)}
-            >
-              +
-            </div>
-          </div> */}
         </>
       )}
     </div>

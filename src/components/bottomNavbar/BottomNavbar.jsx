@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ManualFeed } from "./ManualFeed";
 import { Save } from "./Save";
 import "./BottomNavbar.css";
@@ -14,7 +14,7 @@ export const BottomNavbar = ({
   setFeedsSent,
   changePage,
   plusButton,
-  page
+  page,
 }) => {
   return (
     <div className="bottom-navbar">
@@ -30,7 +30,10 @@ export const BottomNavbar = ({
         feedsSent={feedsSent}
         setFeedsSent={setFeedsSent}
       />
-      <PlusFeedButton plusCurrentFeed={plusCurrentFeed} plusButton={plusButton}/>
+      <PlusFeedButton
+        plusCurrentFeed={plusCurrentFeed}
+        plusButton={plusButton}
+      />
     </div>
   );
 };

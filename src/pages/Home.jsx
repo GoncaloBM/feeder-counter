@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Feeds } from "../components/Feeds";
+import "./pages.css";
 
 export const Home = ({
   dateFormated,
@@ -11,6 +12,9 @@ export const Home = ({
 }) => {
   return (
     <div className="home">
+      <div className="app-title" style={{ fontSize: "3rem" }}>
+        myBaby's Feeds
+      </div>
       <Feeds
         dateFormated={dateFormated}
         feeds={feeds}

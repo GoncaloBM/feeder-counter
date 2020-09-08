@@ -1,0 +1,8 @@
+.app-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}

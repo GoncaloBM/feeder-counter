@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Calendar from "react-calendar";
 import { Feeds } from "../components/Feeds";
 import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
+import './pages.css'
 
 export const PastFeeds = ({
   dateFormated,
@@ -14,9 +15,14 @@ export const PastFeeds = ({
   insertManual,
   onChangeTime,
   plusFeed,
+  deleteFeed,
+  setInsertManual,
 }) => {
   return (
     <div className="past-feeds">
+      <div className="app-title" style={{ fontSize: "1.5rem" }}>
+        myBaby's Feeds
+      </div>
       <div classname="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>
@@ -25,9 +31,14 @@ export const PastFeeds = ({
         feeds={feeds}
         novaMamada={novaMamada}
         changeBreast={changeBreast}
+        deleteFeed={deleteFeed}
       />
       {insertManual && (
-        <ManualFeedScreen onChangeTime={onChangeTime} plusFeed={plusFeed} />
+        <ManualFeedScreen
+          onChangeTime={onChangeTime}
+          plusFeed={plusFeed}
+          setInsertManual={setInsertManual}
+        />
       )}
     </div>
   );
