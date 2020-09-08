@@ -8,13 +8,13 @@
 }
 
 .home {
-  position: fixed;
+  position: absolute;
   top: 0;
   z-index: 1;
 }
 
 .past-feeds {
-  position: fixed;
+  position: absolute;
   top: 0;
   z-index: 2;
 }
