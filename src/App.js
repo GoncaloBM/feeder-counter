@@ -6,6 +6,8 @@ import "./App.css";
 import axios from "axios";
 import { Feeds } from "./components/Feeds";
 import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
+import { Home } from "./pages/Home";
+import { PastFeeds } from "./pages/PastFeeds";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -14,9 +16,20 @@ function App() {
   const [feeds, setFeeds] = useState([]);
   const [feedsSent, setFeedsSent] = useState(false);
   const [time, setTime] = useState({});
+  const [page, setPage] = useState("home");
+  const [insertManual, setInsertManual] = useState(false);
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
+  };
+
+  const changePage = () => {
+    if (page === "home") {
+      setPage("pastFeeds");
+    } else if (page === "pastFeeds") {
+      onChange(new Date());
+      setPage("home");
+    }
   };
 
   const serverUrl = "http://localhost:3001/baby";
@@ -65,6 +78,14 @@ function App() {
     };
 
     setFeeds([...feeds, newFeed]);
+  };
+
+  const plusButton = () => {
+    if (page === "home") {
+      plusCurrentFeed();
+    } else if (page === "pastFeeds") {
+      setInsertManual(!insertManual);
+    }
   };
 
   const plusFeed = () => {
@@ -116,15 +137,38 @@ function App() {
 
   return (
     <div className="App">
-      <div classname="calendar">
-        <Calendar onChange={onChange} value={value} />
-      </div>
-      <Feeds
+      {page === "home" && (
+        <Home
+          dateFormated={dateFormated}
+          feeds={feeds}
+          novaMamada={novaMamada}
+          changeBreast={changeBreast}
+          page={page}
+        />
+      )}
+      {page === "pastFeeds" && (
+        <PastFeeds
+          dateFormated={dateFormated}
+          feeds={feeds}
+          novaMamada={novaMamada}
+          changeBreast={changeBreast}
+          page={page}
+          onChange={onChange}
+          value={value}
+          insertManual={insertManual}
+          onChangeTime={onChangeTime}
+          plusFeed={plusFeed}
+        />
+        // <div classname="calendar">
+        //   <Calendar onChange={onChange} value={value} />
+        // </div>
+      )}
+      {/* <Feeds
         dateFormated={dateFormated}
         feeds={feeds}
         novaMamada={novaMamada}
         changeBreast={changeBreast}
-      />
+      /> */}
       <BottomNavbar
         onChangeTime={onChangeTime}
         plusFeed={plusFeed}
@@ -133,6 +177,9 @@ function App() {
         plusCurrentFeed={plusCurrentFeed}
         feedsSent={feedsSent}
         setFeedsSent={setFeedsSent}
+        changePage={changePage}
+        plusButton={plusButton}
+        page={page}
       />
     </div>
   );

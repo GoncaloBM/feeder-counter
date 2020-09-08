@@ -12,6 +12,9 @@ export const BottomNavbar = ({
   plusCurrentFeed,
   feedsSent,
   setFeedsSent,
+  changePage,
+  plusButton,
+  page
 }) => {
   return (
     <div className="bottom-navbar">
@@ -19,13 +22,15 @@ export const BottomNavbar = ({
         onChangeTime={onChangeTime}
         plusFeed={plusFeed}
         value={value}
+        changePage={changePage}
+        page={page}
       />
       <Save
         postFeeders={postFeeders}
         feedsSent={feedsSent}
         setFeedsSent={setFeedsSent}
       />
-      <PlusFeedButton plusCurrentFeed={plusCurrentFeed} />
+      <PlusFeedButton plusCurrentFeed={plusCurrentFeed} plusButton={plusButton}/>
     </div>
   );
 };

@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Feed } from "./Feed";
 import "./Feeds.css";
 
-export const Feeds = ({ dateFormated, feeds, novaMamada, changeBreast }) => {
+export const Feeds = ({
+  dateFormated,
+  feeds,
+  novaMamada,
+  changeBreast,
+  page,
+}) => {
   return (
     <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
-        {dateFormated[2]} / {dateFormated[1]} / {dateFormated[0]}
+        {page === "home"
+          ? `Today's Feeds`
+          : `${dateFormated[2]} / ${dateFormated[1]} / ${dateFormated[0]}`}
       </div>
       <div className="feeds">
         {feeds.map((feed, index) => {

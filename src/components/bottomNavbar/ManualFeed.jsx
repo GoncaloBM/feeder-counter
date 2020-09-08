@@ -5,19 +5,16 @@ import moment from "moment";
 import "antd/dist/antd.css";
 import { ManualFeedScreen } from "./manualFeed/ManualFeedScreen";
 
-export const ManualFeed = ({ onChangeTime, plusFeed }) => {
+export const ManualFeed = ({ onChangeTime, plusFeed, changePage, page }) => {
   const format = "HH:mm";
 
   const [manual, setManual] = useState(false);
 
   return (
     <div className="manual-feed">
-      <div className="manual" onClick={() => setManual(!manual)}>
-        Manual Feed
+      <div className="manual" onClick={changePage}>
+        {page === "home" ? "Past Feeds" : "Back Home"}
       </div>
-      {manual && (
-        <ManualFeedScreen onChangeTime={onChangeTime} plusFeed={plusFeed} />
-      )}
     </div>
   );
 };
