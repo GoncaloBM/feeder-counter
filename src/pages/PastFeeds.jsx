@@ -17,6 +17,7 @@ export const PastFeeds = ({
   plusFeed,
   deleteFeed,
   setInsertManual,
+  mamadasNumber,
 }) => {
   return (
     <div className="past-feeds">
@@ -45,6 +46,7 @@ export const PastFeeds = ({
           setInsertManual={setInsertManual}
         />
       </CSSTransition>
+      {/* <div className="mamadas-number">{mamadasNumber} / 8</div> */}
     </div>
   );
 };

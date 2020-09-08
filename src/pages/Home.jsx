@@ -9,6 +9,7 @@ export const Home = ({
   changeBreast,
   page,
   deleteFeed,
+  mamadasNumber
 }) => {
   return (
     <div className="home">
@@ -23,6 +24,7 @@ export const Home = ({
         page={page}
         deleteFeed={deleteFeed}
       />
+      {/* <div className="mamadas-number">{mamadasNumber} / 8</div> */}
     </div>
   );
 };

@@ -20,9 +20,29 @@ function App() {
   const [homePage, setHomePage] = useState(true);
   const [pastFeedPage, setPastFeedPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
+  const [newFeed, setNewFeed] = useState(false);
+  const [mamadasNumber, setMamamadasNumber] = useState(0);
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
+    // checkMamadasNumber();
+  };
+
+  const checkMamadasNumber = () => {
+    let currentMamada = mamadasNumber;
+    let numberOfMamadas = 0;
+
+    for (let i = 0; i < feeds.length; i++)
+      if (
+        feeds[i].year === dateFormated[0] &&
+        feeds[i].month + 1 === dateFormated[1] &&
+        feeds[i].day === dateFormated[2]
+      ) {
+        numberOfMamadas++;
+      }
+
+    currentMamada = numberOfMamadas;
+    setMamamadasNumber(currentMamada);
   };
 
   const changePage = () => {
@@ -79,6 +99,7 @@ function App() {
   };
 
   const plusCurrentFeed = () => {
+    setNewFeed(false);
     const currentHour = new Date();
 
     const newFeed = {
@@ -92,6 +113,7 @@ function App() {
     };
 
     setFeeds([...feeds, newFeed]);
+    setNewFeed(true);
   };
 
   const plusButton = () => {
@@ -103,6 +125,7 @@ function App() {
   };
 
   const plusFeed = () => {
+    setNewFeed(false);
     const newFeed = {
       year: value.getFullYear(),
       month: value.getMonth(),
@@ -114,6 +137,7 @@ function App() {
     };
     setInsertManual(false);
     setFeeds([...feeds, newFeed]);
+    setNewFeed(true);
   };
 
   const novaMamada = (i, numero) => {
@@ -164,6 +188,7 @@ function App() {
           changeBreast={changeBreast}
           page={page}
           deleteFeed={deleteFeed}
+          mamadasNumber={mamadasNumber}
         />
       </CSSTransition>
       <CSSTransition
@@ -185,6 +210,7 @@ function App() {
           plusFeed={plusFeed}
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
+          mamadasNumber={mamadasNumber}
         />
       </CSSTransition>
 
