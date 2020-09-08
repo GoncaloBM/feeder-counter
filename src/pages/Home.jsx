@@ -1,6 +1,7 @@
 import React from "react";
 import { Feeds } from "../components/Feeds";
 import "./pages.css";
+import { Title } from "./Title";
 
 export const Home = ({
   dateFormated,
@@ -9,13 +10,11 @@ export const Home = ({
   changeBreast,
   page,
   deleteFeed,
-  mamadasNumber
+  mamadasNumber,
 }) => {
   return (
     <div className="home">
-      <div className="app-title" style={{ fontSize: "3rem" }}>
-        myBaby's Feeds
-      </div>
+      <Title height="10vh" font="2.5rem" />
       <Feeds
         dateFormated={dateFormated}
         feeds={feeds}

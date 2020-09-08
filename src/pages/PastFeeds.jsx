@@ -4,6 +4,7 @@ import { Feeds } from "../components/Feeds";
 import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
 import "./pages.css";
 import { CSSTransition } from "react-transition-group";
+import { Title } from "./Title";
 
 export const PastFeeds = ({
   dateFormated,
@@ -21,9 +22,7 @@ export const PastFeeds = ({
 }) => {
   return (
     <div className="past-feeds">
-      <div className="app-title" style={{ fontSize: "1.5rem" }}>
-        myBaby's Feeds
-      </div>
+      <Title height="5vh" font="1.5rem"/>
       <div classname="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>
