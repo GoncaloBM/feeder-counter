@@ -11,6 +11,7 @@ export const Feed = ({
   mamada,
   changeBreast,
   breast,
+  deleteFeed
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
   return (
@@ -41,6 +42,7 @@ export const Feed = ({
             setFeedVisible={setFeedVisible}
             changeBreast={changeBreast}
             breast={breast}
+            deleteFeed={deleteFeed}
           />
           {/* <div className="feed-screen-mamadas-line">
             <div

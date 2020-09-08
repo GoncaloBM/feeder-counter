@@ -32,6 +32,14 @@ function App() {
     }
   };
 
+  const deleteFeed = (i) => {
+    let newFeeds = [...feeds];
+
+    newFeeds.splice(i, 1);
+
+    setFeeds(newFeeds);
+  };
+
   const serverUrl = "http://localhost:3001/baby";
   const onlineUrl = "https://goncalobmira.online/baby";
 
@@ -144,6 +152,7 @@ function App() {
           novaMamada={novaMamada}
           changeBreast={changeBreast}
           page={page}
+          deleteFeed={deleteFeed}
         />
       )}
       {page === "pastFeeds" && (
@@ -158,6 +167,7 @@ function App() {
           insertManual={insertManual}
           onChangeTime={onChangeTime}
           plusFeed={plusFeed}
+          deleteFeed={deleteFeed}
         />
         // <div classname="calendar">
         //   <Calendar onChange={onChange} value={value} />

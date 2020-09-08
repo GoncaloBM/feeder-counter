@@ -109,3 +109,15 @@
   margin: 0.5rem;
   border: 1px solid black;
 }
+
+.delete-feed-button {
+  position: absolute;
+  bottom: 5px;
+  width: 80%;
+  height: 3rem;
+  left: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}

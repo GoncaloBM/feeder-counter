@@ -8,6 +8,7 @@ export const Feeds = ({
   novaMamada,
   changeBreast,
   page,
+  deleteFeed
 }) => {
   return (
     <div className="feeds-screen">
@@ -32,6 +33,7 @@ export const Feeds = ({
                 breast={feed.breast}
                 novaMamada={novaMamada}
                 changeBreast={changeBreast}
+                deleteFeed={deleteFeed}
               />
             );
           } else {

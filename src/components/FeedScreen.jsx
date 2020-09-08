@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { formatNumber } from "../formatDate";
+import { DeleteFeed } from "./feed/DeleteFeed";
 
 export const FeedScreen = ({
   hour,
@@ -10,6 +11,7 @@ export const FeedScreen = ({
   setFeedVisible,
   changeBreast,
   breast,
+  deleteFeed,
 }) => {
   return (
     <div className="feed-screen">
@@ -55,6 +57,7 @@ export const FeedScreen = ({
           </div>
         </div>
       </div>
+      <DeleteFeed index={index} deleteFeed={deleteFeed} />
     </div>
   );
 };
