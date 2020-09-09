@@ -7,7 +7,7 @@ export const Save = ({ postFeeders, feedsSent, setFeedsSent }) => {
   return (
     <>
       <div className="save-button" onClick={postFeeders}>
-        Send Feeds
+        <div className="save-button-text">Save Feeds</div>
       </div>
       <CSSTransition
         in={feedsSent}

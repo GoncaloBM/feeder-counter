@@ -3,11 +3,17 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 50%;
   height: 100%;
   justify-content: center;
   border-right: 1px solid black;
+  background-color: #ffcef3;
+  font-size: 1.5rem;
+}
+
+.past-feed-text {
+  margin-left: 1rem;
 }
 
 .manual-feed-screen {
@@ -26,5 +32,5 @@
 }
 
 .send-button {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }

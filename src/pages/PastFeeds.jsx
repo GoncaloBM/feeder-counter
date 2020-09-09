@@ -22,7 +22,7 @@ export const PastFeeds = ({
 }) => {
   return (
     <div className="past-feeds">
-      <Title height="5vh" font="1.5rem"/>
+      <Title height="5vh" font="1.5rem" borderWeight='2'/>
       <div classname="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>

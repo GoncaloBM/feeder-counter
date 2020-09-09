@@ -14,7 +14,7 @@ export const Home = ({
 }) => {
   return (
     <div className="home">
-      <Title height="10vh" font="2.5rem" />
+      <Title height="10vh" font="2.5rem" borderWeight='5'/>
       <Feeds
         dateFormated={dateFormated}
         feeds={feeds}

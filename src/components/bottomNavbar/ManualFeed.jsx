@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { TimePicker } from "antd";
+import React from "react";
 import "./ManualFeed.css";
-import moment from "moment";
 import "antd/dist/antd.css";
-import { ManualFeedScreen } from "./manualFeed/ManualFeedScreen";
 
-export const ManualFeed = ({ onChangeTime, plusFeed, changePage, page }) => {
-  const format = "HH:mm";
-
-  const [manual, setManual] = useState(false);
-
+export const ManualFeed = ({ changePage, page }) => {
   return (
     <div className="manual-feed">
-      <div className="manual" onClick={changePage}>
+      <div className="past-feed-text" onClick={changePage}>
         {page === "home" ? "Past Feeds" : "Back Home"}
       </div>
     </div>

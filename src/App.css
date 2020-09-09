@@ -5,5 +5,6 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(215,124,211,1) 0%, rgba(255,255,255,1) 89%);
+  background-color: #fdfdfd;
+  background-image: url("https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png");
 }
