@@ -19,6 +19,7 @@ export const PastFeeds = ({
   deleteFeed,
   setInsertManual,
   mamadasNumber,
+  setHideNavbar
 }) => {
   return (
     <div className="past-feeds">
@@ -32,6 +33,7 @@ export const PastFeeds = ({
         novaMamada={novaMamada}
         changeBreast={changeBreast}
         deleteFeed={deleteFeed}
+        setHideNavbar={setHideNavbar}
       />
       <CSSTransition
         in={insertManual}

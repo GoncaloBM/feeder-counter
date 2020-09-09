@@ -22,6 +22,7 @@ function App() {
   const [insertManual, setInsertManual] = useState(false);
   const [newFeed, setNewFeed] = useState(false);
   const [mamadasNumber, setMamamadasNumber] = useState(0);
+  const [hideNavbar, setHideNavbar] = useState(false);
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
@@ -211,6 +212,7 @@ function App() {
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
           mamadasNumber={mamadasNumber}
+          setHideNavbar={setHideNavbar}
         />
       </CSSTransition>
 

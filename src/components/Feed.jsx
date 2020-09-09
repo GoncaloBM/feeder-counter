@@ -14,8 +14,14 @@ export const Feed = ({
   changeBreast,
   breast,
   deleteFeed,
+  setHideNavbar,
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
+
+  const clickOnFeed = () => {
+    setFeedVisible(!feedVisible);
+  };
+
   return (
     <div className="feed">
       <div
@@ -27,7 +33,7 @@ export const Feed = ({
           justifyContent: "center",
         }}
         key={index}
-        onClick={() => setFeedVisible(!feedVisible)}
+        onClick={clickOnFeed}
       >
         <div className="feed-time">
           {formatNumber(hour)} : {formatNumber(minutes)}
