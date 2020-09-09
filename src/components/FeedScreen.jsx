@@ -24,7 +24,6 @@ export const FeedScreen = ({
       <div className="feed-screen-mamadas-line">
         <div
           className="feed-screen-edit-mamada"
-          style={{ padding: "5px", border: "1px solid black" }}
           onClick={() => novaMamada(index, -1)}
         >
           -
@@ -32,7 +31,6 @@ export const FeedScreen = ({
         <div className="feed-screen-mamadas">{mamada} mamadas</div>
         <div
           className="feed-screen-edit-mamada"
-          style={{ padding: "5px", border: "1px solid black" }}
           onClick={() => novaMamada(index, 1)}
         >
           +
