@@ -2,8 +2,12 @@ import React from "react";
 import "./Save.css";
 import { CSSTransition } from "react-transition-group";
 import "../transitions.css";
+import { OkButton } from "../buttons/OkButton";
 
 export const Save = ({ postFeeders, feedsSent, setFeedsSent }) => {
+  const closeWindow = () => {
+    setFeedsSent(false);
+  };
   return (
     <>
       <div className="save-button" onClick={postFeeders}>
@@ -17,9 +21,7 @@ export const Save = ({ postFeeders, feedsSent, setFeedsSent }) => {
       >
         <div className="feeds-sent-screen">
           <div className="feeds-sent-title">Feeders saved sucessfully</div>
-          <div className="feeds-sent-ok" onClick={() => setFeedsSent(false)}>
-            OK
-          </div>
+          <OkButton buttonEffect={closeWindow} buttonText="OK" />
         </div>
       </CSSTransition>
     </>

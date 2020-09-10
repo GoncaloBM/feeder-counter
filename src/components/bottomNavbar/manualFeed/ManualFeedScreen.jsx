@@ -3,6 +3,8 @@ import moment from "moment";
 import "antd/dist/antd.css";
 import { TimePicker } from "antd";
 import "./ManualFeedScreen.css";
+import { CloseButton } from "../../buttons/CloseButton";
+import { OkButton } from "../../buttons/OkButton";
 
 const format = "HH:mm";
 
@@ -13,24 +15,13 @@ export const ManualFeedScreen = ({
 }) => {
   return (
     <div className="manual-feed-screen">
-      <div
-        className="close-manual-feed-button"
-        onClick={() => setInsertManual(false)}
-      >
-        X
-      </div>
+      <CloseButton buttonEffect={setInsertManual} />
       <TimePicker
         ddefaultValue={moment("12:08", format)}
         format={format}
         onChange={onChangeTime}
       />
-      <div
-        className="send-button"
-        style={{ border: "1px solid black" }}
-        onClick={plusFeed}
-      >
-        New Feed
-      </div>
+      <OkButton buttonEffect={plusFeed} buttonText="New Feed" />
     </div>
   );
 };
