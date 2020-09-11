@@ -39,7 +39,6 @@ export const Feeds = ({
   return (
     <div
       className="feeds-screen"
-      style={{ height: page === "home" ? "60vh" : "40vh" }}
     >
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
