@@ -37,7 +37,10 @@ export const Feeds = ({
   }, [dateFormated]);
 
   return (
-    <div className="feeds-screen">
+    <div
+      className="feeds-screen"
+      style={{ height: page === "home" ? "60vh" : "40vh" }}
+    >
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
           ? `Today's Feeds`

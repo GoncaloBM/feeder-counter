@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   font-family: "Ubuntu", sans-serif;
+  height: 40vh;
+  overflow: scroll;
 }
 
 .feeds {
