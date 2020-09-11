@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Feed } from "./Feed";
 import "./Feeds.css";
 
@@ -11,6 +11,31 @@ export const Feeds = ({
   deleteFeed,
   setHideNavbar,
 }) => {
+  const [mamadas, setMamadas] = useState(0);
+
+  const checkMamadasNumber = () => {
+    let currentMamada = mamadas;
+    let numberOfMamadas = 0;
+
+    for (let i = 0; i < feeds.length; i++)
+      if (
+        feeds[i].year === dateFormated[0] &&
+        feeds[i].month + 1 === dateFormated[1] &&
+        feeds[i].day === dateFormated[2]
+      ) {
+        numberOfMamadas++;
+      }
+
+    currentMamada = numberOfMamadas;
+    setMamadas(currentMamada);
+  };
+
+  useEffect(() => {
+    if (dateFormated) {
+      checkMamadasNumber();
+    }
+  }, [dateFormated]);
+
   return (
     <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
@@ -42,6 +67,7 @@ export const Feeds = ({
             return null;
           }
         })}
+        <div className="mamadas-number">Mamadas : {mamadas} / 8</div>
       </div>
     </div>
   );

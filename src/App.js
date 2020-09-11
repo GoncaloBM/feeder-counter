@@ -14,36 +14,43 @@ function App() {
   const [value, onChange] = useState(new Date());
   const [dateFormated, setDateFormated] = useState("");
   const [feeds, setFeeds] = useState([]);
+  const [feedsToShow, setFeedsToShow] = useState([]);
   const [feedsSent, setFeedsSent] = useState(false);
   const [time, setTime] = useState({});
   const [page, setPage] = useState("home");
   const [homePage, setHomePage] = useState(true);
   const [pastFeedPage, setPastFeedPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
-  const [newFeed, setNewFeed] = useState(false);
-  const [mamadasNumber, setMamamadasNumber] = useState(0);
   const [hideNavbar, setHideNavbar] = useState(false);
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
-    // checkMamadasNumber();
   };
 
-  const checkMamadasNumber = () => {
-    let currentMamada = mamadasNumber;
-    let numberOfMamadas = 0;
+  const feedsShowing = () => {
+    if (dateFormated && feeds) {
+      let feedsByDay = [];
+      const feedsArr = [...feeds];
 
-    for (let i = 0; i < feeds.length; i++)
-      if (
-        feeds[i].year === dateFormated[0] &&
-        feeds[i].month + 1 === dateFormated[1] &&
-        feeds[i].day === dateFormated[2]
-      ) {
-        numberOfMamadas++;
+      for (let i = 0; i < feeds.length; i++) {
+        // console.log(
+        //   feeds[i].year,
+        //   dateFormated[0],
+        //   feeds[i].month,
+        //   dateFormated[1] - 1,
+        //   feeds[i].day,
+        //   dateFormated[2]
+        // );
+        if (
+          feedsArr[i].year === dateFormated[0] &&
+          feedsArr[i].month + 1 === dateFormated[1] &&
+          feedsArr[i].day === dateFormated[2]
+        ) {
+          feedsByDay = [...feedsByDay, feedsArr[i]];
+        }
       }
-
-    currentMamada = numberOfMamadas;
-    setMamamadasNumber(currentMamada);
+      setFeedsToShow(feedsByDay);
+    }
   };
 
   const changePage = () => {
@@ -100,7 +107,6 @@ function App() {
   };
 
   const plusCurrentFeed = () => {
-    setNewFeed(false);
     const currentHour = new Date();
 
     const newFeed = {
@@ -114,7 +120,6 @@ function App() {
     };
 
     setFeeds([...feeds, newFeed]);
-    setNewFeed(true);
   };
 
   const plusButton = () => {
@@ -126,7 +131,6 @@ function App() {
   };
 
   const plusFeed = () => {
-    setNewFeed(false);
     const newFeed = {
       year: value.getFullYear(),
       month: value.getMonth(),
@@ -138,7 +142,6 @@ function App() {
     };
     setInsertManual(false);
     setFeeds([...feeds, newFeed]);
-    setNewFeed(true);
   };
 
   const novaMamada = (i, numero) => {
@@ -168,7 +171,9 @@ function App() {
 
   useEffect(() => {
     formatDat();
-
+    if (value && feeds) {
+      feedsShowing();
+    }
     if (fetching) {
       fetchFeeders();
     }
@@ -189,7 +194,6 @@ function App() {
           changeBreast={changeBreast}
           page={page}
           deleteFeed={deleteFeed}
-          mamadasNumber={mamadasNumber}
         />
       </CSSTransition>
       <CSSTransition
@@ -211,7 +215,6 @@ function App() {
           plusFeed={plusFeed}
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
-          mamadasNumber={mamadasNumber}
           setHideNavbar={setHideNavbar}
         />
       </CSSTransition>

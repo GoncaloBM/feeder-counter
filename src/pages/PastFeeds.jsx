@@ -47,7 +47,6 @@ export const PastFeeds = ({
           setInsertManual={setInsertManual}
         />
       </CSSTransition>
-      {/* <div className="mamadas-number">{mamadasNumber} / 8</div> */}
     </div>
   );
 };

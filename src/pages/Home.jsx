@@ -23,7 +23,6 @@ export const Home = ({
         page={page}
         deleteFeed={deleteFeed}
       />
-      {/* <div className="mamadas-number">{mamadasNumber} / 8</div> */}
     </div>
   );
 };

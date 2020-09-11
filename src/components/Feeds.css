@@ -133,3 +133,10 @@
   border: 1px solid black;
   background-color: #ffb0b0;
 }
+
+.mamadas-number {
+  font-size: 1.5rem;
+  font-family: Ubuntu;
+  font-style: italic;
+  color: #cabbe9;
+}
