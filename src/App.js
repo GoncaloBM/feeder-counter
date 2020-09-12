@@ -83,7 +83,7 @@ function App() {
       console.log(resp);
 
       let feedsFromDb = resp.data;
-      feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
+      // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
       setFeeds(feedsFromDb);
       setFetching(false);
     });
@@ -92,6 +92,15 @@ function App() {
   const postFeeders = (e) => {
     e.preventDefault();
 
+    let currentFeeds = feeds;
+    currentFeeds.sort(
+      (a, b) =>
+        a.year - b.year ||
+        a.month - b.month ||
+        a.day - b.day ||
+        a.hour - b.hour ||
+        a.minutes - b.minutes
+    );
     axios
       .post(onlineUrl, feeds)
       .then((res) => {
@@ -108,18 +117,33 @@ function App() {
 
   const plusCurrentFeed = () => {
     const currentHour = new Date();
+    let currentFeed = feeds;
+    const lastFeedIndex = currentFeed.length - 1;
 
-    const newFeed = {
-      year: currentHour.getFullYear(),
-      month: currentHour.getMonth(),
-      day: currentHour.getDate(),
-      hour: currentHour.getHours(),
-      minutes: currentHour.getMinutes(),
-      mamadas: 0,
-      breast: "",
-    };
+    const sameHour =
+      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+        currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
+      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+        currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
+      (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
+        currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
 
-    setFeeds([...feeds, newFeed]);
+    // console.log(currentFeed[currentFeed.length-1].hour)
+    if (sameHour) {
+      novaMamada(lastFeedIndex, 1);
+    } else {
+      const newFeed = {
+        year: currentHour.getFullYear(),
+        month: currentHour.getMonth(),
+        day: currentHour.getDate(),
+        hour: currentHour.getHours(),
+        minutes: currentHour.getMinutes(),
+        mamadas: 0,
+        breast: "",
+      };
+
+      setFeeds([...feeds, newFeed]);
+    }
   };
 
   const plusButton = () => {

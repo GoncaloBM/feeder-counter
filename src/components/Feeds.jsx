@@ -13,6 +13,26 @@ export const Feeds = ({
 }) => {
   const [mamadas, setMamadas] = useState(0);
 
+  const [feedsToShow, setFeedsToShow] = useState([]);
+
+  const showingFeeds = () => {
+    if (dateFormated && feeds) {
+      let feedsByDay = [];
+      const feedsArr = [...feeds];
+
+      for (let i = 0; i < feeds.length; i++) {
+        if (
+          feedsArr[i].year === dateFormated[0] &&
+          feedsArr[i].month + 1 === dateFormated[1] &&
+          feedsArr[i].day === dateFormated[2]
+        ) {
+          feedsByDay = [...feedsByDay, feedsArr[i]];
+        }
+      }
+      setFeedsToShow(feedsByDay);
+    }
+  };
+
   const checkMamadasNumber = () => {
     let currentMamada = mamadas;
     let numberOfMamadas = 0;
@@ -33,13 +53,12 @@ export const Feeds = ({
   useEffect(() => {
     if (dateFormated) {
       checkMamadasNumber();
+      showingFeeds();
     }
   }, [dateFormated]);
 
   return (
-    <div
-      className="feeds-screen"
-    >
+    <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
           ? `Today's Feeds`
