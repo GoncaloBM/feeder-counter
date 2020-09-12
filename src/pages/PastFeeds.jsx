@@ -1,5 +1,6 @@
 import React from "react";
 import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css'
 import { Feeds } from "../components/Feeds";
 import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
 import "./pages.css";

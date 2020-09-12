@@ -13,7 +13,11 @@
 }
 
 .past-feed-text {
-  margin-left: 1rem;
+  height: 100%;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .manual-feed-screen {

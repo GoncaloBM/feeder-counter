@@ -33,14 +33,6 @@ function App() {
       const feedsArr = [...feeds];
 
       for (let i = 0; i < feeds.length; i++) {
-        // console.log(
-        //   feeds[i].year,
-        //   dateFormated[0],
-        //   feeds[i].month,
-        //   dateFormated[1] - 1,
-        //   feeds[i].day,
-        //   dateFormated[2]
-        // );
         if (
           feedsArr[i].year === dateFormated[0] &&
           feedsArr[i].month + 1 === dateFormated[1] &&
@@ -138,7 +130,7 @@ function App() {
         day: currentHour.getDate(),
         hour: currentHour.getHours(),
         minutes: currentHour.getMinutes(),
-        mamadas: 0,
+        mamadas: 1,
         breast: "",
       };
 
@@ -161,7 +153,7 @@ function App() {
       day: value.getDate(),
       hour: time.hours,
       minutes: time.minutes,
-      mamadas: 0,
+      mamadas: 1,
       breast: "",
     };
     setInsertManual(false);
