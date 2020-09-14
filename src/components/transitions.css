@@ -21,27 +21,27 @@
 }
 .past-feed-transition-enter-active {
   transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transition: opacity 200ms, transform 200ms;
 }
 .past-feed-transition-exit {
   transform: translateX(0);
 }
 .past-feed-transition-exit-active {
-  transform: translateX(100%);
-  transition: opacity 300ms, transform 300ms;
+  transform: translateX(-100%);
+  transition: opacity 200ms, transform 200ms;
 }
 
 .home-transition-enter {
-  transform: scale(0.5);
+  transform: translateX(100%);
 }
 .home-transition-enter-active {
-  transform: scale(1);
-  transition: opacity 300ms, transform 300ms;
+  transform: translateX(0);
+  transition: opacity 200ms, transform 200ms;
 }
 .home-transition-exit {
   transform: scale(1);
 }
 .home-transition-exit-active {
-  transform: scale(0.5);
-  transition: opacity 300ms, transform 300ms;
+  transform: translateX(-100%);
+  transition: opacity 200ms, transform 200ms;
 }

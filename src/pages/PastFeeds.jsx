@@ -1,11 +1,12 @@
 import React from "react";
 import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css'
+import "react-calendar/dist/Calendar.css";
 import { Feeds } from "../components/Feeds";
 import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
 import "./pages.css";
 import { CSSTransition } from "react-transition-group";
 import { Title } from "./Title";
+import { PlusFeedButton } from "../components/bottomNavbar/PlusFeedButton";
 
 export const PastFeeds = ({
   dateFormated,
@@ -20,7 +21,8 @@ export const PastFeeds = ({
   deleteFeed,
   setInsertManual,
   mamadasNumber,
-  setHideNavbar
+  setHideNavbar,
+  plusButton,
 }) => {
   return (
     <div className="past-feeds">
@@ -28,6 +30,7 @@ export const PastFeeds = ({
       <div className="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>
+      <PlusFeedButton plusButton={plusButton} />
       <Feeds
         dateFormated={dateFormated}
         feeds={feeds}

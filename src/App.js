@@ -8,6 +8,7 @@ import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
 import { CSSTransition } from "react-transition-group";
+import { Navbar } from "./components/navbar/Navbar";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -20,6 +21,8 @@ function App() {
   const [page, setPage] = useState("home");
   const [homePage, setHomePage] = useState(true);
   const [pastFeedPage, setPastFeedPage] = useState(false);
+  const [infoPage, setInfoPage] = useState(false);
+  const [settingsPage, setSetingsPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
   const [hideNavbar, setHideNavbar] = useState(false);
 
@@ -58,6 +61,35 @@ function App() {
     }
   };
 
+  const pageChange = (pageChosen) => {
+    if (pageChosen === "Today") {
+      onChange(new Date());
+      setPage("home");
+      setHomePage(true);
+      setPastFeedPage(false);
+      setInfoPage(false);
+      setSetingsPage(false);
+    } else if (pageChosen === "Info") {
+      setPage("info");
+      setHomePage(false);
+      setPastFeedPage(false);
+      setInfoPage(true);
+      setSetingsPage(false);
+    } else if (pageChosen === "Past Feeds") {
+      setPage("pastFeeds");
+      setHomePage(false);
+      setPastFeedPage(true);
+      setInfoPage(false);
+      setSetingsPage(false);
+    } else if (pageChosen === "Settings") {
+      setPage("settings");
+      setHomePage(false);
+      setPastFeedPage(false);
+      setInfoPage(false);
+      setSetingsPage(true);
+    }
+  };
+
   const deleteFeed = (i) => {
     let newFeeds = [...feeds];
 
@@ -82,8 +114,6 @@ function App() {
   };
 
   const postFeeders = (e) => {
-    e.preventDefault();
-
     let currentFeeds = feeds;
     currentFeeds.sort(
       (a, b) =>
@@ -199,7 +229,7 @@ function App() {
     <div className="App">
       <CSSTransition
         in={homePage}
-        timeout={300}
+        timeout={200}
         classNames="home-transition"
         unmountOnExit
       >
@@ -210,11 +240,12 @@ function App() {
           changeBreast={changeBreast}
           page={page}
           deleteFeed={deleteFeed}
+          plusButton={plusButton}
         />
       </CSSTransition>
       <CSSTransition
         in={pastFeedPage}
-        timeout={300}
+        timeout={200}
         classNames="past-feed-transition"
         unmountOnExit
       >
@@ -232,10 +263,17 @@ function App() {
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
           setHideNavbar={setHideNavbar}
+          plusButton={plusButton}
         />
       </CSSTransition>
-
-      <BottomNavbar
+      <Navbar
+        pageChange={pageChange}
+        postFeeders={postFeeders}
+        feedsSent={feedsSent}
+        setFeedsSent={setFeedsSent}
+        page={page}
+      />
+      {/* <BottomNavbar
         onChangeTime={onChangeTime}
         plusFeed={plusFeed}
         value={value}
@@ -246,7 +284,7 @@ function App() {
         changePage={changePage}
         plusButton={plusButton}
         page={page}
-      />
+      /> */}
     </div>
   );
 }
