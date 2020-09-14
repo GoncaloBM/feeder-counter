@@ -7,6 +7,7 @@ import axios from "axios";
 import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
+import { Info } from "./pages/Info";
 import { CSSTransition } from "react-transition-group";
 import { Navbar } from "./components/navbar/Navbar";
 
@@ -265,6 +266,14 @@ function App() {
           setHideNavbar={setHideNavbar}
           plusButton={plusButton}
         />
+      </CSSTransition>
+      <CSSTransition
+        in={infoPage}
+        timeout={200}
+        classNames="past-feed-transition"
+        unmountOnExit
+      >
+        <Info feeds={feeds[feeds.length-1]} infoPage={infoPage} />
       </CSSTransition>
       <Navbar
         pageChange={pageChange}
