@@ -131,7 +131,7 @@ export const Navbar = ({
       justifyContent: "space-around",
       position: "fixed",
       width: "100%",
-      height: "10%",
+      height: "10vh",
       bottom: "0",
       boxShadow: "0px -15px 20px rgb(202 187 233 / 40%)",
       zIndex: "200",
