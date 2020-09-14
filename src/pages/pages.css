@@ -32,8 +32,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
-  overflow: scroll;
+  margin-bottom: 10%;
+  /* height: 90vh;
+  overflow: scroll; */
 }
 
 .title {
