@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavbarButton } from "./NavbarButton";
+import { PlusFeedButton } from "../bottomNavbar/PlusFeedButton";
 
 export const Navbar = ({
   pageChange,
@@ -7,6 +8,7 @@ export const Navbar = ({
   feedsSent,
   setFeedsSent,
   page,
+  plusButton,
 }) => {
   const navbarButtons = [
     {
@@ -142,6 +144,9 @@ export const Navbar = ({
   };
   return (
     <div className="navbar" style={classes.navbar}>
+      {(page === "home" || page === "pastFeeds") && (
+        <PlusFeedButton plusButton={plusButton} />
+      )}
       {navbarButtons.map((navbarbutton, index) => {
         return (
           <NavbarButton

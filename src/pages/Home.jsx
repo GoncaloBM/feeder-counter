@@ -2,7 +2,6 @@ import React from "react";
 import { Feeds } from "../components/Feeds";
 import "./pages.css";
 import { Title } from "./Title";
-import { PlusFeedButton } from "../components/bottomNavbar/PlusFeedButton";
 
 export const Home = ({
   dateFormated,
@@ -12,7 +11,6 @@ export const Home = ({
   page,
   deleteFeed,
   mamadasNumber,
-  plusButton,
 }) => {
   return (
     <div className="home">
@@ -25,7 +23,6 @@ export const Home = ({
         page={page}
         deleteFeed={deleteFeed}
       />
-      <PlusFeedButton plusButton={plusButton} />
     </div>
   );
 };

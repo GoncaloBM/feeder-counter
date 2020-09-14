@@ -6,7 +6,6 @@ import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFe
 import "./pages.css";
 import { CSSTransition } from "react-transition-group";
 import { Title } from "./Title";
-import { PlusFeedButton } from "../components/bottomNavbar/PlusFeedButton";
 
 export const PastFeeds = ({
   dateFormated,
@@ -20,9 +19,7 @@ export const PastFeeds = ({
   plusFeed,
   deleteFeed,
   setInsertManual,
-  mamadasNumber,
   setHideNavbar,
-  plusButton,
 }) => {
   return (
     <div className="past-feeds">
@@ -30,7 +27,6 @@ export const PastFeeds = ({
       <div className="calendar">
         <Calendar onChange={onChange} value={value} />
       </div>
-      <PlusFeedButton plusButton={plusButton} />
       <Feeds
         dateFormated={dateFormated}
         feeds={feeds}

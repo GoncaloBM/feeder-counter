@@ -272,6 +272,7 @@ function App() {
         feedsSent={feedsSent}
         setFeedsSent={setFeedsSent}
         page={page}
+        plusButton={plusButton}
       />
       {/* <BottomNavbar
         onChangeTime={onChangeTime}
