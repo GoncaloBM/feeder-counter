@@ -26,6 +26,7 @@ function App() {
   const [settingsPage, setSetingsPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
   const [hideNavbar, setHideNavbar] = useState(false);
+  const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
 
   const formatDat = () => {
     setDateFormated(formatDate(value));
@@ -242,6 +243,7 @@ function App() {
           page={page}
           deleteFeed={deleteFeed}
           plusButton={plusButton}
+          setFeedVisibleScreen={setFeedVisibleScreen}
         />
       </CSSTransition>
       <CSSTransition
@@ -265,6 +267,7 @@ function App() {
           setInsertManual={setInsertManual}
           setHideNavbar={setHideNavbar}
           plusButton={plusButton}
+          setFeedVisibleScreen={setFeedVisibleScreen}
         />
       </CSSTransition>
       <CSSTransition
@@ -273,7 +276,7 @@ function App() {
         classNames="past-feed-transition"
         unmountOnExit
       >
-        <Info feeds={feeds[feeds.length-1]} infoPage={infoPage} />
+        <Info feeds={feeds[feeds.length - 1]} infoPage={infoPage} />
       </CSSTransition>
       <Navbar
         pageChange={pageChange}
@@ -282,6 +285,7 @@ function App() {
         setFeedsSent={setFeedsSent}
         page={page}
         plusButton={plusButton}
+        feedScreenVisible={feedScreenVisible}
       />
       {/* <BottomNavbar
         onChangeTime={onChangeTime}

@@ -10,6 +10,7 @@ export const Feeds = ({
   page,
   deleteFeed,
   setHideNavbar,
+  setFeedVisibleScreen
 }) => {
   const [mamadas, setMamadas] = useState(0);
 
@@ -82,6 +83,7 @@ export const Feeds = ({
                 changeBreast={changeBreast}
                 deleteFeed={deleteFeed}
                 setHideNavbar={setHideNavbar}
+                setFeedVisibleScreen={setFeedVisibleScreen}
               />
             );
           } else {

@@ -12,7 +12,12 @@ export const FeedScreen = ({
   changeBreast,
   breast,
   deleteFeed,
+  setFeedVisibleScreen
 }) => {
+  const closeFeed = () => {
+    setFeedVisible(false);
+    setFeedVisibleScreen(false);
+  };
   return (
     <div className="feed-screen">
       <div className="feed-screen-close" onClick={() => setFeedVisible(false)}>
@@ -39,23 +44,27 @@ export const FeedScreen = ({
       <div className="feed-screen-breast">
         <div className="feed-screen-breast-title">Last Breast to feed</div>
         <div className="feed-screen-breast-choices">
+          {breast && (
+            <div
+              className="feed-screen-breast-choice-wrapper"
+              style={{ left: breast === "L" ? "0%" : "55%" }}
+            ></div>
+          )}
           <div
             className="feed-screen-breast-choice"
             onClick={() => changeBreast(index, "L")}
-            style={{ border: breast === "L" && "1px solid red" }}
           >
-            L
+            Left
           </div>
           <div
             className="feed-screen-breast-choice"
             onClick={() => changeBreast(index, "R")}
-            style={{ border: breast === "R" && "1px solid red" }}
           >
-            R
+            Right
           </div>
         </div>
       </div>
-      <DeleteFeed index={index} deleteFeed={deleteFeed} />
+      <DeleteFeed index={index} deleteFeed={deleteFeed} setFeedVisibleScreen={setFeedVisibleScreen}/>
     </div>
   );
 };

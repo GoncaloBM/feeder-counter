@@ -11,6 +11,7 @@ export const Home = ({
   page,
   deleteFeed,
   mamadasNumber,
+  setFeedVisibleScreen
 }) => {
   return (
     <div className="home">
@@ -22,6 +23,7 @@ export const Home = ({
         changeBreast={changeBreast}
         page={page}
         deleteFeed={deleteFeed}
+        setFeedVisibleScreen={setFeedVisibleScreen}
       />
     </div>
   );

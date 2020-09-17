@@ -9,6 +9,7 @@ export const Navbar = ({
   setFeedsSent,
   page,
   plusButton,
+  feedScreenVisible,
 }) => {
   const navbarButtons = [
     {
@@ -136,7 +137,7 @@ export const Navbar = ({
       height: "10vh",
       bottom: "0",
       boxShadow: "0px -15px 20px rgb(202 187 233 / 40%)",
-      zIndex: "200",
+      zIndex: "100",
       backgroundColor: "#fdfdfd",
       backgroundImage:
         'url("https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png")',
@@ -144,7 +145,7 @@ export const Navbar = ({
   };
   return (
     <div className="navbar" style={classes.navbar}>
-      {(page === "home" || page === "pastFeeds") && (
+      {(page === "home" || page === "pastFeeds")  && (
         <PlusFeedButton plusButton={plusButton} />
       )}
       {navbarButtons.map((navbarbutton, index) => {
