@@ -213,6 +213,14 @@ function App() {
     setFeeds(newArr);
   };
 
+  const changeComment = (i, comment) => {
+    let newArr = [...feeds];
+
+    newArr[i].comments = comment;
+
+    setFeeds(newArr);
+  };
+
   const onChangeTime = (time) => {
     setTime({ hours: time._d.getHours(), minutes: time._d.getMinutes() });
   };
@@ -244,6 +252,7 @@ function App() {
           deleteFeed={deleteFeed}
           plusButton={plusButton}
           setFeedVisibleScreen={setFeedVisibleScreen}
+          changeComment={changeComment}
         />
       </CSSTransition>
       <CSSTransition

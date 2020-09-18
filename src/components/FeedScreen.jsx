@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { formatNumber } from "../formatDate";
 import { DeleteFeed } from "./feed/DeleteFeed";
 
@@ -12,12 +12,24 @@ export const FeedScreen = ({
   changeBreast,
   breast,
   deleteFeed,
-  setFeedVisibleScreen
+  setFeedVisibleScreen,
+  changeComment,
+  comment,
 }) => {
   const closeFeed = () => {
     setFeedVisible(false);
     setFeedVisibleScreen(false);
   };
+
+  const [feedComment, setFeedComment] = useState(comment);
+  const commentChange = (e) => {
+    setFeedComment(e.target.value);
+  };
+
+  useEffect(() => {
+    changeComment(index, feedComment);
+  }, [feedComment]);
+
   return (
     <div className="feed-screen">
       <div className="feed-screen-close" onClick={() => setFeedVisible(false)}>
@@ -63,8 +75,20 @@ export const FeedScreen = ({
             Right
           </div>
         </div>
+        <div className="feed-screen-comment">
+          <div className="feed-screen-comment-title">Comments</div>
+          <textarea
+            rows="7"
+            value={comment}
+            onChange={commentChange}
+          ></textarea>
+        </div>
       </div>
-      <DeleteFeed index={index} deleteFeed={deleteFeed} setFeedVisibleScreen={setFeedVisibleScreen}/>
+      <DeleteFeed
+        index={index}
+        deleteFeed={deleteFeed}
+        setFeedVisibleScreen={setFeedVisibleScreen}
+      />
     </div>
   );
 };

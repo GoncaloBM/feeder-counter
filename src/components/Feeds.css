@@ -156,3 +156,25 @@
   font-style: italic;
   color: #cabbe9;
 }
+
+.feed-screen-comment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed-screen-comment-title {
+  font-size: 1.5rem;
+}
+
+textarea {
+  margin-top: 0.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+
+textarea:focus {
+  border: 1px solid #cabbe9;
+  outline: none !important;
+}

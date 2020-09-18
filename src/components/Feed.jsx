@@ -13,9 +13,11 @@ export const Feed = ({
   mamada,
   changeBreast,
   breast,
+  comment,
   deleteFeed,
   setHideNavbar,
   setFeedVisibleScreen,
+  changeComment
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
 
@@ -52,12 +54,14 @@ export const Feed = ({
             hour={hour}
             minutes={minutes}
             index={index}
+            comment={comment}
             novaMamada={novaMamada}
             mamada={mamada}
             setFeedVisible={setFeedVisible}
             changeBreast={changeBreast}
             breast={breast}
             deleteFeed={deleteFeed}
+            changeComment={changeComment}
           />
         </>
       </CSSTransition>
