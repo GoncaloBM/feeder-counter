@@ -78,7 +78,7 @@ export const FeedScreen = ({
         <div className="feed-screen-comment">
           <div className="feed-screen-comment-title">Comments</div>
           <textarea
-            rows="7"
+            rows="3"
             value={comment}
             onChange={commentChange}
           ></textarea>
