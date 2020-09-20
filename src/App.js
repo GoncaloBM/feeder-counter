@@ -277,6 +277,7 @@ function App() {
           setHideNavbar={setHideNavbar}
           plusButton={plusButton}
           setFeedVisibleScreen={setFeedVisibleScreen}
+          changeComment={changeComment}
         />
       </CSSTransition>
       <CSSTransition
