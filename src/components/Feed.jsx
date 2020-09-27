@@ -17,7 +17,8 @@ export const Feed = ({
   deleteFeed,
   setHideNavbar,
   setFeedVisibleScreen,
-  changeComment
+  changeComment,
+  id,
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
 
@@ -54,6 +55,7 @@ export const Feed = ({
             hour={hour}
             minutes={minutes}
             index={index}
+            id={id}
             comment={comment}
             novaMamada={novaMamada}
             mamada={mamada}

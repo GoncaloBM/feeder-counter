@@ -93,20 +93,33 @@ function App() {
   };
 
   const deleteFeed = (i) => {
-    let newFeeds = [...feeds];
+    // let newFeeds = [...feeds];
 
-    newFeeds.splice(i, 1);
+    // newFeeds.splice(i, 1);
 
-    setFeeds(newFeeds);
+    // setFeeds(newFeeds);
+    const deleteUrl = `http://localhost:3001/babyfeeder/feeders/${i}`;
+    axios
+      .delete(deleteUrl)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+        setFeedVisibleScreen(false);
+      });
   };
 
-  const serverUrl = "http://localhost:3001/baby";
+  const serverUrl = "http://localhost:3001/babyfeeder/feeders";
   const onlineUrl = "https://goncalobmira.online/baby";
 
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(onlineUrl).then((resp) => {
-      console.log(resp);
+    axios.get(serverUrl).then((resp) => {
+      console.log(resp.data);
 
       let feedsFromDb = resp.data;
       // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
@@ -154,7 +167,7 @@ function App() {
 
     // console.log(currentFeed[currentFeed.length-1].hour)
     if (sameHour) {
-      novaMamada(lastFeedIndex, 1);
+      novaMamada(feeds[lastFeedIndex].id, 1);
     } else {
       const newFeed = {
         year: currentHour.getFullYear(),
@@ -164,10 +177,23 @@ function App() {
         minutes: currentHour.getMinutes(),
         mamadas: 1,
         breast: "",
+        page: page,
       };
 
-      setFeeds([...feeds, newFeed]);
+      axios
+        .post(serverUrl, newFeed)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((res) => {
+          fetchFeeders();
+        });
     }
+    // setFeeds([...feeds, newFeed]);
+    // }
   };
 
   const plusButton = () => {
@@ -187,38 +213,94 @@ function App() {
       minutes: time.minutes,
       mamadas: 1,
       breast: "",
+      page:'past'
     };
-    setInsertManual(false);
-    setFeeds([...feeds, newFeed]);
+    
+
+    axios
+    .post(serverUrl, newFeed)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .then((res) => {
+      fetchFeeders();
+      setInsertManual(false);
+    });
+
   };
 
   const novaMamada = (i, numero) => {
-    let newArr = [...feeds];
+    const mamadaUrl = `http://localhost:3001/babyfeeder/feeders/${i}/mamada`;
 
-    if (newArr[i].mamadas + numero < 0) {
-      return;
-    } else {
-      newArr[i].mamadas = newArr[i].mamadas + numero;
+    axios
+      .put(mamadaUrl, { numero: numero })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+        // setFeedsSent(true);
+      });
+    // let newArr = [...feeds];
 
-      console.log(newArr);
-      setFeeds(newArr);
-    }
+    // if (newArr[i].mamadas + numero < 0) {
+    //   return;
+    // } else {
+    //   newArr[i].mamadas = newArr[i].mamadas + numero;
+
+    //   console.log(newArr);
+    //   setFeeds(newArr);
+    // }
   };
 
   const changeBreast = (i, breast) => {
-    let newArr = [...feeds];
+    const mamadaUrl = `http://localhost:3001/babyfeeder/feeders/${i}/breast`;
 
-    newArr[i].breast = breast;
+    axios
+      .put(mamadaUrl, { breast: breast })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+        // setFeedsSent(true);
+      });
+    // let newArr = [...feeds];
 
-    setFeeds(newArr);
+    // newArr[i].breast = breast;
+
+    // setFeeds(newArr);
   };
 
   const changeComment = (i, comment) => {
-    let newArr = [...feeds];
+    // let newArr = [...feeds];
 
-    newArr[i].comments = comment;
+    // newArr[i].comments = comment;
 
-    setFeeds(newArr);
+    // setFeeds(newArr);
+
+    const commentUrl = `http://localhost:3001/babyfeeder/feeders/${i}/comments`;
+
+    axios
+      .put(commentUrl, { comments: comment })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
   };
 
   const onChangeTime = (time) => {

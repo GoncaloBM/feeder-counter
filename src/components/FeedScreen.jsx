@@ -15,6 +15,7 @@ export const FeedScreen = ({
   setFeedVisibleScreen,
   changeComment,
   comment,
+  id,
 }) => {
   const closeFeed = () => {
     setFeedVisible(false);
@@ -27,7 +28,7 @@ export const FeedScreen = ({
   };
 
   useEffect(() => {
-    changeComment(index, feedComment);
+    changeComment(id, feedComment);
   }, [feedComment]);
 
   return (
@@ -41,14 +42,14 @@ export const FeedScreen = ({
       <div className="feed-screen-mamadas-line">
         <div
           className="feed-screen-edit-mamada"
-          onClick={() => novaMamada(index, -1)}
+          onClick={() => novaMamada(id, -1)}
         >
           -
         </div>
         <div className="feed-screen-mamadas">{mamada} mamadas</div>
         <div
           className="feed-screen-edit-mamada"
-          onClick={() => novaMamada(index, 1)}
+          onClick={() => novaMamada(id, 1)}
         >
           +
         </div>
@@ -64,13 +65,13 @@ export const FeedScreen = ({
           )}
           <div
             className="feed-screen-breast-choice"
-            onClick={() => changeBreast(index, "L")}
+            onClick={() => changeBreast(id, "L")}
           >
             Left
           </div>
           <div
             className="feed-screen-breast-choice"
-            onClick={() => changeBreast(index, "R")}
+            onClick={() => changeBreast(id, "R")}
           >
             Right
           </div>
@@ -85,9 +86,9 @@ export const FeedScreen = ({
         </div>
       </div>
       <DeleteFeed
-        index={index}
+        index={id}
         deleteFeed={deleteFeed}
-        setFeedVisibleScreen={setFeedVisibleScreen}
+        setFeedVisible={setFeedVisible}
       />
     </div>
   );

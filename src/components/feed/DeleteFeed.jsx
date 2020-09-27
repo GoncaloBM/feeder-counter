@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-export const DeleteFeed = ({ index, deleteFeed, setFeedVisibleScreen }) => {
+export const DeleteFeed = ({ index, deleteFeed, setFeedVisible }) => {
   const deleteF = () => {
     deleteFeed(index);
-    setFeedVisibleScreen(false);
+    setFeedVisible(false);
   };
   return (
     <div className="delete-feed-button" onClick={deleteF}>
