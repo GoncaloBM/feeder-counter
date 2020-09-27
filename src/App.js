@@ -98,7 +98,7 @@ function App() {
     // newFeeds.splice(i, 1);
 
     // setFeeds(newFeeds);
-    const deleteUrl = `http://localhost:3001/babyfeeder/feeders/${i}`;
+    const deleteUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}`;
     axios
       .delete(deleteUrl)
       .then((res) => {
