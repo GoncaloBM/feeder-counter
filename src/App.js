@@ -114,11 +114,11 @@ function App() {
   };
 
   const serverUrl = "http://localhost:3001/babyfeeder/feeders";
-  const onlineUrl = "https://goncalobmira.online/baby";
+  const onlineUrl = "https://goncalobmira.online/babyfeeder/feeders";
 
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(serverUrl).then((resp) => {
+    axios.get(onlineUrl).then((resp) => {
       console.log(resp.data);
 
       let feedsFromDb = resp.data;
@@ -166,9 +166,9 @@ function App() {
         currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
 
     // console.log(currentFeed[currentFeed.length-1].hour)
-    if (sameHour) {
-      novaMamada(feeds[lastFeedIndex].id, 1);
-    } else {
+    // if (sameHour) {
+    //   novaMamada(feeds[lastFeedIndex].id, 1);
+    // } else {
       const newFeed = {
         year: currentHour.getFullYear(),
         month: currentHour.getMonth(),
@@ -181,7 +181,7 @@ function App() {
       };
 
       axios
-        .post(serverUrl, newFeed)
+        .post(onlineUrl, newFeed)
         .then((res) => {
           console.log(res.data);
         })
@@ -191,7 +191,7 @@ function App() {
         .then((res) => {
           fetchFeeders();
         });
-    }
+    // }
     // setFeeds([...feeds, newFeed]);
     // }
   };
@@ -218,7 +218,7 @@ function App() {
     
 
     axios
-    .post(serverUrl, newFeed)
+    .post(onlineUrl, newFeed)
     .then((res) => {
       console.log(res.data);
     })
@@ -233,7 +233,7 @@ function App() {
   };
 
   const novaMamada = (i, numero) => {
-    const mamadaUrl = `http://localhost:3001/babyfeeder/feeders/${i}/mamada`;
+    const mamadaUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/mamada`;
 
     axios
       .put(mamadaUrl, { numero: numero })
@@ -260,7 +260,7 @@ function App() {
   };
 
   const changeBreast = (i, breast) => {
-    const mamadaUrl = `http://localhost:3001/babyfeeder/feeders/${i}/breast`;
+    const mamadaUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/breast`;
 
     axios
       .put(mamadaUrl, { breast: breast })
@@ -288,7 +288,7 @@ function App() {
 
     // setFeeds(newArr);
 
-    const commentUrl = `http://localhost:3001/babyfeeder/feeders/${i}/comments`;
+    const commentUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/comments`;
 
     axios
       .put(commentUrl, { comments: comment })
