@@ -8,7 +8,6 @@ import { CSSTransition } from "react-transition-group";
 import { Title } from "./Title";
 
 export const PastFeeds = ({
-  dateFormated,
   feeds,
   novaMamada,
   changeBreast,
@@ -20,7 +19,8 @@ export const PastFeeds = ({
   deleteFeed,
   setInsertManual,
   setHideNavbar,
-  changeComment
+  changeComment,
+  date
 }) => {
   return (
     <div className="past-feeds">
@@ -29,7 +29,7 @@ export const PastFeeds = ({
         <Calendar onChange={onChange} value={value} />
       </div>
       <Feeds
-        dateFormated={dateFormated}
+        date={date}
         feeds={feeds}
         novaMamada={novaMamada}
         changeBreast={changeBreast}

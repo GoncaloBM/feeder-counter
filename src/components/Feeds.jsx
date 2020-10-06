@@ -3,7 +3,6 @@ import { Feed } from "./Feed";
 import "./Feeds.css";
 
 export const Feeds = ({
-  dateFormated,
   feeds,
   novaMamada,
   changeBreast,
@@ -12,28 +11,11 @@ export const Feeds = ({
   setHideNavbar,
   setFeedVisibleScreen,
   changeComment,
+  date
 }) => {
   const [mamadas, setMamadas] = useState(0);
 
-  const [feedsToShow, setFeedsToShow] = useState([]);
 
-  const showingFeeds = () => {
-    if (dateFormated && feeds) {
-      let feedsByDay = [];
-      const feedsArr = [...feeds];
-
-      for (let i = 0; i < feeds.length; i++) {
-        if (
-          feedsArr[i].year === dateFormated[0] &&
-          feedsArr[i].month + 1 === dateFormated[1] &&
-          feedsArr[i].day === dateFormated[2]
-        ) {
-          feedsByDay = [...feedsByDay, feedsArr[i]];
-        }
-      }
-      setFeedsToShow(feedsByDay);
-    }
-  };
 
   const checkMamadasNumber = () => {
     let currentMamada = mamadas;
@@ -41,9 +23,9 @@ export const Feeds = ({
 
     for (let i = 0; i < feeds.length; i++)
       if (
-        feeds[i].year === dateFormated[0] &&
-        feeds[i].month + 1 === dateFormated[1] &&
-        feeds[i].day === dateFormated[2]
+        feeds[i].year === date[0] &&
+        feeds[i].month + 1 === date[1] &&
+        feeds[i].day === date[2]
       ) {
         numberOfMamadas++;
       }
@@ -53,25 +35,24 @@ export const Feeds = ({
   };
 
   useEffect(() => {
-    if (dateFormated) {
+    if (date) {
       checkMamadasNumber();
-      showingFeeds();
     }
-  }, [dateFormated]);
+  }, [date]);
 
   return (
     <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
           ? `Today's Feeds`
-          : `${dateFormated[2]} / ${dateFormated[1]} / ${dateFormated[0]}`}
+          : `${date[2]} / ${date[1]} / ${date[0]}`}
       </div>
       <div className="feeds">
         {feeds.map((feed, index) => {
           if (
-            feed.year === dateFormated[0] &&
-            feed.month + 1 === dateFormated[1] &&
-            feed.day === dateFormated[2]
+            feed.year === date[0] &&
+            feed.month + 1 === date[1] &&
+            feed.day === date[2]
           ) {
             return (
               <Feed

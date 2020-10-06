@@ -10,6 +10,7 @@ import { PastFeeds } from "./pages/PastFeeds";
 import { Info } from "./pages/Info";
 import { CSSTransition } from "react-transition-group";
 import { Navbar } from "./components/navbar/Navbar";
+import { url } from "./url";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -28,9 +29,10 @@ function App() {
   const [hideNavbar, setHideNavbar] = useState(false);
   const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
 
-  const formatDat = () => {
-    setDateFormated(formatDate(value));
-  };
+  // const formatDat = () => {
+  //   setDateFormated(formatDate(value));
+  //   console.log("yay");
+  // };
 
   const feedsShowing = () => {
     if (dateFormated && feeds) {
@@ -93,12 +95,7 @@ function App() {
   };
 
   const deleteFeed = (i) => {
-    // let newFeeds = [...feeds];
-
-    // newFeeds.splice(i, 1);
-
-    // setFeeds(newFeeds);
-    const deleteUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}`;
+    const deleteUrl = `${url.online}babyfeeder/feeders/${i}`;
     axios
       .delete(deleteUrl)
       .then((res) => {
@@ -113,19 +110,24 @@ function App() {
       });
   };
 
-  const serverUrl = "http://localhost:3001/babyfeeder/feeders";
-  const onlineUrl = "https://goncalobmira.online/babyfeeder/feeders";
-
   const fetchFeeders = () => {
     setFetching(true);
-    axios.get(onlineUrl).then((resp) => {
-      console.log(resp.data);
+    axios
+      .get(url.getAndPostFeeder.online, {
+        params: {
+          year: formatDate(value)[0],
+          month: formatDate(value)[1],
+          day: formatDate(value)[2],
+        },
+      })
+      .then((resp) => {
+        console.log(resp.data);
 
-      let feedsFromDb = resp.data;
-      // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
-      setFeeds(feedsFromDb);
-      setFetching(false);
-    });
+        let feedsFromDb = resp.data;
+        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
+        setFeeds(feedsFromDb);
+        setFetching(false);
+      });
   };
 
   const postFeeders = (e) => {
@@ -139,7 +141,7 @@ function App() {
         a.minutes - b.minutes
     );
     axios
-      .post(onlineUrl, feeds)
+      .post(url.getAndPostFeeder.online, feeds)
       .then((res) => {
         console.log(res.data);
       })
@@ -157,40 +159,40 @@ function App() {
     let currentFeed = feeds;
     const lastFeedIndex = currentFeed.length - 1;
 
-    const sameHour =
-      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-        currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
-      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-        currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
-      (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
-        currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
+    // const sameHour =
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+    //     currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+    //     currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
+    //     currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
 
     // console.log(currentFeed[currentFeed.length-1].hour)
     // if (sameHour) {
     //   novaMamada(feeds[lastFeedIndex].id, 1);
     // } else {
-      const newFeed = {
-        year: currentHour.getFullYear(),
-        month: currentHour.getMonth(),
-        day: currentHour.getDate(),
-        hour: currentHour.getHours(),
-        minutes: currentHour.getMinutes(),
-        mamadas: 1,
-        breast: "",
-        page: page,
-      };
+    const newFeed = {
+      year: currentHour.getFullYear(),
+      month: currentHour.getMonth(),
+      day: currentHour.getDate(),
+      hour: currentHour.getHours(),
+      minutes: currentHour.getMinutes(),
+      mamadas: 1,
+      breast: "",
+      page: page,
+    };
 
-      axios
-        .post(onlineUrl, newFeed)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then((res) => {
-          fetchFeeders();
-        });
+    axios
+      .post(url.getAndPostFeeder.online, newFeed)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
     // }
     // setFeeds([...feeds, newFeed]);
     // }
@@ -213,27 +215,25 @@ function App() {
       minutes: time.minutes,
       mamadas: 1,
       breast: "",
-      page:'past'
+      page: "past",
     };
-    
 
     axios
-    .post(onlineUrl, newFeed)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .then((res) => {
-      fetchFeeders();
-      setInsertManual(false);
-    });
-
+      .post(url.getAndPostFeeder.online, newFeed)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+        setInsertManual(false);
+      });
   };
 
   const novaMamada = (i, numero) => {
-    const mamadaUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/mamada`;
+    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/mamada`;
 
     axios
       .put(mamadaUrl, { numero: numero })
@@ -245,22 +245,11 @@ function App() {
       })
       .then((res) => {
         fetchFeeders();
-        // setFeedsSent(true);
       });
-    // let newArr = [...feeds];
-
-    // if (newArr[i].mamadas + numero < 0) {
-    //   return;
-    // } else {
-    //   newArr[i].mamadas = newArr[i].mamadas + numero;
-
-    //   console.log(newArr);
-    //   setFeeds(newArr);
-    // }
   };
 
   const changeBreast = (i, breast) => {
-    const mamadaUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/breast`;
+    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/breast`;
 
     axios
       .put(mamadaUrl, { breast: breast })
@@ -272,23 +261,12 @@ function App() {
       })
       .then((res) => {
         fetchFeeders();
-        // setFeedsSent(true);
       });
-    // let newArr = [...feeds];
-
-    // newArr[i].breast = breast;
-
-    // setFeeds(newArr);
   };
 
   const changeComment = (i, comment) => {
-    // let newArr = [...feeds];
 
-    // newArr[i].comments = comment;
-
-    // setFeeds(newArr);
-
-    const commentUrl = `https://goncalobmira.online/babyfeeder/feeders/${i}/comments`;
+    const commentUrl = `${url.online}babyfeeder/feeders/${i}/comments`;
 
     axios
       .put(commentUrl, { comments: comment })
@@ -308,14 +286,12 @@ function App() {
   };
 
   useEffect(() => {
-    formatDat();
     if (value && feeds) {
       feedsShowing();
     }
-    if (fetching) {
-      fetchFeeders();
-    }
-  }, [value, fetching]);
+
+    fetchFeeders();
+  }, [value]);
 
   return (
     <div className="App">
@@ -326,7 +302,7 @@ function App() {
         unmountOnExit
       >
         <Home
-          dateFormated={dateFormated}
+          date={formatDate(value)}
           feeds={feeds}
           novaMamada={novaMamada}
           changeBreast={changeBreast}
@@ -344,7 +320,7 @@ function App() {
         unmountOnExit
       >
         <PastFeeds
-          dateFormated={dateFormated}
+          date={formatDate(value)}
           feeds={feeds}
           novaMamada={novaMamada}
           changeBreast={changeBreast}

@@ -4,7 +4,6 @@ import "./pages.css";
 import { Title } from "./Title";
 
 export const Home = ({
-  dateFormated,
   feeds,
   novaMamada,
   changeBreast,
@@ -12,13 +11,14 @@ export const Home = ({
   deleteFeed,
   mamadasNumber,
   setFeedVisibleScreen,
-  changeComment
+  changeComment,
+  date,
 }) => {
   return (
     <div className="home">
       <Title height="10vh" font="2.5rem" borderWeight="5" />
       <Feeds
-        dateFormated={dateFormated}
+        date={date}
         feeds={feeds}
         novaMamada={novaMamada}
         changeBreast={changeBreast}
