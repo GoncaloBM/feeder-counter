@@ -10,6 +10,7 @@ import { Info } from "./pages/Info";
 import { CSSTransition } from "react-transition-group";
 import { Navbar } from "./components/navbar/Navbar";
 import { url } from "./url";
+import { Settings } from "./pages/Settings";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -197,7 +198,6 @@ function App() {
   };
 
   const changeComment = (i, comment) => {
-
     const commentUrl = `${url.online}babyfeeder/feeders/${i}/comments`;
 
     axios
@@ -218,7 +218,6 @@ function App() {
   };
 
   useEffect(() => {
-
     fetchFeeders();
   }, [value]);
 
@@ -274,6 +273,16 @@ function App() {
       >
         <Info feeds={feeds[feeds.length - 1]} infoPage={infoPage} />
       </CSSTransition>
+
+      <CSSTransition
+        in={settingsPage}
+        timeout={200}
+        classNames="past-feed-transition"
+        unmountOnExit
+      >
+        <Settings pageChange={pageChange}/>
+      </CSSTransition>
+
       <Navbar
         pageChange={pageChange}
         page={page}

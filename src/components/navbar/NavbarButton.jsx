@@ -16,7 +16,7 @@ export const NavbarButton = ({
       alignItems: "center",
       justifyContent: "center",
       width: "20%",
-      height: "100%",
+      height: "90%",
     },
   };
   return (

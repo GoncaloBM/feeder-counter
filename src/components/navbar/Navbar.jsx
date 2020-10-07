@@ -1,12 +1,9 @@
 import React from "react";
+import "./Navbar.css";
 import { NavbarButton } from "./NavbarButton";
 import { PlusFeedButton } from "../bottomNavbar/PlusFeedButton";
 
-export const Navbar = ({
-  pageChange,
-  page,
-  plusButton,
-}) => {
+export const Navbar = ({ pageChange, page, plusButton }) => {
   const navbarButtons = [
     {
       text: "Today",
@@ -102,11 +99,79 @@ export const Navbar = ({
     },
   ];
 
+  const settingsButtons = [
+    {
+      text: "Login/Sign Up",
+      img: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-login"
+          width="52"
+          height="52"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+          <path d="M20 12h-13l3 -3m0 6l-3 -3" />
+        </svg>
+      ),
+    },
+    {
+      text: "My Baby",
+      img: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-lego"
+          width="52"
+          height="52"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="9.5" y1="11" x2="9.51" y2="11" />
+          <line x1="14.5" y1="11" x2="14.51" y2="11" />
+          <path d="M9.5 15a3.5 3.5 0 0 0 5 0" />
+          <path d="M7 5h1v-2h8v2h1a3 3 0 0 1 3 3v9a3 3 0 0 1 -3 3v1h-10v-1a3 3 0 0 1 -3 -3v-9a3 3 0 0 1 3 -3" />
+        </svg>
+      ),
+    },
+    {
+      text: "About",
+      img: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-stack"
+          width="52"
+          height="52"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <polyline points="12 4 4 8 12 12 20 8 12 4" />
+          <polyline points="4 12 12 16 20 12" />
+          <polyline points="4 16 12 20 20 16" />
+        </svg>
+      ),
+    },
+  ];
+
   const classes = {
     navbar: {
       display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
+      flexDirection: "collumn",
       position: "fixed",
       width: "100%",
       height: "10vh",
@@ -123,15 +188,34 @@ export const Navbar = ({
       {(page === "home" || page === "pastFeeds") && (
         <PlusFeedButton plusButton={plusButton} />
       )}
-      {navbarButtons.map((navbarbutton, index) => {
-        return (
-          <NavbarButton
-            text={navbarbutton.text}
-            img={navbarbutton.img}
-            pageChange={pageChange}
-          />
-        );
-      })}
+      <div
+        className="navbar-line"
+        style={{ top: page !== "settings" ? "0%" : "100%" }}
+      >
+        {navbarButtons.map((navbarbutton, index) => {
+          return (
+            <NavbarButton
+              text={navbarbutton.text}
+              img={navbarbutton.img}
+              pageChange={pageChange}
+            />
+          );
+        })}
+      </div>
+      <div
+        className="navbar-line"
+        style={{ top: page !== "settings" ? "100%" : "0%" }}
+      >
+        {settingsButtons.map((navbarbutton, index) => {
+          return (
+            <NavbarButton
+              text={navbarbutton.text}
+              img={navbarbutton.img}
+              pageChange={pageChange}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
