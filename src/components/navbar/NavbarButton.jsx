@@ -7,13 +7,8 @@ export const NavbarButton = ({
   text,
   img,
   pageChange,
-  postFeeders,
-  feedsSent,
-  setFeedsSent,
 }) => {
-  const closeWindow = () => {
-    setFeedsSent(false);
-  };
+
   const classes = {
     navbarButton: {
       display: "flex",
@@ -24,35 +19,16 @@ export const NavbarButton = ({
       height: "100%",
     },
   };
-
-  const buttonEffect = () => {
-    if (text === "Send") {
-      postFeeders();
-    } else {
-      pageChange(text);
-    }
-  };
   return (
     <>
       <div
         className="navbar-button"
         style={classes.navbarButton}
-        onClick={buttonEffect}
+        onClick={() => pageChange(text)}
       >
         {img}
-        {text !== "Send" && <div className="navbar-text">{text}</div>}
+        <div className="navbar-text">{text}</div>
       </div>
-      <CSSTransition
-        in={feedsSent}
-        timeout={300}
-        classNames="feed-transition"
-        unmountOnExit
-      >
-        <div className="feeds-sent-screen">
-          <div className="feeds-sent-title">Feeders saved sucessfully</div>
-          <OkButton buttonEffect={closeWindow} buttonText="OK" />
-        </div>
-      </CSSTransition>
     </>
   );
 };

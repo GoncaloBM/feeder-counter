@@ -18,7 +18,6 @@ export const PastFeeds = ({
   plusFeed,
   deleteFeed,
   setInsertManual,
-  setHideNavbar,
   changeComment,
   date
 }) => {
@@ -34,7 +33,6 @@ export const PastFeeds = ({
         novaMamada={novaMamada}
         changeBreast={changeBreast}
         deleteFeed={deleteFeed}
-        setHideNavbar={setHideNavbar}
         changeComment={changeComment}
       />
       <CSSTransition

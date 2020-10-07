@@ -8,7 +8,6 @@ export const Feeds = ({
   changeBreast,
   page,
   deleteFeed,
-  setHideNavbar,
   setFeedVisibleScreen,
   changeComment,
   date
@@ -66,7 +65,6 @@ export const Feeds = ({
                 novaMamada={novaMamada}
                 changeBreast={changeBreast}
                 deleteFeed={deleteFeed}
-                setHideNavbar={setHideNavbar}
                 setFeedVisibleScreen={setFeedVisibleScreen}
                 changeComment={changeComment}
               />

@@ -15,7 +15,6 @@ export const Feed = ({
   breast,
   comment,
   deleteFeed,
-  setHideNavbar,
   setFeedVisibleScreen,
   changeComment,
   id,

@@ -9,7 +9,6 @@ export const Home = ({
   changeBreast,
   page,
   deleteFeed,
-  mamadasNumber,
   setFeedVisibleScreen,
   changeComment,
   date,

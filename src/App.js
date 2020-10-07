@@ -4,7 +4,6 @@ import "react-calendar/dist/Calendar.css";
 import "./App.css";
 import "./components/transitions.css";
 import axios from "axios";
-import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
 import { Info } from "./pages/Info";
@@ -15,10 +14,7 @@ import { url } from "./url";
 function App() {
   const [fetching, setFetching] = useState(true);
   const [value, onChange] = useState(new Date());
-  const [dateFormated, setDateFormated] = useState("");
   const [feeds, setFeeds] = useState([]);
-  const [feedsToShow, setFeedsToShow] = useState([]);
-  const [feedsSent, setFeedsSent] = useState(false);
   const [time, setTime] = useState({});
   const [page, setPage] = useState("home");
   const [homePage, setHomePage] = useState(true);
@@ -26,43 +22,101 @@ function App() {
   const [infoPage, setInfoPage] = useState(false);
   const [settingsPage, setSetingsPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
-  const [hideNavbar, setHideNavbar] = useState(false);
   const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
 
-  // const formatDat = () => {
-  //   setDateFormated(formatDate(value));
-  //   console.log("yay");
-  // };
+  const fetchFeeders = () => {
+    setFetching(true);
+    axios
+      .get(url.getAndPostFeeder.online, {
+        params: {
+          year: formatDate(value)[0],
+          month: formatDate(value)[1],
+          day: formatDate(value)[2],
+        },
+      })
+      .then((resp) => {
+        console.log(resp.data);
 
-  const feedsShowing = () => {
-    if (dateFormated && feeds) {
-      let feedsByDay = [];
-      const feedsArr = [...feeds];
+        let feedsFromDb = resp.data;
+        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
+        setFeeds(feedsFromDb);
+        setFetching(false);
+      });
+  };
 
-      for (let i = 0; i < feeds.length; i++) {
-        if (
-          feedsArr[i].year === dateFormated[0] &&
-          feedsArr[i].month + 1 === dateFormated[1] &&
-          feedsArr[i].day === dateFormated[2]
-        ) {
-          feedsByDay = [...feedsByDay, feedsArr[i]];
-        }
-      }
-      setFeedsToShow(feedsByDay);
+  const plusButton = () => {
+    if (page === "home") {
+      plusCurrentFeed();
+    } else if (page === "pastFeeds") {
+      setInsertManual(!insertManual);
     }
   };
 
-  const changePage = () => {
-    if (page === "home") {
-      setPage("pastFeeds");
-      setPastFeedPage(true);
-      setHomePage(false);
-    } else if (page === "pastFeeds") {
-      onChange(new Date());
-      setPage("home");
-      setPastFeedPage(false);
-      setHomePage(true);
-    }
+  const plusCurrentFeed = () => {
+    const currentHour = new Date();
+    let currentFeed = feeds;
+    const lastFeedIndex = currentFeed.length - 1;
+
+    // const sameHour =
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+    //     currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+    //     currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
+    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
+    //     currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
+
+    // console.log(currentFeed[currentFeed.length-1].hour)
+    // if (sameHour) {
+    //   novaMamada(feeds[lastFeedIndex].id, 1);
+    // } else {
+    const newFeed = {
+      year: currentHour.getFullYear(),
+      month: currentHour.getMonth(),
+      day: currentHour.getDate(),
+      hour: currentHour.getHours(),
+      minutes: currentHour.getMinutes(),
+      mamadas: 1,
+      breast: "",
+      page: page,
+    };
+
+    axios
+      .post(url.getAndPostFeeder.online, newFeed)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
+  };
+
+  const plusFeed = () => {
+    const newFeed = {
+      year: value.getFullYear(),
+      month: value.getMonth(),
+      day: value.getDate(),
+      hour: time.hours,
+      minutes: time.minutes,
+      mamadas: 1,
+      breast: "",
+      page: "past",
+    };
+
+    axios
+      .post(url.getAndPostFeeder.online, newFeed)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+        setInsertManual(false);
+      });
   };
 
   const pageChange = (pageChosen) => {
@@ -107,128 +161,6 @@ function App() {
       .then((res) => {
         fetchFeeders();
         setFeedVisibleScreen(false);
-      });
-  };
-
-  const fetchFeeders = () => {
-    setFetching(true);
-    axios
-      .get(url.getAndPostFeeder.online, {
-        params: {
-          year: formatDate(value)[0],
-          month: formatDate(value)[1],
-          day: formatDate(value)[2],
-        },
-      })
-      .then((resp) => {
-        console.log(resp.data);
-
-        let feedsFromDb = resp.data;
-        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
-        setFeeds(feedsFromDb);
-        setFetching(false);
-      });
-  };
-
-  const postFeeders = (e) => {
-    let currentFeeds = feeds;
-    currentFeeds.sort(
-      (a, b) =>
-        a.year - b.year ||
-        a.month - b.month ||
-        a.day - b.day ||
-        a.hour - b.hour ||
-        a.minutes - b.minutes
-    );
-    axios
-      .post(url.getAndPostFeeder.online, feeds)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-        setFeedsSent(true);
-      });
-  };
-
-  const plusCurrentFeed = () => {
-    const currentHour = new Date();
-    let currentFeed = feeds;
-    const lastFeedIndex = currentFeed.length - 1;
-
-    // const sameHour =
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-    //     currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-    //     currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
-    //     currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
-
-    // console.log(currentFeed[currentFeed.length-1].hour)
-    // if (sameHour) {
-    //   novaMamada(feeds[lastFeedIndex].id, 1);
-    // } else {
-    const newFeed = {
-      year: currentHour.getFullYear(),
-      month: currentHour.getMonth(),
-      day: currentHour.getDate(),
-      hour: currentHour.getHours(),
-      minutes: currentHour.getMinutes(),
-      mamadas: 1,
-      breast: "",
-      page: page,
-    };
-
-    axios
-      .post(url.getAndPostFeeder.online, newFeed)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
-    // }
-    // setFeeds([...feeds, newFeed]);
-    // }
-  };
-
-  const plusButton = () => {
-    if (page === "home") {
-      plusCurrentFeed();
-    } else if (page === "pastFeeds") {
-      setInsertManual(!insertManual);
-    }
-  };
-
-  const plusFeed = () => {
-    const newFeed = {
-      year: value.getFullYear(),
-      month: value.getMonth(),
-      day: value.getDate(),
-      hour: time.hours,
-      minutes: time.minutes,
-      mamadas: 1,
-      breast: "",
-      page: "past",
-    };
-
-    axios
-      .post(url.getAndPostFeeder.online, newFeed)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-        setInsertManual(false);
       });
   };
 
@@ -286,9 +218,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (value && feeds) {
-      feedsShowing();
-    }
 
     fetchFeeders();
   }, [value]);
@@ -332,7 +261,6 @@ function App() {
           plusFeed={plusFeed}
           deleteFeed={deleteFeed}
           setInsertManual={setInsertManual}
-          setHideNavbar={setHideNavbar}
           plusButton={plusButton}
           setFeedVisibleScreen={setFeedVisibleScreen}
           changeComment={changeComment}
@@ -348,25 +276,10 @@ function App() {
       </CSSTransition>
       <Navbar
         pageChange={pageChange}
-        postFeeders={postFeeders}
-        feedsSent={feedsSent}
-        setFeedsSent={setFeedsSent}
         page={page}
         plusButton={plusButton}
         feedScreenVisible={feedScreenVisible}
       />
-      {/* <BottomNavbar
-        onChangeTime={onChangeTime}
-        plusFeed={plusFeed}
-        value={value}
-        postFeeders={postFeeders}
-        plusCurrentFeed={plusCurrentFeed}
-        feedsSent={feedsSent}
-        setFeedsSent={setFeedsSent}
-        changePage={changePage}
-        plusButton={plusButton}
-        page={page}
-      /> */}
     </div>
   );
 }
