@@ -5,4 +5,5 @@
   justify-content: space-around;
   position: absolute;
   transition: 0.5s top;
+  height: 100%;
 }
