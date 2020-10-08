@@ -31,8 +31,8 @@ export const FeedScreen = ({
   }, [feedComment]);
 
   return (
-    <div className="feed-screen" onClick={closeFeed}>
-      <div className="feed-screen-close" >
+    <div className="feed-screen" >
+      <div className="feed-screen-close" onClick={closeFeed}>
         X
       </div>
       <div className="feed-screen-title">
