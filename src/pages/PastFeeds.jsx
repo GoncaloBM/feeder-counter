@@ -19,7 +19,8 @@ export const PastFeeds = ({
   deleteFeed,
   setInsertManual,
   changeComment,
-  date
+  date,
+  setFeedVisibleScreen
 }) => {
   return (
     <div className="past-feeds">
@@ -34,6 +35,7 @@ export const PastFeeds = ({
         changeBreast={changeBreast}
         deleteFeed={deleteFeed}
         changeComment={changeComment}
+        setFeedVisibleScreen={setFeedVisibleScreen}
       />
       <CSSTransition
         in={insertManual}

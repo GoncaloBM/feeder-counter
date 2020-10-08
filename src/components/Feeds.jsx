@@ -10,7 +10,7 @@ export const Feeds = ({
   deleteFeed,
   setFeedVisibleScreen,
   changeComment,
-  date
+  date,
 }) => {
   const [mamadas, setMamadas] = useState(0);
 

@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { NavbarButton } from "./NavbarButton";
 import { PlusFeedButton } from "../bottomNavbar/PlusFeedButton";
 
-export const Navbar = ({ pageChange, page, plusButton }) => {
+export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
   const navbarButtons = [
     {
       text: "Today",
@@ -185,7 +185,7 @@ export const Navbar = ({ pageChange, page, plusButton }) => {
   };
   return (
     <div className="navbar" style={classes.navbar}>
-      {(page === "home" || page === "pastFeeds") && (
+      {(page === "home" || page === "pastFeeds") && !feedScreenVisible && (
         <PlusFeedButton plusButton={plusButton} />
       )}
       <div

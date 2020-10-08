@@ -5,7 +5,6 @@ import { DeleteFeed } from "./feed/DeleteFeed";
 export const FeedScreen = ({
   hour,
   minutes,
-  index,
   novaMamada,
   mamada,
   setFeedVisible,
@@ -19,7 +18,7 @@ export const FeedScreen = ({
 }) => {
   const closeFeed = () => {
     setFeedVisible(false);
-    setFeedVisibleScreen(false);
+    // setFeedVisibleScreen(false);
   };
 
   const [feedComment, setFeedComment] = useState(comment);
@@ -32,8 +31,8 @@ export const FeedScreen = ({
   }, [feedComment]);
 
   return (
-    <div className="feed-screen">
-      <div className="feed-screen-close" onClick={() => setFeedVisible(false)}>
+    <div className="feed-screen" onClick={closeFeed}>
+      <div className="feed-screen-close" >
         X
       </div>
       <div className="feed-screen-title">

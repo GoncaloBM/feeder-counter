@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FeedScreen } from "./FeedScreen";
 import { formatNumber } from "../formatDate";
 import "./Feeds.css";
@@ -23,8 +23,11 @@ export const Feed = ({
 
   const clickOnFeed = () => {
     setFeedVisible(!feedVisible);
-    setFeedVisibleScreen(true);
   };
+
+  useEffect(()=> {
+    setFeedVisibleScreen(feedVisible)
+  },[feedVisible])
 
   return (
     <div className="feed">
@@ -37,7 +40,7 @@ export const Feed = ({
           justifyContent: "center",
         }}
         key={index}
-        onClick={() => setFeedVisible(!feedVisible)}
+        onClick={clickOnFeed}
       >
         <div className="feed-time">
           {formatNumber(hour)} : {formatNumber(minutes)}
