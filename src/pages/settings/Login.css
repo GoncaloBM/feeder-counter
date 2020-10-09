@@ -1,7 +1,95 @@
+.login-screen {
+  width: 80%;
+  position: absolute;
+  top: 15%;
+  margin-left: 10%;
+  height: 90%;
+}
+
+.login-choices {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 2rem;
+}
+
+.login-choice {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.login-border {
+  position: absolute;
+  border: 1px solid #cabbe9;
+  width: 50%;
+  top: 100%;
+  transition: 0.5s left;
+}
+
 .login {
-    width: 100%;
-    height: 70%;
-    border: 1px solid black;
-    position: absolute;
-    top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 100%;
+}
+
+.sign-up {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.input {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+input {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 5px;
+}
+
+input:focus {
+  border: 1px solid #cabbe9;
+  outline: none !important;
+}
+
+.button-login {
+  font-size: 1.5rem;
+  height: 2.5rem;
+  width: 50%;
+  background-color: #cabbe9;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 1rem;
+}
+
+.double-input {
+  display: flex;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import "./pages.css";
 import "./Settings.css";
-import { Login } from './settings/Login';
+import { LoginScreen } from "./settings/LoginScreen";
 
 export const Settings = ({ pageChange }) => {
   return (
@@ -25,7 +25,7 @@ export const Settings = ({ pageChange }) => {
           <line x1="5" y1="12" x2="11" y2="6" />
         </svg>
       </div>
-      <Login/>
+      <LoginScreen/>
     </div>
     
   );
