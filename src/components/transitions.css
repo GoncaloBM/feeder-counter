@@ -45,3 +45,48 @@
   transform: translateX(-100%);
   transition: opacity 200ms, transform 200ms;
 }
+
+.login-transition-enter {
+  transform: translateX(100%);
+}
+.login-transition-enter-active {
+  transform: translateX(0);
+  transition: opacity 200ms, transform 200ms;
+}
+.login-transition-exit {
+  transform: scale(1);
+}
+.login-transition-exit-active {
+  transform: translateX(-100%);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.baby-transition-enter {
+  transform: translateX(100%);
+}
+.baby-transition-enter-active {
+  transform: translateX(0);
+  transition: opacity 200ms, transform 200ms;
+}
+.baby-transition-exit {
+  transform: scale(1);
+}
+.baby-transition-exit-active {
+  transform: translateX(-100%);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.about-transition-enter {
+  transform: translateX(100%);
+}
+.about-transition-enter-active {
+  transform: translateX(0);
+  transition: opacity 200ms, transform 200ms;
+}
+.about-transition-exit {
+  transform: scale(1);
+}
+.about-transition-exit-active {
+  transform: translateX(-100%);
+  transition: opacity 200ms, transform 200ms;
+}

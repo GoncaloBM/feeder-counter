@@ -110,7 +110,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
           height="52"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="#2c3e50"
+          stroke={page === "settings" ? "#cabbe9" : "#2c3e50"}
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -131,7 +131,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
           height="52"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="#2c3e50"
+          stroke={page === "baby" ? "#cabbe9" : "#2c3e50"}
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -154,7 +154,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
           height="52"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="#2c3e50"
+          stroke={page === "app" ? "#cabbe9" : "#2c3e50"}
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -190,7 +190,12 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       )}
       <div
         className="navbar-line"
-        style={{ top: page !== "settings" ? "0%" : "100%" }}
+        style={{
+          top:
+            page === "home" || page === "pastFeeds" || page === "info"
+              ? "0%"
+              : "100%",
+        }}
       >
         {navbarButtons.map((navbarbutton, index) => {
           return (
@@ -204,13 +209,18 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       </div>
       <div
         className="navbar-line"
-        style={{ top: page !== "settings" ? "100%" : "0%" }}
+        style={{
+          top:
+            page === "settings" || page === "baby" || page === "app"
+              ? "0%"
+              : "100%",
+        }}
       >
-        {settingsButtons.map((navbarbutton, index) => {
+        {settingsButtons.map((settingsButtons, index) => {
           return (
             <NavbarButton
-              text={navbarbutton.text}
-              img={navbarbutton.img}
+              text={settingsButtons.text}
+              img={settingsButtons.img}
               pageChange={pageChange}
             />
           );

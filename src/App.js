@@ -18,6 +18,14 @@ function App() {
   const [feeds, setFeeds] = useState([]);
   const [time, setTime] = useState({});
   const [page, setPage] = useState("home");
+  const [pages, setPages] = useState({
+    home: true,
+    pastFeed: false,
+    info: false,
+    settings: false,
+    baby: false,
+    app: false,
+  });
   const [homePage, setHomePage] = useState(true);
   const [pastFeedPage, setPastFeedPage] = useState(false);
   const [infoPage, setInfoPage] = useState(false);
@@ -124,28 +132,71 @@ function App() {
     if (pageChosen === "Today") {
       onChange(new Date());
       setPage("home");
-      setHomePage(true);
-      setPastFeedPage(false);
-      setInfoPage(false);
-      setSetingsPage(false);
+      setPages({
+        ...pages,
+        home: true,
+        pastFeed: false,
+        info: false,
+        settings: false,
+        baby: false,
+        app: false,
+      });
     } else if (pageChosen === "Info") {
       setPage("info");
-      setHomePage(false);
-      setPastFeedPage(false);
-      setInfoPage(true);
-      setSetingsPage(false);
+      setPages({
+        ...pages,
+        home: false,
+        pastFeed: false,
+        info: true,
+        settings: false,
+        baby: false,
+        app: false,
+      });
     } else if (pageChosen === "Past Feeds") {
       setPage("pastFeeds");
-      setHomePage(false);
-      setPastFeedPage(true);
-      setInfoPage(false);
-      setSetingsPage(false);
-    } else if (pageChosen === "Settings") {
+      setPages({
+        ...pages,
+        home: false,
+        pastFeed: true,
+        info: false,
+        settings: false,
+        baby: false,
+        app: false,
+      });
+    } else if (pageChosen === "Settings" || pageChosen === 'Login/Sign Up') {
       setPage("settings");
-      setHomePage(false);
-      setPastFeedPage(false);
-      setInfoPage(false);
-      setSetingsPage(true);
+      setPages({
+        ...pages,
+        home: false,
+        pastFeed: false,
+        info: false,
+        settings: true,
+        baby: false,
+        app: false,
+      });
+    } else if (pageChosen === "My Baby") {
+      setPage("baby");
+      setPages({
+        ...pages,
+        home: false,
+        pastFeed: false,
+        info: false,
+        settings: false,
+        baby: true,
+        app: false,
+      });
+    }
+    else if (pageChosen === "About") {
+      setPage("app");
+      setPages({
+        ...pages,
+        home: false,
+        pastFeed: false,
+        info: false,
+        settings: false,
+        baby: false,
+        app: true,
+      });
     }
   };
 
@@ -224,7 +275,7 @@ function App() {
   return (
     <div className="App">
       <CSSTransition
-        in={homePage}
+        in={pages.home}
         timeout={200}
         classNames="home-transition"
         unmountOnExit
@@ -242,7 +293,7 @@ function App() {
         />
       </CSSTransition>
       <CSSTransition
-        in={pastFeedPage}
+        in={pages.pastFeed}
         timeout={200}
         classNames="past-feed-transition"
         unmountOnExit
@@ -266,7 +317,7 @@ function App() {
         />
       </CSSTransition>
       <CSSTransition
-        in={infoPage}
+        in={pages.info}
         timeout={200}
         classNames="past-feed-transition"
         unmountOnExit
@@ -275,12 +326,12 @@ function App() {
       </CSSTransition>
 
       <CSSTransition
-        in={settingsPage}
+        in={pages.settings}
         timeout={200}
         classNames="past-feed-transition"
         unmountOnExit
       >
-        <Settings pageChange={pageChange}/>
+        <Settings pageChange={pageChange} pages={pages}/>
       </CSSTransition>
 
       <Navbar

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./pages.css";
 import "./Settings.css";
+import { CSSTransition } from "react-transition-group";
 import { LoginScreen } from "./settings/LoginScreen";
+import { BabyScreen } from "./settings/BabyScreen";
+import { AboutScreen } from "./settings/AboutScreen";
 
-export const Settings = ({ pageChange }) => {
+export const Settings = ({ pageChange, pages }) => {
   return (
     <div className="settings">
       <div className="back" onClick={() => pageChange("Today")}>
@@ -25,8 +28,32 @@ export const Settings = ({ pageChange }) => {
           <line x1="5" y1="12" x2="11" y2="6" />
         </svg>
       </div>
-      <LoginScreen/>
+
+      <CSSTransition
+        in={pages.settings}
+        timeout={200}
+        classNames="login-transition"
+        unmountOnExit
+      >
+        <LoginScreen />
+      </CSSTransition>
+
+      <CSSTransition
+        in={pages.baby}
+        timeout={200}
+        classNames="baby-transition"
+        unmountOnExit
+      >
+        <BabyScreen />
+      </CSSTransition>
+      <CSSTransition
+        in={pages.app}
+        timeout={200}
+        classNames="about-transition"
+        unmountOnExit
+      >
+        <AboutScreen />
+      </CSSTransition>
     </div>
-    
   );
 };
