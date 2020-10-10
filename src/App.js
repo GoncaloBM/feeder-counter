@@ -327,9 +327,14 @@ function App() {
         <Info feeds={feeds[feeds.length - 1]} infoPage={pages.info} />
       </CSSTransition>
 
-      {(pages.settings || pages.baby || pages.app) && (
+      <CSSTransition
+        in={pages.settings}
+        timeout={200}
+        classNames="past-feed-transition"
+        unmountOnExit
+      >
         <Settings pageChange={pageChange} pages={pages} />
-      )}
+      </CSSTransition>
 
       <Navbar
         pageChange={pageChange}
