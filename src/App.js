@@ -23,13 +23,10 @@ function App() {
     pastFeed: false,
     info: false,
     settings: false,
+    login: false,
     baby: false,
     app: false,
   });
-  const [homePage, setHomePage] = useState(true);
-  const [pastFeedPage, setPastFeedPage] = useState(false);
-  const [infoPage, setInfoPage] = useState(false);
-  const [settingsPage, setSetingsPage] = useState(false);
   const [insertManual, setInsertManual] = useState(false);
   const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
 
@@ -138,6 +135,7 @@ function App() {
         pastFeed: false,
         info: false,
         settings: false,
+        login: false,
         baby: false,
         app: false,
       });
@@ -149,6 +147,7 @@ function App() {
         pastFeed: false,
         info: true,
         settings: false,
+        login: false,
         baby: false,
         app: false,
       });
@@ -160,10 +159,11 @@ function App() {
         pastFeed: true,
         info: false,
         settings: false,
+        login: false,
         baby: false,
         app: false,
       });
-    } else if (pageChosen === "Settings" || pageChosen === 'Login/Sign Up') {
+    } else if (pageChosen === "Settings" || pageChosen === "Login/Sign Up") {
       setPage("settings");
       setPages({
         ...pages,
@@ -171,6 +171,7 @@ function App() {
         pastFeed: false,
         info: false,
         settings: true,
+        login: true,
         baby: false,
         app: false,
       });
@@ -181,19 +182,20 @@ function App() {
         home: false,
         pastFeed: false,
         info: false,
-        settings: false,
+        settings: true,
+        login: false,
         baby: true,
         app: false,
       });
-    }
-    else if (pageChosen === "About") {
+    } else if (pageChosen === "About") {
       setPage("app");
       setPages({
         ...pages,
         home: false,
         pastFeed: false,
         info: false,
-        settings: false,
+        settings: true,
+        login: false,
         baby: false,
         app: true,
       });
@@ -322,17 +324,12 @@ function App() {
         classNames="past-feed-transition"
         unmountOnExit
       >
-        <Info feeds={feeds[feeds.length - 1]} infoPage={infoPage} />
+        <Info feeds={feeds[feeds.length - 1]} infoPage={pages.info} />
       </CSSTransition>
 
-      <CSSTransition
-        in={pages.settings}
-        timeout={200}
-        classNames="past-feed-transition"
-        unmountOnExit
-      >
-        <Settings pageChange={pageChange} pages={pages}/>
-      </CSSTransition>
+      {(pages.settings || pages.baby || pages.app) && (
+        <Settings pageChange={pageChange} pages={pages} />
+      )}
 
       <Navbar
         pageChange={pageChange}
