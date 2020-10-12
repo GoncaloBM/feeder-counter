@@ -309,6 +309,8 @@ function App() {
           onChange={onChange}
           value={value}
           insertManual={insertManual}
+          time={time}
+          setTime={setTime}
           onChangeTime={onChangeTime}
           plusFeed={plusFeed}
           deleteFeed={deleteFeed}

@@ -20,7 +20,9 @@ export const PastFeeds = ({
   setInsertManual,
   changeComment,
   date,
-  setFeedVisibleScreen
+  setFeedVisibleScreen,
+  setTime,
+  time
 }) => {
   return (
     <div className="past-feeds">
@@ -47,6 +49,8 @@ export const PastFeeds = ({
           onChangeTime={onChangeTime}
           plusFeed={plusFeed}
           setInsertManual={setInsertManual}
+          setTime={setTime}
+          time={time}
         />
       </CSSTransition>
     </div>
