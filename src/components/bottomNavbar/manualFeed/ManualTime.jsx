@@ -11,7 +11,7 @@ export const ManualTime = ({ setTime, time }) => {
         timeState={time}
         timeType={"hour"}
       />
-      <div className="manual-points">:</div>
+      <div className="manual-points" style={{margin:'1rem'}}>:</div>
       <ManualTimer
         current={currentTime.getMinutes()}
         setTimeState={setTime}

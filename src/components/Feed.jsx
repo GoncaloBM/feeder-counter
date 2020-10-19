@@ -18,16 +18,22 @@ export const Feed = ({
   setFeedVisibleScreen,
   changeComment,
   id,
+  setTime,
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
 
   const clickOnFeed = () => {
+    const currentHour = new Date();
     setFeedVisible(!feedVisible);
+    setTime({
+      hours: currentHour.getHours(),
+      minutes: currentHour.getMinutes(),
+    });
   };
 
-  useEffect(()=> {
-    setFeedVisibleScreen(feedVisible)
-  },[feedVisible])
+  useEffect(() => {
+    setFeedVisibleScreen(feedVisible);
+  }, [feedVisible]);
 
   return (
     <div className="feed">

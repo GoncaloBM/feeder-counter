@@ -38,6 +38,7 @@ export const PastFeeds = ({
         deleteFeed={deleteFeed}
         changeComment={changeComment}
         setFeedVisibleScreen={setFeedVisibleScreen}
+        setTime={setTime}
       />
       <CSSTransition
         in={insertManual}

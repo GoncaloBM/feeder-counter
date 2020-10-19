@@ -13,9 +13,9 @@
 
 .manual-feed-screen {
   position: fixed;
-  top: 40%;
+  top: 25%;
   width: 70%;
-  height: 25%;
+  height: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,6 +27,8 @@
 .manual-time {
   display: flex;
   align-items: center;
+  height: 40%;
+  margin-bottom: 1rem;
 }
 
 .manual-timer {
@@ -34,6 +36,7 @@
   flex-direction: column;
   align-items: center;
   width: 50px;
+  font-size: 2rem;
 }
 
 .manual-arrow-time {

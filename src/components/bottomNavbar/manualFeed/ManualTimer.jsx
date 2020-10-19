@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-export const ManualTimer = ({
-  current,
-  timeState,
-  setTimeState,
-  timeType,
-}) => {
+export const ManualTimer = ({ timeState, setTimeState, timeType }) => {
   const [time, setTime] = useState(0);
+
+  const formatNumber = (number) => {
+    if (number > 10) {
+      return number;
+    } else {
+      return `0${number}`;
+    }
+  };
 
   const newTime = (button) => {
     const currentTime = time;
@@ -23,14 +26,14 @@ export const ManualTimer = ({
     }
 
     if (timeType === "minutes") {
-        if (newTime < 0) {
-          setTime(59);
-        } else if (newTime > 59) {
-          setTime(0);
-        } else {
-          setTime(newTime);
-        }
+      if (newTime < 0) {
+        setTime(59);
+      } else if (newTime > 59) {
+        setTime(0);
+      } else {
+        setTime(newTime);
       }
+    }
   };
 
   useEffect(() => {
@@ -50,8 +53,8 @@ export const ManualTimer = ({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-chevron-left"
-          width="20"
-          height="20"
+          width="50"
+          height="50"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="#cabbe9"
@@ -63,7 +66,7 @@ export const ManualTimer = ({
           <polyline points="15 6 9 12 15 18" />
         </svg>
       </div>
-      <div className="manual-timer">{time}</div>
+      <div className="manual-timer">{formatNumber(time)}</div>
       <div
         className="manual-arrow-time"
         onClick={() => newTime(-1)}
@@ -72,8 +75,8 @@ export const ManualTimer = ({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-chevron-left"
-          width="20"
-          height="20"
+          width="50"
+          height="50"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="#cabbe9"

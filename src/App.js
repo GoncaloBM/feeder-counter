@@ -288,6 +288,7 @@ function App() {
           novaMamada={novaMamada}
           changeBreast={changeBreast}
           page={page}
+          setTime={setTime}
           deleteFeed={deleteFeed}
           plusButton={plusButton}
           setFeedVisibleScreen={setFeedVisibleScreen}

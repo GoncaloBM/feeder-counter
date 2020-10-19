@@ -68,6 +68,7 @@ export const Feeds = ({
                 deleteFeed={deleteFeed}
                 setFeedVisibleScreen={setFeedVisibleScreen}
                 changeComment={changeComment}
+                setTime={setTime}
               />
             );
           } else {

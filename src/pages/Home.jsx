@@ -12,6 +12,7 @@ export const Home = ({
   setFeedVisibleScreen,
   changeComment,
   date,
+  setTime,
 }) => {
   return (
     <div className="home">
@@ -25,6 +26,7 @@ export const Home = ({
         deleteFeed={deleteFeed}
         setFeedVisibleScreen={setFeedVisibleScreen}
         changeComment={changeComment}
+        setTime={setTime}
       />
     </div>
   );
