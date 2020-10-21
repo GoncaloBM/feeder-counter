@@ -2,11 +2,19 @@ import React from "react";
 import "./Navbar.css";
 import { NavbarButton } from "./NavbarButton";
 import { PlusFeedButton } from "../bottomNavbar/PlusFeedButton";
+import SettingsContext from "../../SettingContext";
+import { text } from "../texts";
 
-export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
+export const Navbar = ({
+  pageChange,
+  page,
+  plusButton,
+  feedScreenVisible,
+  language,
+}) => {
   const navbarButtons = [
     {
-      text: "Today",
+      text: text.navbar.today[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +39,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       ),
     },
     {
-      text: "Info",
+      text: text.navbar.info[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +61,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       ),
     },
     {
-      text: "Past Feeds",
+      text: text.navbar.past[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +85,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       ),
     },
     {
-      text: "Settings",
+      text: text.navbar.settings[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +109,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
 
   const settingsButtons = [
     {
-      text: "Login/Sign Up",
+      text: text.navbar.login[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +130,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       ),
     },
     {
-      text: "My Baby",
+      text: text.navbar.myBaby[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +153,7 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
       ),
     },
     {
-      text: "About",
+      text: text.navbar.about[`${language}`],
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -184,48 +192,52 @@ export const Navbar = ({ pageChange, page, plusButton, feedScreenVisible }) => {
     },
   };
   return (
-    <div className="navbar" style={classes.navbar}>
-      {(page === "home" || page === "pastFeeds") && !feedScreenVisible && (
-        <PlusFeedButton plusButton={plusButton} />
+    <SettingsContext.Consumer>
+      {(settings) => (
+        <div className="navbar" style={classes.navbar}>
+          {(page === "home" || page === "pastFeeds") && !feedScreenVisible && (
+            <PlusFeedButton plusButton={plusButton} />
+          )}
+          <div
+            className="navbar-line"
+            style={{
+              top:
+                page === "home" || page === "pastFeeds" || page === "info"
+                  ? "0%"
+                  : "100%",
+            }}
+          >
+            {navbarButtons.map((navbarbutton, index) => {
+              return (
+                <NavbarButton
+                  text={navbarbutton.text}
+                  img={navbarbutton.img}
+                  pageChange={pageChange}
+                />
+              );
+            })}
+          </div>
+          <div
+            className="navbar-line"
+            style={{
+              top:
+                page === "settings" || page === "baby" || page === "app"
+                  ? "0%"
+                  : "100%",
+            }}
+          >
+            {settingsButtons.map((settingsButtons, index) => {
+              return (
+                <NavbarButton
+                  text={settingsButtons.text}
+                  img={settingsButtons.img}
+                  pageChange={pageChange}
+                />
+              );
+            })}
+          </div>
+        </div>
       )}
-      <div
-        className="navbar-line"
-        style={{
-          top:
-            page === "home" || page === "pastFeeds" || page === "info"
-              ? "0%"
-              : "100%",
-        }}
-      >
-        {navbarButtons.map((navbarbutton, index) => {
-          return (
-            <NavbarButton
-              text={navbarbutton.text}
-              img={navbarbutton.img}
-              pageChange={pageChange}
-            />
-          );
-        })}
-      </div>
-      <div
-        className="navbar-line"
-        style={{
-          top:
-            page === "settings" || page === "baby" || page === "app"
-              ? "0%"
-              : "100%",
-        }}
-      >
-        {settingsButtons.map((settingsButtons, index) => {
-          return (
-            <NavbarButton
-              text={settingsButtons.text}
-              img={settingsButtons.img}
-              pageChange={pageChange}
-            />
-          );
-        })}
-      </div>
-    </div>
+    </SettingsContext.Consumer>
   );
 };

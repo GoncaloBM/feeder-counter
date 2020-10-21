@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Info.css";
+import SettingsContext from "../SettingContext";
+import { text } from "../components/texts";
 
 export const Info = ({ feeds, infoPage }) => {
   const [mamadaHour, setMamadaHour] = useState("");
   const [breastToFeed, setBreastToFeed] = useState("");
+  const { settings } = useContext(SettingsContext);
+  const [stateSettings, setStateSettings] = settings;
+
   const checkNovaMamada = () => {
     const lastMamada = feeds;
     console.log(lastMamada);
@@ -54,7 +59,9 @@ export const Info = ({ feeds, infoPage }) => {
   return (
     <div className="info-page">
       <div className="nova-mamada-line">
-        <div className="nova-mamada-text">New mamada on</div>
+        <div className="nova-mamada-text">
+          {text.info.newMamada[`${stateSettings.about.language}`]}
+        </div>
         <div className="nova-mamada-time">
           {mamadaHour.hour} : {mamadaHour.minutes}
         </div>
@@ -62,8 +69,10 @@ export const Info = ({ feeds, infoPage }) => {
       <div className="breast-feed-line">
         <div className="breast-feed-text">
           {breastToFeed
-            ? `Your next breast to feed is ${breastToFeed}`
-            : "Please update your last feed"}
+            ? `${
+                text.info.nextMama[`${stateSettings.about.language}`]
+              }${breastToFeed}`
+            : text.info.updateMama[`${stateSettings.about.language}`]}
         </div>
       </div>
     </div>

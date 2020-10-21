@@ -11,6 +11,8 @@ import { CSSTransition } from "react-transition-group";
 import { Navbar } from "./components/navbar/Navbar";
 import { url } from "./url";
 import { Settings } from "./pages/Settings";
+import { text } from "./components/texts";
+import SettingsContext from "./SettingContext";
 
 function App() {
   const [fetching, setFetching] = useState(true);
@@ -29,6 +31,24 @@ function App() {
   });
   const [insertManual, setInsertManual] = useState(false);
   const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
+  const [settings, setSettings] = useState({
+    about: { language: "English" },
+    myBaby: {
+      vitamin: {
+        warning: true,
+        vitaminHour: 20,
+        vitaminMinute: 0,
+        onInfo: false,
+      },
+      breastFeeding: {
+        nextBreastHour: 3,
+        nextBreastMinute: 0,
+        numberPerDay: 8,
+        sameBreastHour: 1,
+      },
+      baby: { name: "Clara", sex: "F", title: false },
+    },
+  });
 
   const fetchFeeders = () => {
     setFetching(true);
@@ -63,40 +83,43 @@ function App() {
     let currentFeed = feeds;
     const lastFeedIndex = currentFeed.length - 1;
 
-    // const sameHour =
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-    //     currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-    //     currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
-    //   (currentHour.getHours() === currentFeed[lastFeedIndex].hour + 1 &&
-    //     currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
+    const sameHour =
+      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+        currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
+      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+        currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
+      (currentHour.getHours() ===
+        currentFeed[lastFeedIndex].hour +
+          settings.breastFeeding.sameBreastHour &&
+        currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
 
     // console.log(currentFeed[currentFeed.length-1].hour)
-    // if (sameHour) {
-    //   novaMamada(feeds[lastFeedIndex].id, 1);
-    // } else {
-    const newFeed = {
-      year: currentHour.getFullYear(),
-      month: currentHour.getMonth(),
-      day: currentHour.getDate(),
-      hour: currentHour.getHours(),
-      minutes: currentHour.getMinutes(),
-      mamadas: 1,
-      breast: "",
-      page: page,
-    };
+    if (sameHour) {
+      novaMamada(feeds[lastFeedIndex].id, 1);
+    } else {
+      const newFeed = {
+        year: currentHour.getFullYear(),
+        month: currentHour.getMonth(),
+        day: currentHour.getDate(),
+        hour: currentHour.getHours(),
+        minutes: currentHour.getMinutes(),
+        mamadas: 1,
+        breast: "",
+        page: page,
+      };
 
-    axios
-      .post(url.getAndPostFeeder.online, newFeed)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
+      axios
+        .post(url.getAndPostFeeder.online, newFeed)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((res) => {
+          fetchFeeders();
+        });
+    }
   };
 
   const plusFeed = () => {
@@ -126,7 +149,7 @@ function App() {
   };
 
   const pageChange = (pageChosen) => {
-    if (pageChosen === "Today") {
+    if (pageChosen === text.navbar.today[`${settings.about.language}`]) {
       onChange(new Date());
       setPage("home");
       setPages({
@@ -139,7 +162,7 @@ function App() {
         baby: false,
         app: false,
       });
-    } else if (pageChosen === "Info") {
+    } else if (pageChosen === text.navbar.info[`${settings.about.language}`]) {
       setPage("info");
       setPages({
         ...pages,
@@ -151,7 +174,7 @@ function App() {
         baby: false,
         app: false,
       });
-    } else if (pageChosen === "Past Feeds") {
+    } else if (pageChosen === text.navbar.past[`${settings.about.language}`]) {
       setPage("pastFeeds");
       setPages({
         ...pages,
@@ -163,7 +186,10 @@ function App() {
         baby: false,
         app: false,
       });
-    } else if (pageChosen === "Settings" || pageChosen === "Login/Sign Up") {
+    } else if (
+      pageChosen === text.navbar.settings[`${settings.about.language}`] ||
+      pageChosen === text.navbar.login[`${settings.about.language}`]
+    ) {
       setPage("settings");
       setPages({
         ...pages,
@@ -175,7 +201,9 @@ function App() {
         baby: false,
         app: false,
       });
-    } else if (pageChosen === "My Baby") {
+    } else if (
+      pageChosen === text.navbar.myBaby[`${settings.about.language}`]
+    ) {
       setPage("baby");
       setPages({
         ...pages,
@@ -187,7 +215,7 @@ function App() {
         baby: true,
         app: false,
       });
-    } else if (pageChosen === "About") {
+    } else if (pageChosen === text.navbar.about[`${settings.about.language}`]) {
       setPage("app");
       setPages({
         ...pages,
@@ -275,77 +303,80 @@ function App() {
   }, [value]);
 
   return (
-    <div className="App">
-      <CSSTransition
-        in={pages.home}
-        timeout={200}
-        classNames="home-transition"
-        unmountOnExit
-      >
-        <Home
-          date={formatDate(value)}
-          feeds={feeds}
-          novaMamada={novaMamada}
-          changeBreast={changeBreast}
-          page={page}
-          setTime={setTime}
-          deleteFeed={deleteFeed}
-          plusButton={plusButton}
-          setFeedVisibleScreen={setFeedVisibleScreen}
-          changeComment={changeComment}
-        />
-      </CSSTransition>
-      <CSSTransition
-        in={pages.pastFeed}
-        timeout={200}
-        classNames="past-feed-transition"
-        unmountOnExit
-      >
-        <PastFeeds
-          date={formatDate(value)}
-          feeds={feeds}
-          novaMamada={novaMamada}
-          changeBreast={changeBreast}
-          page={page}
-          onChange={onChange}
-          value={value}
-          insertManual={insertManual}
-          time={time}
-          setTime={setTime}
-          onChangeTime={onChangeTime}
-          plusFeed={plusFeed}
-          deleteFeed={deleteFeed}
-          setInsertManual={setInsertManual}
-          plusButton={plusButton}
-          setFeedVisibleScreen={setFeedVisibleScreen}
-          changeComment={changeComment}
-        />
-      </CSSTransition>
-      <CSSTransition
-        in={pages.info}
-        timeout={200}
-        classNames="past-feed-transition"
-        unmountOnExit
-      >
-        <Info feeds={feeds[feeds.length - 1]} infoPage={pages.info} />
-      </CSSTransition>
+    <SettingsContext.Provider value={{ settings: [settings, setSettings] }}>
+      <div className="App">
+        <CSSTransition
+          in={pages.home}
+          timeout={200}
+          classNames="home-transition"
+          unmountOnExit
+        >
+          <Home
+            date={formatDate(value)}
+            feeds={feeds}
+            novaMamada={novaMamada}
+            changeBreast={changeBreast}
+            page={page}
+            setTime={setTime}
+            deleteFeed={deleteFeed}
+            plusButton={plusButton}
+            setFeedVisibleScreen={setFeedVisibleScreen}
+            changeComment={changeComment}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={pages.pastFeed}
+          timeout={200}
+          classNames="past-feed-transition"
+          unmountOnExit
+        >
+          <PastFeeds
+            date={formatDate(value)}
+            feeds={feeds}
+            novaMamada={novaMamada}
+            changeBreast={changeBreast}
+            page={page}
+            onChange={onChange}
+            value={value}
+            insertManual={insertManual}
+            time={time}
+            setTime={setTime}
+            onChangeTime={onChangeTime}
+            plusFeed={plusFeed}
+            deleteFeed={deleteFeed}
+            setInsertManual={setInsertManual}
+            plusButton={plusButton}
+            setFeedVisibleScreen={setFeedVisibleScreen}
+            changeComment={changeComment}
+          />
+        </CSSTransition>
+        <CSSTransition
+          in={pages.info}
+          timeout={200}
+          classNames="past-feed-transition"
+          unmountOnExit
+        >
+          <Info feeds={feeds[feeds.length - 1]} infoPage={pages.info} />
+        </CSSTransition>
 
-      <CSSTransition
-        in={pages.settings}
-        timeout={200}
-        classNames="past-feed-transition"
-        unmountOnExit
-      >
-        <Settings pageChange={pageChange} pages={pages} />
-      </CSSTransition>
+        <CSSTransition
+          in={pages.settings}
+          timeout={200}
+          classNames="past-feed-transition"
+          unmountOnExit
+        >
+          <Settings pageChange={pageChange} pages={pages} settings={settings} />
+        </CSSTransition>
 
-      <Navbar
-        pageChange={pageChange}
-        page={page}
-        plusButton={plusButton}
-        feedScreenVisible={feedScreenVisible}
-      />
-    </div>
+        <Navbar
+          pageChange={pageChange}
+          page={page}
+          plusButton={plusButton}
+          feedScreenVisible={feedScreenVisible}
+          language={settings.about.language}
+        />
+      </div>
+    </SettingsContext.Provider>
   );
 }
 

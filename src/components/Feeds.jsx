@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Feed } from "./Feed";
 import "./Feeds.css";
+import SettingsContext from "../SettingContext";
+import { text } from "./texts";
 
 export const Feeds = ({
   feeds,
@@ -11,11 +13,11 @@ export const Feeds = ({
   setFeedVisibleScreen,
   changeComment,
   date,
-  setTime
+  setTime,
 }) => {
   const [mamadas, setMamadas] = useState(0);
-
-
+  const { settings } = useContext(SettingsContext);
+  const [stateSettings, setStateSettings] = settings;
 
   const checkMamadasNumber = () => {
     let currentMamada = mamadas;
@@ -44,7 +46,7 @@ export const Feeds = ({
     <div className="feeds-screen">
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
-          ? `Today's Feeds`
+          ? text.home.todayFeed[`${stateSettings.about.language}`]
           : `${date[2]} / ${date[1]} / ${date[0]}`}
       </div>
       <div className="feeds">
