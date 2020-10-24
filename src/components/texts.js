@@ -16,10 +16,6 @@ export const text = {
       English: "New breast to feed is ",
       Portuguese: "Nova mama para alimentar é a ",
     },
-    nextMamaL: {
-      English: "New breast to feed is Left",
-      Portuguese: "Nova mama para alimentar é a Esquerda",
-    },
     updateMama: {
       English: "Please update your last feed",
       Portuguese: "Por favor actualiza a última mamada",

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { url } from "../../url";
 import "./Login.css";
 
 export const SignUp = () => {
@@ -8,6 +10,8 @@ export const SignUp = () => {
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirmed, setNewPasswordConfirmed] = useState("");
+
+  const { online, register } = url;
 
   const inputNewFirstName = (e) => {
     setNewFirstName(e.target.value);
@@ -26,6 +30,26 @@ export const SignUp = () => {
   };
   const inputNewConfirmedPassword = (e) => {
     setNewPasswordConfirmed(e.target.value);
+  };
+
+  const registerUser = () => {
+    let newUserInfo = {
+      username: newUser,
+      password: newPassword,
+      email: newEmail,
+      firstname: newFirstName,
+      lastName: newLastName,
+    };
+    console.log(newUserInfo);
+
+    axios
+      .post(`${url.server}${register}`, newUserInfo)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -81,7 +105,9 @@ export const SignUp = () => {
             onChange={inputNewConfirmedPassword}
           />
         </div>
-        <div className="button-login">Sign Up</div>
+        <div className="button-login" onClick={registerUser}>
+          Sign Up
+        </div>
       </form>
     </div>
   );

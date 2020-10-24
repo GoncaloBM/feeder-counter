@@ -46,18 +46,19 @@ function App() {
         numberPerDay: 8,
         sameBreastHour: 1,
       },
-      baby: { name: "Clara", sex: "F", title: false },
     },
+    user: { loggedIn: false, username: "" },
   });
 
   const fetchFeeders = () => {
     setFetching(true);
     axios
-      .get(url.getAndPostFeeder.online, {
+      .get(url.getAndPostFeeder.server, {
         params: {
           year: formatDate(value)[0],
           month: formatDate(value)[1],
           day: formatDate(value)[2],
+          username: settings.user.username,
         },
       })
       .then((resp) => {
@@ -78,47 +79,58 @@ function App() {
     }
   };
 
+  const newFeed = () => {
+    const currentHour = new Date();
+    const newFeed = {
+      year: currentHour.getFullYear(),
+      month: currentHour.getMonth(),
+      day: currentHour.getDate(),
+      hour: currentHour.getHours(),
+      minutes: currentHour.getMinutes(),
+      mamadas: 1,
+      breast: "",
+      page: page,
+      username: settings.user.username,
+    };
+
+    axios
+      .post(url.getAndPostFeeder.server, newFeed)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
+  };
+
   const plusCurrentFeed = () => {
     const currentHour = new Date();
     let currentFeed = feeds;
     const lastFeedIndex = currentFeed.length - 1;
 
-    const sameHour =
-      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-        currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
-      (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-        currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
-      (currentHour.getHours() ===
-        currentFeed[lastFeedIndex].hour +
-          settings.breastFeeding.sameBreastHour &&
-        currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
+    if (currentFeed.length > 0) {
+      const sameHour =
+        (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+          currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
+        (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
+          currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
+        (currentHour.getHours() ===
+          currentFeed[lastFeedIndex].hour +
+            settings.myBaby.breastFeeding.sameBreastHour &&
+          currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
 
-    // console.log(currentFeed[currentFeed.length-1].hour)
-    if (sameHour) {
-      novaMamada(feeds[lastFeedIndex].id, 1);
+      // console.log(currentFeed[currentFeed.length-1].hour)
+      if (sameHour) {
+        // novaMamada(feeds[lastFeedIndex].id, 1);
+        newFeed();
+      } else {
+        newFeed();
+      }
     } else {
-      const newFeed = {
-        year: currentHour.getFullYear(),
-        month: currentHour.getMonth(),
-        day: currentHour.getDate(),
-        hour: currentHour.getHours(),
-        minutes: currentHour.getMinutes(),
-        mamadas: 1,
-        breast: "",
-        page: page,
-      };
-
-      axios
-        .post(url.getAndPostFeeder.online, newFeed)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then((res) => {
-          fetchFeeders();
-        });
+      newFeed();
     }
   };
 
@@ -231,7 +243,7 @@ function App() {
   };
 
   const deleteFeed = (i) => {
-    const deleteUrl = `${url.online}babyfeeder/feeders/${i}`;
+    const deleteUrl = `${url.server}babyfeeder/feeders/${i}`;
     axios
       .delete(deleteUrl)
       .then((res) => {
@@ -299,7 +311,12 @@ function App() {
   };
 
   useEffect(() => {
-    fetchFeeders();
+    // const { loggedIn } = settings.user;
+    if (settings.user.loggedIn) {
+      fetchFeeders();
+    } else {
+      pageChange(text.navbar.settings[`${settings.about.language}`]);
+    }
   }, [value]);
 
   return (

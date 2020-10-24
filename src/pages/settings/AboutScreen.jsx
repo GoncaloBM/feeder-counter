@@ -50,7 +50,6 @@ export const AboutScreen = () => {
               id: "age-native-simple",
             }}
           >
-            <option aria-label="None" value="" />
             <option value={"English"}>
               {text.about.english[`${stateSettings.about.language}`]}
             </option>
