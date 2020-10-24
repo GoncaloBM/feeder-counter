@@ -11,7 +11,7 @@ export const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login, server } = url;
+  const { login, server ,online} = url;
 
   const inputUser = (e) => {
     setUser(e.target.value);
@@ -28,7 +28,7 @@ export const Login = () => {
     };
 
     axios
-      .post(`${server}${login}`, userToLogin)
+      .post(`${online}${login}`, userToLogin)
       .then((res) => {
         console.log(res.data);
         setStateSettings((prevState) => ({

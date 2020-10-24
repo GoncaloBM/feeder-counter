@@ -53,7 +53,7 @@ function App() {
   const fetchFeeders = () => {
     setFetching(true);
     axios
-      .get(url.getAndPostFeeder.server, {
+      .get(url.getAndPostFeeder.online, {
         params: {
           year: formatDate(value)[0],
           month: formatDate(value)[1],
@@ -94,7 +94,7 @@ function App() {
     };
 
     axios
-      .post(url.getAndPostFeeder.server, newFeed)
+      .post(url.getAndPostFeeder.online, newFeed)
       .then((res) => {
         console.log(res.data);
       })
@@ -243,7 +243,7 @@ function App() {
   };
 
   const deleteFeed = (i) => {
-    const deleteUrl = `${url.server}babyfeeder/feeders/${i}`;
+    const deleteUrl = `${url.online}babyfeeder/feeders/${i}`;
     axios
       .delete(deleteUrl)
       .then((res) => {

@@ -43,7 +43,7 @@ export const SignUp = () => {
     console.log(newUserInfo);
 
     axios
-      .post(`${url.server}${register}`, newUserInfo)
+      .post(`${online}${register}`, newUserInfo)
       .then((res) => {
         console.log(res.data);
       })
