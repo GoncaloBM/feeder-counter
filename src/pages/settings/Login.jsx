@@ -33,7 +33,6 @@ export const Login = () => {
     axios
       .post(`${online}${login}`, userToLogin)
       .then((res) => {
-        console.log(res.data);
         setStateSettings((prevState) => ({
           ...prevState,
           user: {

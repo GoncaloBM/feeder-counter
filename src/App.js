@@ -53,7 +53,7 @@ function App() {
   const fetchFeeders = () => {
     setFetching(true);
     axios
-      .get(url.getAndPostFeeder.online, {
+      .get(url.getAndPostFeeder.server, {
         params: {
           year: formatDate(value)[0],
           month: formatDate(value)[1],
