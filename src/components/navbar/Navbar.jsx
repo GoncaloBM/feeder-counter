@@ -213,6 +213,7 @@ export const Navbar = ({
                   text={navbarbutton.text}
                   img={navbarbutton.img}
                   pageChange={pageChange}
+                  key={index}
                 />
               );
             })}
@@ -232,6 +233,7 @@ export const Navbar = ({
                   text={settingsButtons.text}
                   img={settingsButtons.img}
                   pageChange={pageChange}
+                  key={index}
                 />
               );
             })}

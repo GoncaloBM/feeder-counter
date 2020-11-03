@@ -312,12 +312,12 @@ function App() {
   };
 
   useEffect(() => {
-    // const { loggedIn } = settings.user;
-    if (settings.user.loggedIn) {
-      fetchFeeders();
-    } else {
+  //  const { loggedIn } = settings.user;
+     if (settings.user.loggedIn) {
+       fetchFeeders();
+     } else {
       pageChange(text.navbar.settings[`${settings.about.language}`]);
-    }
+     }
   }, [value]);
 
   return (

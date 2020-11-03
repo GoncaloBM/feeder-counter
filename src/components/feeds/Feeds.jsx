@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { url } from "../../url";
+import { formatDate } from '../../formatDate';
 import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
 import { text } from "../texts";
 
+
 export const Feeds = ({
-  feeds,
+ feeds,
   novaMamada,
   changeBreast,
   page,
@@ -72,7 +76,9 @@ export const Feeds = ({
                 setFeedVisibleScreen={setFeedVisibleScreen}
                 changeComment={changeComment}
                 setTime={setTime}
+                key={feed.id}
               />
+
             );
           } else {
             return null;

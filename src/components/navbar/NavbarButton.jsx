@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from "react-transition-group";
 import "../transitions.css";
-import { OkButton } from "../buttons/OkButton";
 
 export const NavbarButton = ({
   text,
