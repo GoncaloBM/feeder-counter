@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FeedScreen } from "./FeedScreen";
-import { formatNumber } from "../formatDate";
-import "./Feeds.css";
-import "./transitions.css";
+import { formatNumber } from "../../../formatDate";
+import "../Feeds.css";
+import "../../transitions.css";
 import { CSSTransition } from "react-transition-group";
 
 export const Feed = ({

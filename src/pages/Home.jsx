@@ -1,5 +1,5 @@
 import React from "react";
-import { Feeds } from "../components/Feeds";
+import { Feeds } from "../components/feeds/Feeds";
 import "./pages.css";
 import { Title } from "./Title";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Feeds } from "../components/Feeds";
-import { ManualFeedScreen } from "../components/bottomNavbar/manualFeed/ManualFeedScreen";
+import { Feeds } from "../components/feeds/Feeds";
+import { ManualFeedScreen } from "../components/feeds/feedButtons/manual/ManualFeedScreen";
 import "./pages.css";
 import { CSSTransition } from "react-transition-group";
 import { Title } from "./Title";

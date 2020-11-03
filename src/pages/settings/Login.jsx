@@ -31,7 +31,7 @@ export const Login = () => {
     };
 
     axios
-      .post(`${online}${login}`, userToLogin)
+      .post(`${server}${login}`, userToLogin)
       .then((res) => {
         setStateSettings((prevState) => ({
           ...prevState,
@@ -50,7 +50,7 @@ export const Login = () => {
   const checkLogin = () => {
     console.log(stateSettings.user.loggedIn);
     axios
-      .get(`${online}${login}`)
+      .get(`${server}${login}`)
       .then((res) => {
         console.log(res);
         setStateSettings((prevState) => ({

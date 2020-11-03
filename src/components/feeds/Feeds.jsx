@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Feed } from "./Feed";
+import { Feed } from "./feed/Feed";
 import "./Feeds.css";
-import SettingsContext from "../SettingContext";
-import { text } from "./texts";
+import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
+import SettingsContext from "../../SettingContext";
+import { text } from "../texts";
 
 export const Feeds = ({
   feeds,

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { NavbarButton } from "./NavbarButton";
-import { PlusFeedButton } from "../bottomNavbar/PlusFeedButton";
+import { PlusFeedButton } from "../feeds/feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
 import { text } from "../texts";
 

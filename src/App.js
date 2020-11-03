@@ -53,7 +53,7 @@ function App() {
   const fetchFeeders = () => {
     setFetching(true);
     axios
-      .get(url.getAndPostFeeder.server, {
+      .get(url.getAndPostFeeder.online, {
         params: {
           year: formatDate(value)[0],
           month: formatDate(value)[1],
@@ -144,6 +144,7 @@ function App() {
       mamadas: 1,
       breast: "",
       page: "past",
+      username: settings.user.username,
     };
 
     axios
