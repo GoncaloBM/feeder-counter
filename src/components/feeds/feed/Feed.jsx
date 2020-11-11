@@ -9,31 +9,23 @@ export const Feed = ({
   hour,
   minutes,
   index,
-  novaMamada,
   mamada,
-  changeBreast,
   breast,
   comment,
-  deleteFeed,
-  setFeedVisibleScreen,
-  changeComment,
   id,
   setTime,
+  fetchFeeders
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
 
   const clickOnFeed = () => {
     const currentHour = new Date();
-    setFeedVisible(!feedVisible);
+    setFeedVisible(true);
     setTime({
       hours: currentHour.getHours(),
       minutes: currentHour.getMinutes(),
     });
   };
-
-  useEffect(() => {
-    setFeedVisibleScreen(feedVisible);
-  }, [feedVisible]);
 
   return (
     <div className="feed">
@@ -65,13 +57,10 @@ export const Feed = ({
             index={index}
             id={id}
             comment={comment}
-            novaMamada={novaMamada}
             mamada={mamada}
             setFeedVisible={setFeedVisible}
-            changeBreast={changeBreast}
             breast={breast}
-            deleteFeed={deleteFeed}
-            changeComment={changeComment}
+            fetchFeeders={fetchFeeders}
           />
         </>
       </CSSTransition>

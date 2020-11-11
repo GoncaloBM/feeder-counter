@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { url } from "../../url";
-import { formatDate } from '../../formatDate';
+import { formatDate } from "../../formatDate";
 import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
 import { text } from "../texts";
 
-
 export const Feeds = ({
- feeds,
-  novaMamada,
-  changeBreast,
   page,
   deleteFeed,
   setFeedVisibleScreen,
@@ -23,6 +19,27 @@ export const Feeds = ({
   const [mamadas, setMamadas] = useState(0);
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
+  const [feeds, setFeeds] = useState([]);
+  const [insertManual, setInsertManual] = useState(false);
+
+  const fetchFeeders = () => {
+    axios
+      .get(url.getAndPostFeeder.online, {
+        params: {
+          year: date[0],
+          month: date[1],
+          day: date[2],
+          username: stateSettings.user.username,
+        },
+      })
+      .then((resp) => {
+        console.log(resp.data);
+
+        let feedsFromDb = resp.data;
+        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
+        setFeeds(feedsFromDb);
+      });
+  };
 
   const checkMamadasNumber = () => {
     let currentMamada = mamadas;
@@ -42,13 +59,17 @@ export const Feeds = ({
   };
 
   useEffect(() => {
-    if (date) {
+    if (date && stateSettings.user.loggedIn) {
       checkMamadasNumber();
+      fetchFeeders();
     }
   }, [date]);
 
   return (
     <div className="feeds-screen">
+      <PlusFeedButton fetchFeeders={fetchFeeders} 
+      //plusButton={plusButton} 
+      />
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
           ? text.home.todayFeed[`${stateSettings.about.language}`]
@@ -70,15 +91,12 @@ export const Feeds = ({
                 breast={feed.breast}
                 comment={feed.comments}
                 id={feed.id}
-                novaMamada={novaMamada}
-                changeBreast={changeBreast}
                 deleteFeed={deleteFeed}
                 setFeedVisibleScreen={setFeedVisibleScreen}
-                changeComment={changeComment}
                 setTime={setTime}
                 key={feed.id}
+                fetchFeeders={fetchFeeders}
               />
-
             );
           } else {
             return null;

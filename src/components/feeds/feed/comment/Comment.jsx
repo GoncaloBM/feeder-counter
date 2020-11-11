@@ -1,9 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { url } from "../../../../url";
 
-export const Comment = ({ comment, id, changeComment }) => {
+export const Comment = ({ comment, id, fetchFeeders }) => {
   const [feedComment, setFeedComment] = useState(comment);
   const commentChange = (e) => {
     setFeedComment(e.target.value);
+  };
+
+  const changeComment = (i, comment) => {
+    const commentUrl = `${url.online}babyfeeder/feeders/${i}/comments`;
+
+    axios
+      .put(commentUrl, { comments: comment })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
   };
 
   useEffect(() => {

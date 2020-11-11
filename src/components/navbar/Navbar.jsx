@@ -196,7 +196,8 @@ export const Navbar = ({
       {(settings) => (
         <div className="navbar" style={classes.navbar}>
           {(page === "home" || page === "pastFeeds") && !feedScreenVisible && (
-            <PlusFeedButton plusButton={plusButton} />
+          //  <PlusFeedButton plusButton={plusButton} />
+          <></>
           )}
           <div
             className="navbar-line"

@@ -8,15 +8,12 @@ import { Mamadas } from "./mamadas/Mamadas";
 export const FeedScreen = ({
   hour,
   minutes,
-  novaMamada,
   mamada,
   setFeedVisible,
-  changeBreast,
   breast,
-  deleteFeed,
-  changeComment,
   comment,
   id,
+  fetchFeeders
 }) => {
   const closeFeed = () => {
     setFeedVisible(false);
@@ -31,13 +28,13 @@ export const FeedScreen = ({
       <div className="feed-screen-title">
         {formatNumber(hour)} : {formatNumber(minutes)}
       </div>
-      <Mamadas novaMamada={novaMamada} id={id} mamada={mamada} />
-      <Breast breast={breast} changeBreast={changeBreast} id={id} />
-      <Comment comment={comment} id={id} changeComment={changeComment} />
+      <Mamadas id={id} mamada={mamada} fetchFeeders={fetchFeeders}/>
+      <Breast breast={breast} id={id} fetchFeeders={fetchFeeders}/>
+      <Comment comment={comment} id={id} fetchFeeders={fetchFeeders} />
       <DeleteFeed
-        index={id}
-        deleteFeed={deleteFeed}
+        id={id}
         setFeedVisible={setFeedVisible}
+        fetchFeeders={fetchFeeders}
       />
     </div>
   );

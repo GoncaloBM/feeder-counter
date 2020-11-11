@@ -1,6 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { url } from "../../../../url";
 
-export const Mamadas = ({ novaMamada, id, mamada }) => {
+export const Mamadas = ({ id, mamada, fetchFeeders }) => {
+  const novaMamada = (i, numero) => {
+    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/mamada`;
+
+    axios
+      .put(mamadaUrl, { numero: numero })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        fetchFeeders();
+      });
+  };
+
   return (
     <div className="feed-screen-mamadas-line">
       <div

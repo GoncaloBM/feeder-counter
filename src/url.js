@@ -1,8 +1,8 @@
 export const url = {
-  server: "http://localhost:3001/",
+  server: "http://localhost:3001/api/",
   online: "https://goncalobmira.online/api/",
   getAndPostFeeder: {
-    server: "http://localhost:3001/babyfeeder/feeders",
+    server: "http://localhost:3001/api/babyfeeder/feeders",
     online: "https://goncalobmira.online/api/babyfeeder/feeders",
   },
   register: "babyfeeder/register",

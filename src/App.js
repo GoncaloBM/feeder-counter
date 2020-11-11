@@ -243,69 +243,6 @@ function App() {
     }
   };
 
-  const deleteFeed = (i) => {
-    const deleteUrl = `${url.online}babyfeeder/feeders/${i}`;
-    axios
-      .delete(deleteUrl)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-        setFeedVisibleScreen(false);
-      });
-  };
-
-  const novaMamada = (i, numero) => {
-    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/mamada`;
-
-    axios
-      .put(mamadaUrl, { numero: numero })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
-  };
-
-  const changeBreast = (i, breast) => {
-    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/breast`;
-
-    axios
-      .put(mamadaUrl, { breast: breast })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
-  };
-
-  const changeComment = (i, comment) => {
-    const commentUrl = `${url.online}babyfeeder/feeders/${i}/comments`;
-
-    axios
-      .put(commentUrl, { comments: comment })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
-  };
 
   const onChangeTime = (time) => {
     setTime({ hours: time._d.getHours(), minutes: time._d.getMinutes() });
@@ -313,9 +250,8 @@ function App() {
 
   useEffect(() => {
   //  const { loggedIn } = settings.user;
-     if (settings.user.loggedIn) {
-       fetchFeeders();
-     } else {
+     if (!settings.user.loggedIn) {
+       //fetchFeeders();
       pageChange(text.navbar.settings[`${settings.about.language}`]);
      }
   }, [value]);
@@ -331,15 +267,10 @@ function App() {
         >
           <Home
             date={formatDate(value)}
-            feeds={feeds}
-            novaMamada={novaMamada}
-            changeBreast={changeBreast}
             page={page}
             setTime={setTime}
-            deleteFeed={deleteFeed}
             plusButton={plusButton}
             setFeedVisibleScreen={setFeedVisibleScreen}
-            changeComment={changeComment}
           />
         </CSSTransition>
         <CSSTransition
@@ -350,9 +281,6 @@ function App() {
         >
           <PastFeeds
             date={formatDate(value)}
-            feeds={feeds}
-            novaMamada={novaMamada}
-            changeBreast={changeBreast}
             page={page}
             onChange={onChange}
             value={value}
@@ -361,11 +289,9 @@ function App() {
             setTime={setTime}
             onChangeTime={onChangeTime}
             plusFeed={plusFeed}
-            deleteFeed={deleteFeed}
             setInsertManual={setInsertManual}
             plusButton={plusButton}
             setFeedVisibleScreen={setFeedVisibleScreen}
-            changeComment={changeComment}
           />
         </CSSTransition>
         <CSSTransition
