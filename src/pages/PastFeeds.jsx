@@ -22,7 +22,8 @@ export const PastFeeds = ({
   date,
   setFeedVisibleScreen,
   setTime,
-  time
+  time,
+  page
 }) => {
   return (
     <div className="past-feeds">
@@ -32,6 +33,7 @@ export const PastFeeds = ({
       </div>
       <Feeds
         date={date}
+        page={page}
         feeds={feeds}
         novaMamada={novaMamada}
         changeBreast={changeBreast}

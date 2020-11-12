@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { url } from "../../url";
-import { formatDate } from "../../formatDate";
 import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
@@ -12,7 +11,6 @@ export const Feeds = ({
   page,
   deleteFeed,
   setFeedVisibleScreen,
-  changeComment,
   date,
   setTime,
 }) => {
@@ -20,7 +18,6 @@ export const Feeds = ({
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
   const [feeds, setFeeds] = useState([]);
-  const [insertManual, setInsertManual] = useState(false);
 
   const fetchFeeders = () => {
     axios
@@ -42,14 +39,15 @@ export const Feeds = ({
   };
 
   const checkMamadasNumber = () => {
+    const currentFeed = [...feeds]
     let currentMamada = mamadas;
     let numberOfMamadas = 0;
 
-    for (let i = 0; i < feeds.length; i++)
+    for (let i = 0; i < currentFeed.length; i++)
       if (
-        feeds[i].year === date[0] &&
-        feeds[i].month + 1 === date[1] &&
-        feeds[i].day === date[2]
+        currentFeed[i].year === date[0] &&
+        currentFeed[i].month + 1 === date[1] &&
+        currentFeed[i].day === date[2]
       ) {
         numberOfMamadas++;
       }
@@ -59,7 +57,7 @@ export const Feeds = ({
   };
 
   useEffect(() => {
-    if (date && stateSettings.user.loggedIn) {
+    if (date) {
       checkMamadasNumber();
       fetchFeeders();
     }
@@ -67,8 +65,7 @@ export const Feeds = ({
 
   return (
     <div className="feeds-screen">
-      <PlusFeedButton fetchFeeders={fetchFeeders} 
-      //plusButton={plusButton} 
+      <PlusFeedButton fetchFeeders={fetchFeeders} page={page} feeds={feeds} date={date}
       />
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
