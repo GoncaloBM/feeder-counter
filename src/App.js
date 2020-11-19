@@ -29,8 +29,6 @@ function App() {
     baby: false,
     app: false,
   });
-  const [insertManual, setInsertManual] = useState(false);
-  const [feedScreenVisible, setFeedVisibleScreen] = useState(false);
   const [settings, setSettings] = useState({
     about: { language: "English" },
     myBaby: {
@@ -50,116 +48,7 @@ function App() {
     user: { loggedIn: false, username: "" },
   });
 
-  const fetchFeeders = () => {
-    setFetching(true);
-    axios
-      .get(url.getAndPostFeeder.online, {
-        params: {
-          year: formatDate(value)[0],
-          month: formatDate(value)[1],
-          day: formatDate(value)[2],
-          username: settings.user.username,
-        },
-      })
-      .then((resp) => {
-        console.log(resp.data);
 
-        let feedsFromDb = resp.data;
-        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
-        setFeeds(feedsFromDb);
-        setFetching(false);
-      });
-  };
-
-  const plusButton = () => {
-    if (page === "home") {
-      plusCurrentFeed();
-    } else if (page === "pastFeeds") {
-      setInsertManual(!insertManual);
-    }
-  };
-
-  const newFeed = () => {
-    const currentHour = new Date();
-    const newFeed = {
-      year: currentHour.getFullYear(),
-      month: currentHour.getMonth(),
-      day: currentHour.getDate(),
-      hour: currentHour.getHours(),
-      minutes: currentHour.getMinutes(),
-      mamadas: 1,
-      breast: "",
-      page: page,
-      username: settings.user.username,
-    };
-
-    axios
-      .post(url.getAndPostFeeder.online, newFeed)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-      });
-  };
-
-  const plusCurrentFeed = () => {
-    const currentHour = new Date();
-    let currentFeed = feeds;
-    const lastFeedIndex = currentFeed.length - 1;
-
-    if (currentFeed.length > 0) {
-      const sameHour =
-        (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-          currentHour.getMinutes() > currentFeed[lastFeedIndex].minutes) ||
-        (currentHour.getHours() === currentFeed[lastFeedIndex].hour &&
-          currentHour.getMinutes() === currentFeed[lastFeedIndex].minutes) ||
-        (currentHour.getHours() ===
-          currentFeed[lastFeedIndex].hour +
-            settings.myBaby.breastFeeding.sameBreastHour &&
-          currentHour.getMinutes() < currentFeed[lastFeedIndex].minutes);
-
-      // console.log(currentFeed[currentFeed.length-1].hour)
-      if (sameHour) {
-        // novaMamada(feeds[lastFeedIndex].id, 1);
-        newFeed();
-      } else {
-        newFeed();
-      }
-    } else {
-      newFeed();
-    }
-  };
-
-  const plusFeed = () => {
-    const newFeed = {
-      year: value.getFullYear(),
-      month: value.getMonth(),
-      day: value.getDate(),
-      hour: time.hours,
-      minutes: time.minutes,
-      mamadas: 1,
-      breast: "",
-      page: "past",
-      username: settings.user.username,
-    };
-
-    axios
-      .post(url.getAndPostFeeder.online, newFeed)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .then((res) => {
-        fetchFeeders();
-        setInsertManual(false);
-      });
-  };
 
   const pageChange = (pageChosen) => {
     if (pageChosen === text.navbar.today[`${settings.about.language}`]) {
@@ -269,8 +158,8 @@ function App() {
             date={formatDate(value)}
             page={page}
             setTime={setTime}
-            plusButton={plusButton}
-            setFeedVisibleScreen={setFeedVisibleScreen}
+            // plusButton={plusButton}
+            // setFeedVisibleScreen={setFeedVisibleScreen}
           />
         </CSSTransition>
         <CSSTransition
@@ -284,14 +173,7 @@ function App() {
             page={page}
             onChange={onChange}
             value={value}
-            insertManual={insertManual}
-            time={time}
-            setTime={setTime}
             onChangeTime={onChangeTime}
-            plusFeed={plusFeed}
-            setInsertManual={setInsertManual}
-            plusButton={plusButton}
-            setFeedVisibleScreen={setFeedVisibleScreen}
           />
         </CSSTransition>
         <CSSTransition
@@ -315,8 +197,8 @@ function App() {
         <Navbar
           pageChange={pageChange}
           page={page}
-          plusButton={plusButton}
-          feedScreenVisible={feedScreenVisible}
+          // plusButton={plusButton}
+          // feedScreenVisible={feedScreenVisible}
           language={settings.about.language}
         />
       </div>

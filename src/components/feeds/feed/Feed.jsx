@@ -13,18 +13,17 @@ export const Feed = ({
   breast,
   comment,
   id,
-  setTime,
   fetchFeeders
 }) => {
   const [feedVisible, setFeedVisible] = useState(false);
 
   const clickOnFeed = () => {
-    const currentHour = new Date();
+   // const currentHour = new Date();
     setFeedVisible(true);
-    setTime({
-      hours: currentHour.getHours(),
-      minutes: currentHour.getMinutes(),
-    });
+    // setTime({
+    //   hours: currentHour.getHours(),
+    //   minutes: currentHour.getMinutes(),
+    // });
   };
 
   return (

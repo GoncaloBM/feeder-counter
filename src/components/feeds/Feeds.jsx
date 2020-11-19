@@ -9,10 +9,7 @@ import { text } from "../texts";
 
 export const Feeds = ({
   page,
-  deleteFeed,
-  setFeedVisibleScreen,
   date,
-  setTime,
 }) => {
   const [mamadas, setMamadas] = useState(0);
   const { settings } = useContext(SettingsContext);
@@ -88,9 +85,6 @@ export const Feeds = ({
                 breast={feed.breast}
                 comment={feed.comments}
                 id={feed.id}
-                deleteFeed={deleteFeed}
-                setFeedVisibleScreen={setFeedVisibleScreen}
-                setTime={setTime}
                 key={feed.id}
                 fetchFeeders={fetchFeeders}
               />
