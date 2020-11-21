@@ -8,3 +8,5 @@ export const url = {
   register: "babyfeeder/register",
   login: "babyfeeder/login",
 };
+
+export const development = true;

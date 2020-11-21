@@ -1,24 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { url } from "../../url";
+import { url, development } from "../../url";
 import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
 import { text } from "../texts";
 
-export const Feeds = ({
-  page,
-  date,
-}) => {
+export const Feeds = ({ page, date }) => {
   const [mamadas, setMamadas] = useState(0);
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
   const [feeds, setFeeds] = useState([]);
 
   const fetchFeeders = () => {
+    const { online, server } = url.getAndPostFeeder;
     axios
-      .get(url.getAndPostFeeder.online, {
+      .get(development ? server : online, {
         params: {
           year: date[0],
           month: date[1],
@@ -36,7 +34,7 @@ export const Feeds = ({
   };
 
   const checkMamadasNumber = () => {
-    const currentFeed = [...feeds]
+    const currentFeed = [...feeds];
     let currentMamada = mamadas;
     let numberOfMamadas = 0;
 
@@ -62,7 +60,11 @@ export const Feeds = ({
 
   return (
     <div className="feeds-screen">
-      <PlusFeedButton fetchFeeders={fetchFeeders} page={page} feeds={feeds} date={date}
+      <PlusFeedButton
+        fetchFeeders={fetchFeeders}
+        page={page}
+        feeds={feeds}
+        date={date}
       />
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"

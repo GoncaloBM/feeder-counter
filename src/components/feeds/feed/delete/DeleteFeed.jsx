@@ -1,14 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { url } from "../../../../url";
+import { url, development } from "../../../../url";
 
-export const DeleteFeed = ({
-  id,
-  setFeedVisible,
-  fetchFeeders,
-}) => {
+export const DeleteFeed = ({ id, setFeedVisible, fetchFeeders }) => {
   const deleteFeed = () => {
-    const deleteUrl = `${url.online}babyfeeder/feeders/${id}`;
+    const { server, online } = url;
+    const deleteUrl = `${
+      development ? server : online
+    }babyfeeder/feeders/${id}`;
     axios
       .delete(deleteUrl)
       .then((res) => {

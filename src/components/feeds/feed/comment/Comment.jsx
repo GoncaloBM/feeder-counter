@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { url } from "../../../../url";
+import { url, development } from "../../../../url";
 
 export const Comment = ({ comment, id, fetchFeeders }) => {
   const [feedComment, setFeedComment] = useState(comment);
@@ -9,7 +9,10 @@ export const Comment = ({ comment, id, fetchFeeders }) => {
   };
 
   const changeComment = (i, comment) => {
-    const commentUrl = `${url.online}babyfeeder/feeders/${i}/comments`;
+    const { server, online } = url;
+    const commentUrl = `${
+      development ? server : online
+    }babyfeeder/feeders/${i}/comments`;
 
     axios
       .put(commentUrl, { comments: comment })

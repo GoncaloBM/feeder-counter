@@ -1,16 +1,13 @@
-import React,{useState,useContext} from "react";
-import axios from 'axios';
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import "./ManualFeedScreen.css";
 import { CloseButton } from "../../../buttons/CloseButton";
 import { OkButton } from "../../../buttons/OkButton";
 import { ManualTime } from "./ManualTime";
-import { url } from '../../../../url';
-import SettingsContext from '../../../../SettingContext';
+import { url, development } from "../../../../url";
+import SettingsContext from "../../../../SettingContext";
 
-export const ManualFeedScreen = ({
-  setInsertManual,date, fetchFeeders
-}) => {
-
+export const ManualFeedScreen = ({ setInsertManual, date, fetchFeeders }) => {
   const [time, setTime] = useState({});
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
@@ -18,7 +15,7 @@ export const ManualFeedScreen = ({
   const plusFeed = () => {
     const newFeed = {
       year: date[0],
-      month: date[1]-1,
+      month: date[1] - 1,
       day: date[2],
       hour: time.hours,
       minutes: time.minutes,
@@ -28,8 +25,10 @@ export const ManualFeedScreen = ({
       username: stateSettings.user.username,
     };
 
+    const { server, online } = url.getAndPostFeeder;
+
     axios
-      .post(url.getAndPostFeeder.online, newFeed)
+      .post(development ? server : online, newFeed)
       .then((res) => {
         console.log(res.data);
       })
@@ -44,7 +43,7 @@ export const ManualFeedScreen = ({
   return (
     <div className="manual-feed-screen">
       <CloseButton buttonEffect={setInsertManual} />
-      <ManualTime setTime={setTime} time={time}/>
+      <ManualTime setTime={setTime} time={time} />
       <OkButton buttonEffect={plusFeed} buttonText="New Feed" />
     </div>
   );

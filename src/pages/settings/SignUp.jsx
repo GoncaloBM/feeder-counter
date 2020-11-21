@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { url } from "../../url";
+import { url, development } from "../../url";
 import "./Login.css";
 
 export const SignUp = () => {
@@ -11,7 +11,7 @@ export const SignUp = () => {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirmed, setNewPasswordConfirmed] = useState("");
 
-  const { online, register } = url;
+  const { online, register, server } = url;
 
   const inputNewFirstName = (e) => {
     setNewFirstName(e.target.value);
@@ -43,7 +43,7 @@ export const SignUp = () => {
     console.log(newUserInfo);
 
     axios
-      .post(`${online}${register}`, newUserInfo)
+      .post(`${development ? server : online}${register}`, newUserInfo)
       .then((res) => {
         console.log(res.data);
       })

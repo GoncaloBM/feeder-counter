@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { url } from "../../../../url";
+import { url, development } from "../../../../url";
 
 export const Breast = ({ breast, id, fetchFeeders }) => {
-  
   const changeBreast = (i, breast) => {
-    const mamadaUrl = `${url.online}babyfeeder/feeders/${i}/breast`;
+    const { server, online } = url;
+    const mamadaUrl = `${
+      development ? server : online
+    }babyfeeder/feeders/${i}/breast`;
 
     axios
       .put(mamadaUrl, { breast: breast })

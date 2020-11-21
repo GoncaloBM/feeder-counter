@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import "./Login.css";
-import { url } from "../../url";
+import { url, development } from "../../url";
 import SettingsContext from "../../SettingContext";
 import { LoginTrue } from "./login/LoginTrue";
 
@@ -31,7 +31,7 @@ export const Login = () => {
     };
 
     axios
-      .post(`${online}${login}`, userToLogin)
+      .post(`${development ? server : online}${login}`, userToLogin)
       .then((res) => {
         setStateSettings((prevState) => ({
           ...prevState,
@@ -50,7 +50,7 @@ export const Login = () => {
   const checkLogin = () => {
     console.log(stateSettings.user.loggedIn);
     axios
-      .get(`${server}${login}`)
+      .get(`${development ? server : online}${login}`)
       .then((res) => {
         console.log(res);
         setStateSettings((prevState) => ({

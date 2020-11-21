@@ -1,12 +1,12 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import { url } from "../../../url";
+import { url, development } from "../../../url";
 import SettingsContext from "../../../SettingContext";
 import "./PlusFeedButton.css";
 import logo from "../../../images/logo.png";
 import { ManualFeedScreen } from "./manual/ManualFeedScreen";
 
-export const PlusFeedButton = ({ fetchFeeders,page ,feeds,date}) => {
+export const PlusFeedButton = ({ fetchFeeders, page, feeds, date }) => {
   const { settings } = useContext(SettingsContext);
   const [insertManual, setInsertManual] = useState(false);
   const [stateSettings, setStateSettings] = settings;
@@ -24,8 +24,10 @@ export const PlusFeedButton = ({ fetchFeeders,page ,feeds,date}) => {
       username: stateSettings.user.username,
     };
 
+    const { server, online } = url.getAndPostFeeder;
+
     axios
-      .post(url.getAndPostFeeder.online, newFeed)
+      .post(development ? server : online, newFeed)
       .then((res) => {
         console.log(res.data);
       })
@@ -75,10 +77,17 @@ export const PlusFeedButton = ({ fetchFeeders,page ,feeds,date}) => {
 
   return (
     <>
-    <div className="plus-button" onClick={plusButton}>
-      +<div className="logo" style={{ backgroundImage: `url(${logo})` }}></div>
-    </div>
-    {insertManual && <ManualFeedScreen date={date} fetchFeeders={fetchFeeders} setInsertManual={setInsertManual}/>}
+      <div className="plus-button" onClick={plusButton}>
+        +
+        <div className="logo" style={{ backgroundImage: `url(${logo})` }}></div>
+      </div>
+      {insertManual && (
+        <ManualFeedScreen
+          date={date}
+          fetchFeeders={fetchFeeders}
+          setInsertManual={setInsertManual}
+        />
+      )}
     </>
   );
 };
