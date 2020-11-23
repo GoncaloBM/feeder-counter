@@ -5,13 +5,14 @@ import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
+import { FeedsContext } from "../../contexts/FeedsContext";
 import { text } from "../texts";
 
 export const Feeds = ({ page, date }) => {
   const [mamadas, setMamadas] = useState(0);
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
-  const [feeds, setFeeds] = useState([]);
+  const [feeds, setFeeds] = useContext(FeedsContext);
 
   const fetchFeeders = () => {
     const { online, server } = url.getAndPostFeeder;

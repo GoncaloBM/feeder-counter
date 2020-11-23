@@ -1,16 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./Info.css";
 import SettingsContext from "../SettingContext";
+import { FeedsContext } from "../contexts/FeedsContext";
 import { text } from "../components/texts";
 
-export const Info = ({ feeds, infoPage }) => {
+export const Info = ({ infoPage }) => {
   const [mamadaHour, setMamadaHour] = useState("");
   const [breastToFeed, setBreastToFeed] = useState("");
   const { settings } = useContext(SettingsContext);
   const [stateSettings, setStateSettings] = settings;
+  const [feeds] = useContext(FeedsContext);
+
+  const feed = feeds[feeds.length - 1];
 
   const checkNovaMamada = () => {
-    const lastMamada = feeds;
+    const lastMamada = feed;
     console.log(lastMamada);
 
     let hoursToSum = 3;
@@ -39,7 +43,7 @@ export const Info = ({ feeds, infoPage }) => {
   };
 
   const checkBreastToFeed = () => {
-    const lastBreastToFeed = feeds.breast;
+    const lastBreastToFeed = feed.breast;
 
     if (lastBreastToFeed === "R") {
       setBreastToFeed("L");

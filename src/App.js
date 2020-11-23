@@ -3,19 +3,17 @@ import { formatDate } from "./formatDate";
 import "react-calendar/dist/Calendar.css";
 import "./App.css";
 import "./components/transitions.css";
-import axios from "axios";
 import { Home } from "./pages/Home";
 import { PastFeeds } from "./pages/PastFeeds";
 import { Info } from "./pages/Info";
 import { CSSTransition } from "react-transition-group";
 import { Navbar } from "./components/navbar/Navbar";
-import { url } from "./url";
 import { Settings } from "./pages/Settings";
 import { text } from "./components/texts";
 import SettingsContext from "./SettingContext";
+import { FeedsContextProvider } from "./contexts/FeedsContext";
 
 function App() {
-  const [fetching, setFetching] = useState(true);
   const [value, onChange] = useState(new Date());
   const [feeds, setFeeds] = useState([]);
   const [time, setTime] = useState({});
@@ -47,8 +45,6 @@ function App() {
     },
     user: { loggedIn: false, username: "" },
   });
-
-
 
   const pageChange = (pageChosen) => {
     if (pageChosen === text.navbar.today[`${settings.about.language}`]) {
@@ -132,77 +128,74 @@ function App() {
     }
   };
 
-
   const onChangeTime = (time) => {
     setTime({ hours: time._d.getHours(), minutes: time._d.getMinutes() });
   };
 
   useEffect(() => {
-  //  const { loggedIn } = settings.user;
-     if (!settings.user.loggedIn) {
-       //fetchFeeders();
+    //  const { loggedIn } = settings.user;
+    if (!settings.user.loggedIn) {
+      //fetchFeeders();
       pageChange(text.navbar.settings[`${settings.about.language}`]);
-     }
+    }
   }, [value]);
 
   return (
-    <SettingsContext.Provider value={{ settings: [settings, setSettings] }}>
-      <div className="App">
-        <CSSTransition
-          in={pages.home}
-          timeout={200}
-          classNames="home-transition"
-          unmountOnExit
-        >
-          <Home
-            date={formatDate(value)}
-            page={page}
-            setTime={setTime}
-            // plusButton={plusButton}
-            // setFeedVisibleScreen={setFeedVisibleScreen}
-          />
-        </CSSTransition>
-        <CSSTransition
-          in={pages.pastFeed}
-          timeout={200}
-          classNames="past-feed-transition"
-          unmountOnExit
-        >
-          <PastFeeds
-            date={formatDate(value)}
-            page={page}
-            onChange={onChange}
-            value={value}
-            onChangeTime={onChangeTime}
-          />
-        </CSSTransition>
-        <CSSTransition
-          in={pages.info}
-          timeout={200}
-          classNames="past-feed-transition"
-          unmountOnExit
-        >
-          <Info feeds={feeds[feeds.length - 1]} infoPage={pages.info} />
-        </CSSTransition>
+    <FeedsContextProvider>
+      <SettingsContext.Provider value={{ settings: [settings, setSettings] }}>
+        <div className="App">
+          <CSSTransition
+            in={pages.home}
+            timeout={200}
+            classNames="home-transition"
+            unmountOnExit
+          >
+            <Home date={formatDate(value)} page={page} setTime={setTime} />
+          </CSSTransition>
+          <CSSTransition
+            in={pages.pastFeed}
+            timeout={200}
+            classNames="past-feed-transition"
+            unmountOnExit
+          >
+            <PastFeeds
+              date={formatDate(value)}
+              page={page}
+              onChange={onChange}
+              value={value}
+              onChangeTime={onChangeTime}
+            />
+          </CSSTransition>
+          <CSSTransition
+            in={pages.info}
+            timeout={200}
+            classNames="past-feed-transition"
+            unmountOnExit
+          >
+            <Info infoPage={pages.info} />
+          </CSSTransition>
 
-        <CSSTransition
-          in={pages.settings}
-          timeout={200}
-          classNames="past-feed-transition"
-          unmountOnExit
-        >
-          <Settings pageChange={pageChange} pages={pages} settings={settings} />
-        </CSSTransition>
+          <CSSTransition
+            in={pages.settings}
+            timeout={200}
+            classNames="past-feed-transition"
+            unmountOnExit
+          >
+            <Settings
+              pageChange={pageChange}
+              pages={pages}
+              settings={settings}
+            />
+          </CSSTransition>
 
-        <Navbar
-          pageChange={pageChange}
-          page={page}
-          // plusButton={plusButton}
-          // feedScreenVisible={feedScreenVisible}
-          language={settings.about.language}
-        />
-      </div>
-    </SettingsContext.Provider>
+          <Navbar
+            pageChange={pageChange}
+            page={page}
+            language={settings.about.language}
+          />
+        </div>
+      </SettingsContext.Provider>
+    </FeedsContextProvider>
   );
 }
 
