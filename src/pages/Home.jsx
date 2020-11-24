@@ -3,11 +3,7 @@ import { Feeds } from "../components/feeds/Feeds";
 import "./pages.css";
 import { Title } from "./Title";
 
-export const Home = ({
-  page,
-
-  date,
-}) => {
+export const Home = ({ page, date }) => {
   return (
     <div className="home">
       <Title height="10vh" font="2.5rem" borderWeight="5" />

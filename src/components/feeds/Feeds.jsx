@@ -4,14 +4,14 @@ import { url, development } from "../../url";
 import { Feed } from "./feed/Feed";
 import "./Feeds.css";
 import { PlusFeedButton } from "./feedButtons/PlusFeedButton";
-import SettingsContext from "../../SettingContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
 import { FeedsContext } from "../../contexts/FeedsContext";
 import { text } from "../texts";
 
 export const Feeds = ({ page, date }) => {
   const [mamadas, setMamadas] = useState(0);
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings] = useContext(SettingsContext);
+  // const [stateSettings, setStateSettings] = settings;
   const [feeds, setFeeds] = useContext(FeedsContext);
 
   const fetchFeeders = () => {
@@ -22,14 +22,13 @@ export const Feeds = ({ page, date }) => {
           year: date[0],
           month: date[1],
           day: date[2],
-          username: stateSettings.user.username,
+          username: settings.user.username,
         },
       })
       .then((resp) => {
         console.log(resp.data);
 
         let feedsFromDb = resp.data;
-        // feedsFromDb.sort((a, b) => a.hour - b.hour || a.minutes - b.minutes);
         setFeeds(feedsFromDb);
       });
   };
@@ -53,10 +52,8 @@ export const Feeds = ({ page, date }) => {
   };
 
   useEffect(() => {
-    if (date) {
-      checkMamadasNumber();
-      fetchFeeders();
-    }
+    checkMamadasNumber();
+    fetchFeeders();
   }, [date]);
 
   return (
@@ -69,7 +66,7 @@ export const Feeds = ({ page, date }) => {
       />
       <div className="title" style={{ fontSize: "2.5rem" }}>
         {page === "home"
-          ? text.home.todayFeed[`${stateSettings.about.language}`]
+          ? text.home.todayFeed[`${settings.about.language}`]
           : `${date[2]} / ${date[1]} / ${date[0]}`}
       </div>
       <div className="feeds">

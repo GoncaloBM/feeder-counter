@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../transitions.css";
 
-export const NavbarButton = ({
-  text,
-  img,
-  pageChange,
-}) => {
-
+export const NavbarButton = ({ text, img, pageChange, textToPageChange }) => {
   const classes = {
     navbarButton: {
       display: "flex",
@@ -22,7 +17,7 @@ export const NavbarButton = ({
       <div
         className="navbar-button"
         style={classes.navbarButton}
-        onClick={() => pageChange(text)}
+        onClick={() => pageChange(textToPageChange)}
       >
         {img}
         <div className="navbar-text">{text}</div>

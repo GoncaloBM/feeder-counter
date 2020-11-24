@@ -1,13 +1,11 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import "./About.css";
 import { text } from "../../components/texts";
-import SettingsContext from "../../SettingContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -20,12 +18,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const AboutScreen = () => {
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings, setSettings] = useContext(SettingsContext);
   const classes = useStyles();
 
   const handleChange = (e) => {
-    setStateSettings((prevState) => ({
+    setSettings((prevState) => ({
       ...prevState,
       about: { ...prevState.about, language: e.target.value },
     }));
@@ -34,16 +31,16 @@ export const AboutScreen = () => {
   return (
     <div className="about-screen">
       <div className="about-title">
-        {text.about.about[`${stateSettings.about.language}`]}
+        {text.about.about[`${settings.about.language}`]}
       </div>
       <div className="select">
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="age-native-simple">
-            {text.about.language[`${stateSettings.about.language}`]}
+            {text.about.language[`${settings.about.language}`]}
           </InputLabel>
           <Select
             native
-            value={stateSettings.about.language}
+            value={settings.about.language}
             onChange={handleChange}
             inputProps={{
               name: "age",
@@ -51,10 +48,10 @@ export const AboutScreen = () => {
             }}
           >
             <option value={"English"}>
-              {text.about.english[`${stateSettings.about.language}`]}
+              {text.about.english[`${settings.about.language}`]}
             </option>
             <option value={"Portuguese"}>
-              {text.about.portuguese[`${stateSettings.about.language}`]}
+              {text.about.portuguese[`${settings.about.language}`]}
             </option>
           </Select>
         </FormControl>

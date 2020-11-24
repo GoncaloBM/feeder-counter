@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import "./Login.css";
 import { url, development } from "../../url";
-import SettingsContext from "../../SettingContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
 import { LoginTrue } from "./login/LoginTrue";
 
 export const Login = () => {
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings, setSettings] = useContext(SettingsContext);
 
   axios.defaults.withCredentials = true;
 
@@ -33,7 +32,7 @@ export const Login = () => {
     axios
       .post(`${development ? server : online}${login}`, userToLogin)
       .then((res) => {
-        setStateSettings((prevState) => ({
+        setSettings((prevState) => ({
           ...prevState,
           user: {
             ...prevState.user,
@@ -48,12 +47,12 @@ export const Login = () => {
   };
 
   const checkLogin = () => {
-    console.log(stateSettings.user.loggedIn);
+    console.log(settings.user.loggedIn);
     axios
       .get(`${development ? server : online}${login}`)
       .then((res) => {
         console.log(res);
-        setStateSettings((prevState) => ({
+        setSettings((prevState) => ({
           ...prevState,
           user: {
             ...prevState.user,
@@ -73,7 +72,7 @@ export const Login = () => {
 
   return (
     <div className="login">
-      {!stateSettings.user.loggedIn ? (
+      {!settings.user.loggedIn ? (
         <form action="">
           <div className="input">
             <div className="login-text">User</div>
@@ -92,7 +91,7 @@ export const Login = () => {
           </div>
         </form>
       ) : (
-        <LoginTrue user={stateSettings.user.username} />
+        <LoginTrue user={settings.user.username} />
       )}
     </div>
   );

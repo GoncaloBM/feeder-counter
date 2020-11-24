@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { PageContextProvider } from "./contexts/PageContext";
+import { SettingsContextProvider } from "./contexts/SettingsContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <PageContextProvider>
-      <App />
-    </PageContextProvider>
+    <SettingsContextProvider>
+      <PageContextProvider>
+        <App />
+      </PageContextProvider>
+    </SettingsContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

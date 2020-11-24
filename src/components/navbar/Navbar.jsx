@@ -5,16 +5,11 @@ import { PlusFeedButton } from "../feeds/feedButtons/PlusFeedButton";
 import SettingsContext from "../../SettingContext";
 import { text } from "../texts";
 
-export const Navbar = ({
-  pageChange,
-  page,
-  plusButton,
-  feedScreenVisible,
-  language,
-}) => {
+export const Navbar = ({ pageChange, page, feedScreenVisible, language }) => {
   const navbarButtons = [
     {
       text: text.navbar.today[`${language}`],
+      textToPageChange: "home",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +35,7 @@ export const Navbar = ({
     },
     {
       text: text.navbar.info[`${language}`],
+      textToPageChange: "info",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,6 +58,7 @@ export const Navbar = ({
     },
     {
       text: text.navbar.past[`${language}`],
+      textToPageChange: "pastFeed",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -86,6 +83,7 @@ export const Navbar = ({
     },
     {
       text: text.navbar.settings[`${language}`],
+      textToPageChange: "login",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +92,7 @@ export const Navbar = ({
           height="52"
           viewBox="0 0 24 24"
           stroke-width="1"
-          stroke={page === "settings" ? "#cabbe9" : "#2c3e50"}
+          stroke={page === "login" ? "#cabbe9" : "#2c3e50"}
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -110,6 +108,7 @@ export const Navbar = ({
   const settingsButtons = [
     {
       text: text.navbar.login[`${language}`],
+      textToPageChange: "login",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +117,7 @@ export const Navbar = ({
           height="52"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke={page === "settings" ? "#cabbe9" : "#2c3e50"}
+          stroke={page === "login" ? "#cabbe9" : "#2c3e50"}
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -131,6 +130,7 @@ export const Navbar = ({
     },
     {
       text: text.navbar.myBaby[`${language}`],
+      textToPageChange: "baby",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -154,6 +154,7 @@ export const Navbar = ({
     },
     {
       text: text.navbar.about[`${language}`],
+      textToPageChange: "app",
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,14 +197,14 @@ export const Navbar = ({
       {(settings) => (
         <div className="navbar" style={classes.navbar}>
           {(page === "home" || page === "pastFeeds") && !feedScreenVisible && (
-          //  <PlusFeedButton plusButton={plusButton} />
-          <></>
+            //  <PlusFeedButton plusButton={plusButton} />
+            <></>
           )}
           <div
             className="navbar-line"
             style={{
               top:
-                page === "home" || page === "pastFeeds" || page === "info"
+                page === "home" || page === "pastFeed" || page === "info"
                   ? "0%"
                   : "100%",
             }}
@@ -214,6 +215,7 @@ export const Navbar = ({
                   text={navbarbutton.text}
                   img={navbarbutton.img}
                   pageChange={pageChange}
+                  textToPageChange={navbarbutton.textToPageChange}
                   key={index}
                 />
               );
@@ -223,7 +225,10 @@ export const Navbar = ({
             className="navbar-line"
             style={{
               top:
-                page === "settings" || page === "baby" || page === "app"
+                page === "settings" ||
+                page === "baby" ||
+                page === "app" ||
+                page === "login"
                   ? "0%"
                   : "100%",
             }}
@@ -234,6 +239,7 @@ export const Navbar = ({
                   text={settingsButtons.text}
                   img={settingsButtons.img}
                   pageChange={pageChange}
+                  textToPageChange={settingsButtons.textToPageChange}
                   key={index}
                 />
               );

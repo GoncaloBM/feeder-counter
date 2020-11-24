@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { url, development } from "../../../url";
-import SettingsContext from "../../../SettingContext";
+import { SettingsContext } from "../../../contexts/SettingsContext";
 import "./PlusFeedButton.css";
 import logo from "../../../images/logo.png";
 import { ManualFeedScreen } from "./manual/ManualFeedScreen";
 
 export const PlusFeedButton = ({ fetchFeeders, page, feeds, date }) => {
-  const { settings } = useContext(SettingsContext);
+  const [settings] = useContext(SettingsContext);
   const [insertManual, setInsertManual] = useState(false);
-  const [stateSettings, setStateSettings] = settings;
 
   const newFeed = () => {
     const currentHour = new Date();
@@ -21,7 +20,7 @@ export const PlusFeedButton = ({ fetchFeeders, page, feeds, date }) => {
       minutes: currentHour.getMinutes(),
       mamadas: 1,
       breast: "",
-      username: stateSettings.user.username,
+      username: settings.user.username,
     };
 
     const { server, online } = url.getAndPostFeeder;
@@ -42,7 +41,7 @@ export const PlusFeedButton = ({ fetchFeeders, page, feeds, date }) => {
   const plusButton = () => {
     if (page === "home") {
       plusCurrentFeed();
-    } else if (page === "pastFeeds") {
+    } else if (page === "pastFeed") {
       setInsertManual(!insertManual);
     }
   };

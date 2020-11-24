@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./Info.css";
-import SettingsContext from "../SettingContext";
+import { SettingsContext } from "../contexts/SettingsContext";
 import { FeedsContext } from "../contexts/FeedsContext";
 import { text } from "../components/texts";
 
 export const Info = ({ infoPage }) => {
   const [mamadaHour, setMamadaHour] = useState("");
   const [breastToFeed, setBreastToFeed] = useState("");
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings] = useContext(SettingsContext);
   const [feeds] = useContext(FeedsContext);
 
   const feed = feeds[feeds.length - 1];
@@ -64,7 +63,7 @@ export const Info = ({ infoPage }) => {
     <div className="info-page">
       <div className="nova-mamada-line">
         <div className="nova-mamada-text">
-          {text.info.newMamada[`${stateSettings.about.language}`]}
+          {text.info.newMamada[`${settings.about.language}`]}
         </div>
         <div className="nova-mamada-time">
           {mamadaHour.hour} : {mamadaHour.minutes}
@@ -74,9 +73,9 @@ export const Info = ({ infoPage }) => {
         <div className="breast-feed-text">
           {breastToFeed
             ? `${
-                text.info.nextMama[`${stateSettings.about.language}`]
+                text.info.nextMama[`${settings.about.language}`]
               }${breastToFeed}`
-            : text.info.updateMama[`${stateSettings.about.language}`]}
+            : text.info.updateMama[`${settings.about.language}`]}
         </div>
       </div>
     </div>

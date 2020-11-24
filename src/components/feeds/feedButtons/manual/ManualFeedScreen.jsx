@@ -5,12 +5,11 @@ import { CloseButton } from "../../../buttons/CloseButton";
 import { OkButton } from "../../../buttons/OkButton";
 import { ManualTime } from "./ManualTime";
 import { url, development } from "../../../../url";
-import SettingsContext from "../../../../SettingContext";
+import { SettingsContext } from "../../../../contexts/SettingsContext";
 
 export const ManualFeedScreen = ({ setInsertManual, date, fetchFeeders }) => {
   const [time, setTime] = useState({});
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings] = useContext(SettingsContext);
 
   const plusFeed = () => {
     const newFeed = {
@@ -22,7 +21,7 @@ export const ManualFeedScreen = ({ setInsertManual, date, fetchFeeders }) => {
       mamadas: 1,
       breast: "",
       page: "past",
-      username: stateSettings.user.username,
+      username: settings.user.username,
     };
 
     const { server, online } = url.getAndPostFeeder;

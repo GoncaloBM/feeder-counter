@@ -5,21 +5,15 @@ import { CSSTransition } from "react-transition-group";
 import { LoginScreen } from "./settings/LoginScreen";
 import { BabyScreen } from "./settings/BabyScreen";
 import { AboutScreen } from "./settings/AboutScreen";
-import SettingsContext from "../SettingContext";
+import { SettingsContext } from "../contexts/SettingsContext";
 import { text } from "../components/texts";
 
 export const Settings = ({ pageChange, pages }) => {
-  const { settings } = useContext(SettingsContext);
-  const [stateSettings, setStateSettings] = settings;
+  const [settings] = useContext(SettingsContext);
   return (
     <div className="settings">
       {pages.settings && (
-        <div
-          className="back"
-          onClick={() =>
-            pageChange(text.navbar.today[`${stateSettings.about.language}`])
-          }
-        >
+        <div className="back" onClick={() => pageChange("home")}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="icon icon-tabler icon-tabler-arrow-left"
