@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { formatDate } from "./formatDate";
 import "react-calendar/dist/Calendar.css";
 import "./App.css";
@@ -12,21 +12,13 @@ import { Settings } from "./pages/Settings";
 import { text } from "./components/texts";
 import SettingsContext from "./SettingContext";
 import { FeedsContextProvider } from "./contexts/FeedsContext";
+import { PageContext } from "./contexts/PageContext";
 
 function App() {
   const [value, onChange] = useState(new Date());
-  const [feeds, setFeeds] = useState([]);
   const [time, setTime] = useState({});
   const [page, setPage] = useState("home");
-  const [pages, setPages] = useState({
-    home: true,
-    pastFeed: false,
-    info: false,
-    settings: false,
-    login: false,
-    baby: false,
-    app: false,
-  });
+  const [pages, setPages] = useContext(PageContext);
   const [settings, setSettings] = useState({
     about: { language: "English" },
     myBaby: {
